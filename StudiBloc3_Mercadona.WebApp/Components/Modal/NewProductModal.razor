@@ -1,0 +1,12 @@
+﻿@inherits NewProductModalBase
+
+<div class="modal" style="display:@(IsOpen ? "block" : "none")">
+    <div class="modal-content">
+        <span class="close" @onclick="HandleClose">&times;</span>
+        <div>
+            <input type="text" placeholder="Product Name" @bind="Product.Name" />
+            <input type="number" placeholder="Price" @bind="Product.Price" />
+            <button @onclick="HandleSubmit">Add Product</button>
+        </div>
+    </div>
+</div>

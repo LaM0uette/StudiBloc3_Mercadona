@@ -115,23 +115,7 @@ public class CatalogBase : ComponentBase
             newPromotionValues[productId] = selectedValue.ToString();
         }
     }
-    /*
-    protected async Task AddNewProduct()
-    {
-        // Créez ici un nouveau produit
-        var newProduct = new Product
-        {
-            CategoryId = 1,
-            Name = "New Product",
-            Description= "New Product",
-            Price = 0,
-            Image = "null"
-        };
-        
-        await ApiProductService.AddProductAsync(newProduct);
-        await LoadAllDataAsync();  // Rechargez les données pour afficher le nouveau produit
-    }
-    */
+    
     #endregion
     
     protected bool isModalOpen;

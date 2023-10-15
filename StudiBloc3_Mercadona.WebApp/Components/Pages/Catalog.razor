@@ -1,14 +1,13 @@
 ﻿@page "/"
 @inherits CatalogBase
+@using StudiBloc3_Mercadona.WebApp.Components.Modal;
 
 <PageTitle>Catalog</PageTitle>
 
 <div>
     <h3>Products</h3>
 
-    <!-- ... (le reste de votre code pour afficher les produits) -->
-
-    @if (IsAuthenticated)  // N'affichez le bouton que si l'utilisateur est authentifié
+    @if (IsAuthenticated) 
         {
             <button @onclick="OpenModal">Add New Product</button>
         }
@@ -66,8 +65,4 @@
         </table>
     }
     
-    @if (IsAuthenticated)
-        {
-            /*<button @onclick="AddNewProduct">Add New Product</button>*/
-        }
 </div>
