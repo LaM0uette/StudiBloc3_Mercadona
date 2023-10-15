@@ -8,4 +8,5 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Product>? Product { get; set; }
     public DbSet<Category>? Category { get; set; }
     public DbSet<Promotion>? Promotion { get; set; }
+    public DbSet<ProductPromotion>? ProductPromotion { get; set; }
 }
