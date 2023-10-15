@@ -16,9 +16,6 @@ var Configuration = builder.Configuration;
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-//builder.Services.AddTransient<IProductService, ProductService>();
-
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 builder.Services.AddTransient<IProductService, ProductService>();
 

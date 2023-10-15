@@ -6,57 +6,22 @@ namespace StudiBloc3_Mercadona.Controllers;
 
 [ApiController]
 [Route("api/[controller]/Product")]
-public class ProductController : ControllerBase
+public class ProductController(IProductService _productService) : ControllerBase
 {
-    #region Statements
-
-    private readonly IProductService productService;
-
-    public ProductController(IProductService _productService)
-    {
-        productService = _productService;
-    }
-
-    #endregion
-
     #region Routes
 
     [HttpGet]
     [Route("GetAllProducts")]
-    public IEnumerable<Product> GetAllProducts()
+    public Task<IEnumerable<Product>> GetAllProducts()
     {
-        return productService.GetAllProductsAsync().Result;
-    }
-    
-    [HttpGet]
-    [Route("GetProductById")]
-    public Product GetProductById(int id)
-    {
-        return productService.GetProductByIdAsync(id).Result;
+        return _productService.GetAllProductsAsync();
     }
 
     [HttpPost]
     [Route("AddProduct")]
     public IActionResult AddProduct(Product product)
     {
-        productService.AddProductAsync(product);
-        return Ok();
-    }
-
-    [HttpPut]
-    [Route("UpdateProduct")]
-    public IActionResult UpdateProduct(Product product)
-    {
-        productService.UpdateProductAsync(product);
-        return Ok();
-    }
-
-    [HttpDelete]
-    [Route("DeleteProduct")]
-    public IActionResult DeleteProduct(int id)
-    {
-        var existingProduct = productService.GetProductByIdAsync(id).Result;
-        productService.DeleteProductAsync(existingProduct);
+        _productService.AddProductAsync(product);
         return Ok();
     }
     
