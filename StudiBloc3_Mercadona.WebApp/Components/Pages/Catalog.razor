@@ -5,7 +5,7 @@
 <PageTitle>Catalog</PageTitle>
 
 <div>
-    <h3>Products</h3>
+    <h2>Products</h2>
 
     @if (IsAuthenticated)
     {
@@ -13,51 +13,80 @@
         <NewProductModal IsOpen="@isModalOpen" OnClose="CloseModal" OnSubmit="AddProduct"/>
     }
 
-    <table class="table">
-
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Promotions</th>
+    <div class="product-container">
+        @foreach (var completeProduct in CompleteProducts)
+        {
+            <div class="product-card">
+                <h3>@completeProduct.Product.Name</h3>
+                <p>@completeProduct.Product.Description</p>
+                <p>@completeProduct.Product.Price €</p>
                 @if (IsAuthenticated)
                 {
-                    <th>Action</th>
+                    <div>
+                        <select @bind="newPromotionValues[completeProduct.Product.Id]">
+                            <option value="0">-- Select a promotion --</option>
+
+                            @* Add all promotions already exists to the select *@
+                            @foreach (var promotion in Promotions)
+                            {
+                                <option value="@promotion.DiscountPercentage">@promotion.DiscountPercentage</option>
+                            }
+                        </select>
+
+                        <input type="number" @bind="newPromotionValues[completeProduct.Product.Id]"/>
+
+                        <button @onclick="() => AddPromotion(completeProduct.Product.Id)">Add Promotion</button>
+                    </div>
                 }
-            </tr>
-        </thead>
+            </div>
+        }
+    </div>
 
-        <tbody>
-
-            @foreach (var completeProduct in CompleteProducts)
-            {
-                <tr>
-                    <td>@completeProduct.Product.Id</td>
-                    <td>@completeProduct.Product.Name</td>
-                    <td>@completeProduct.Product.Price</td>
-                    <td>@string.Join(", ", completeProduct.Promotions.Select(p => p.DiscountPercentage))</td>
-                    @if (IsAuthenticated)
-                    {
-                        <td>
-                            <select @bind="newPromotionValues[completeProduct.Product.Id]">
-                                <option value="0">-- Select a promotion --</option>
-
-                                @* Add all promotions already exists to the select *@
-                                @foreach (var promotion in Promotions)
-                                {
-                                    <option value="@promotion.DiscountPercentage">@promotion.DiscountPercentage</option>
-                                }
-                            </select>
-                            
-                            <input type="number" @bind="newPromotionValues[completeProduct.Product.Id]"/>
-                            
-                            <button @onclick="() => AddPromotion(completeProduct.Product.Id)">Add Promotion</button>
-                        </td>
-                    }
-                </tr>
-            }
-
-        </tbody>
-    </table>
+    @* <table class="table"> *@
+    @* *@
+    @*     <thead> *@
+    @*     <tr> *@
+    @*         <th>Id</th> *@
+    @*         <th>Name</th> *@
+    @*         <th>Price</th> *@
+    @*         <th>Promotions</th> *@
+    @*         @if (IsAuthenticated) *@
+    @*         { *@
+    @*             <th>Action</th> *@
+    @*         } *@
+    @*     </tr> *@
+    @*     </thead> *@
+    @* *@
+    @*     <tbody> *@
+    @* *@
+    @*     @foreach (var completeProduct in CompleteProducts) *@
+    @*     { *@
+    @*         <tr> *@
+    @*             <td>@completeProduct.Product.Id</td> *@
+    @*             <td>@completeProduct.Product.Name</td> *@
+    @*             <td>@completeProduct.Product.Price</td> *@
+    @*             <td>@string.Join(", ", completeProduct.Promotions.Select(p => p.DiscountPercentage))</td> *@
+    @*             @if (IsAuthenticated) *@
+    @*             { *@
+    @*                 <td> *@
+    @*                     <select @bind="newPromotionValues[completeProduct.Product.Id]"> *@
+    @*                         <option value="0">-- Select a promotion --</option> *@
+    @* *@
+    @*                         $1$ Add all promotions already exists to the select #1# *@
+    @*                         @foreach (var promotion in Promotions) *@
+    @*                         { *@
+    @*                             <option value="@promotion.DiscountPercentage">@promotion.DiscountPercentage</option> *@
+    @*                         } *@
+    @*                     </select> *@
+    @* *@
+    @*                     <input type="number" @bind="newPromotionValues[completeProduct.Product.Id]"/> *@
+    @* *@
+    @*                     <button @onclick="() => AddPromotion(completeProduct.Product.Id)">Add Promotion</button> *@
+    @*                 </td> *@
+    @*             } *@
+    @*         </tr> *@
+    @*     } *@
+    @* *@
+    @*     </tbody> *@
+    @* </table> *@
 </div>
