@@ -11,15 +11,15 @@ public class PromotionController(IPromotionService promotionService) : Controlle
     #region Routes
 
     [HttpGet]
-    [Route("GetAllPromotions")]
-    public Task<IEnumerable<Promotion>> GetAllPromotions()
+    [Route("GetAll")]
+    public Task<IEnumerable<Promotion>> GetAll()
     {
         return promotionService.GetAllPromotionsAsync();
     }
 
     [HttpPost]
-    [Route("AddPromotion")]
-    public IActionResult AddPromotion(Promotion promotion)
+    [Route("Add")]
+    public IActionResult Add(Promotion promotion)
     {
         promotionService.AddPromotionAsync(promotion);
         return Ok();

@@ -11,15 +11,15 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     #region Routes
 
     [HttpGet]
-    [Route("GetAllCategories")]
-    public Task<IEnumerable<Category>> GetAllCategories()
+    [Route("GetAll")]
+    public Task<IEnumerable<Category>> GetAll()
     {
         return categoryService.GetAllCategoriesAsync();
     }
 
     [HttpPost]
-    [Route("AddCategory")]
-    public IActionResult AddCategory(Category category)
+    [Route("Add")]
+    public IActionResult Add(Category category)
     {
         categoryService.AddCategoryAsync(category);
         return Ok();

@@ -11,15 +11,15 @@ public class ProductController(IProductService productService) : ControllerBase
     #region Routes
 
     [HttpGet]
-    [Route("GetAllProducts")]
-    public Task<IEnumerable<Product>> GetAllProducts()
+    [Route("GetAll")]
+    public Task<IEnumerable<Product>> GetAll()
     {
         return productService.GetAllProductsAsync();
     }
 
     [HttpPost]
-    [Route("AddProduct")]
-    public IActionResult AddProduct(Product product)
+    [Route("Add")]
+    public IActionResult Add(Product product)
     {
         productService.AddProductAsync(product);
         return Ok();
