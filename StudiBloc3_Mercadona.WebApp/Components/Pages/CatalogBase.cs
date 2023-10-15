@@ -115,7 +115,7 @@ public class CatalogBase : ComponentBase
             newPromotionValues[productId] = selectedValue.ToString();
         }
     }
-    
+    /*
     protected async Task AddNewProduct()
     {
         // Créez ici un nouveau produit
@@ -131,6 +131,38 @@ public class CatalogBase : ComponentBase
         await ApiProductService.AddProductAsync(newProduct);
         await LoadAllDataAsync();  // Rechargez les données pour afficher le nouveau produit
     }
-    
+    */
     #endregion
+    
+    protected bool isModalOpen;
+    public Product NewProduct { get; set; } = new Product();
+
+    protected void OpenModal()
+    {
+        isModalOpen = true;
+    }
+
+    protected void CloseModal()
+    {
+        isModalOpen = false;
+    }
+
+    protected async Task AddNewProduct(Product newProduct)
+    {
+        var product = new Product
+        {
+            CategoryId = 1,
+            Name = "__",
+            Description= "__",
+            Price = 0,
+            Image = "__"
+        };
+        
+        product.Name = newProduct.Name;
+        product.Price = newProduct.Price;
+        
+        await ApiProductService.AddProductAsync(product);
+        await LoadAllDataAsync();
+        isModalOpen = false;  // Fermez la modal
+    }
 }

@@ -6,6 +6,19 @@
 <div>
     <h3>Products</h3>
 
+    <!-- ... (le reste de votre code pour afficher les produits) -->
+
+    @if (IsAuthenticated)  // N'affichez le bouton que si l'utilisateur est authentifié
+        {
+            <button @onclick="OpenModal">Add New Product</button>
+        }
+    
+        <NewProductModal IsOpen="@isModalOpen" OnClose="CloseModal" OnSubmit="AddNewProduct" />
+</div>
+
+<div>
+    <h3>Products</h3>
+
     @if (ProductsWithPromotions == null)
     {
         <p>Loading...</p>
@@ -55,7 +68,6 @@
     
     @if (IsAuthenticated)
         {
-            <button @onclick="AddNewProduct">Add New Product</button>
+            /*<button @onclick="AddNewProduct">Add New Product</button>*/
         }
-    
 </div>

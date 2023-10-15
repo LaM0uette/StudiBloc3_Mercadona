@@ -1,0 +1,30 @@
+﻿@using StudiBloc3_Mercadona.Model
+@inherits ComponentBase
+
+<div class="modal" style="display:@(IsOpen ? "block" : "none")">
+    <div class="modal-content">
+        <span class="close" @onclick="HandleClose">&times;</span>
+        <div>
+            <input type="text" placeholder="Product Name" @bind="NewProduct.Name" />
+            <input type="number" placeholder="Price" @bind="NewProduct.Price" />
+            <button @onclick="HandleSubmit">Add Product</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public EventCallback<Product> OnSubmit { get; set; }
+    public Product NewProduct { get; set; } = new Product();
+
+    private async Task HandleSubmit()
+    {
+        await OnSubmit.InvokeAsync(NewProduct);
+    }
+
+    private async Task HandleClose()
+    {
+        await OnClose.InvokeAsync(null);
+    }
+}
