@@ -13,4 +13,10 @@ public class ApiPromotionService(HttpClient httpClient)
         var promotion = await response.Content.ReadFromJsonAsync<IEnumerable<Promotion>>();
         return promotion ?? Array.Empty<Promotion>();
     }
+    
+    public async Task AddPromotionAsync(Promotion promotion)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/Promotion/Promotion/Add", promotion);
+        response.EnsureSuccessStatusCode();
+    }
 }

@@ -9,30 +9,35 @@
 
 <div>
     <h3>Products</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Promotions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var productWithPromotions in ProductsWithPromotions)
-            {
+    @if (ProductsWithPromotions == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@productWithPromotions.Product.Id</td>
-                    <td>@productWithPromotions.Product.Name</td>
-                    <td>@productWithPromotions.Product.Price</td>
-                    <td>
-                        @foreach (var promotion in productWithPromotions.Promotions)
-                        {
-                            <div>@promotion.DiscountPercentage% off</div>
-                        }
-                    </td>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Promotions</th>
+                    <th>Action</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var productWithPromotions in ProductsWithPromotions)
+                {
+                    <tr>
+                        <td>@productWithPromotions.Product.Id</td>
+                        <td>@productWithPromotions.Product.Name</td>
+                        <td>@productWithPromotions.Product.Price</td>
+                        <td>@string.Join(", ", productWithPromotions.Promotions.Select(p => p.DiscountPercentage))</td>
+                        <td><button @onclick="() => AddPromotion(productWithPromotions.Product.Id)">Add Promotion</button></td>
+                    </tr>
+                }
             }
         </tbody>
-    </table>
+        </table>
+    }
 </div>

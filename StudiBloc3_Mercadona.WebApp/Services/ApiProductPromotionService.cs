@@ -13,4 +13,10 @@ public class ApiProductPromotionService(HttpClient httpClient)
         var productPromotion = await response.Content.ReadFromJsonAsync<IEnumerable<ProductPromotion>>();
         return productPromotion ?? Array.Empty<ProductPromotion>();
     }
+    
+    public async Task AddProductPromotionAsync(ProductPromotion productPromotion)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/ProductPromotion/ProductPromotion/Add", productPromotion);
+        response.EnsureSuccessStatusCode();
+    }
 }

@@ -63,5 +63,26 @@ public class CatalogBase : ComponentBase
     private async Task LoadPromotions() => Promotions = await ApiPromotionService.GetAllPromotionsAsync();
     private async Task LoadProductPromotions() => ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
 
+    protected async Task AddPromotion(int productId)
+    {
+        var promotion = new Promotion { DiscountPercentage = 40 };
+        
+        var existingPromotion = Promotions.FirstOrDefault(p => p.DiscountPercentage == promotion.DiscountPercentage);
+        if (existingPromotion == null)
+        {
+            await ApiPromotionService.AddPromotionAsync(promotion);
+            await LoadAllDataAsync();
+        }
+        
+        var existingProductPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == productId);
+        if (existingProductPromotion == null)
+        {
+            var promo = Promotions.FirstOrDefault(p => p.DiscountPercentage == promotion.DiscountPercentage);
+            var productPromotion = new ProductPromotion { ProductId = productId, PromotionId = promo.Id };
+            await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
+            await LoadAllDataAsync();
+        }
+    }
+    
     #endregion
 }
