@@ -1,0 +1,44 @@
+﻿@page "/"
+@using StudiBloc3_Mercadona.Model
+@using StudiBloc3_Mercadona.WebApp.Services
+@inject ApiProductService ApiProductService
+
+<PageTitle>Catalog</PageTitle>
+
+@code {
+    private IEnumerable<Product> Products { get; set; } = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProducts();
+        //return base.OnInitializedAsync();
+    }
+
+    private async Task LoadProducts()
+    {
+        Products = await ApiProductService.GetAllProductsAsync();
+    }
+}
+
+<div>
+    <h3>Products</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <!-- ... autres colonnes -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <!-- ... autres colonnes -->
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
