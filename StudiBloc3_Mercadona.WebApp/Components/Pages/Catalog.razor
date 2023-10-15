@@ -14,16 +14,23 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <!-- ... autres colonnes -->
+                <th>Price</th>
+                <th>Promotions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Products)
+            @foreach (var productWithPromotions in ProductsWithPromotions)
             {
                 <tr>
-                    <td>@product.Id</td>
-                    <td>@product.Name</td>
-                    <!-- ... autres colonnes -->
+                    <td>@productWithPromotions.Product.Id</td>
+                    <td>@productWithPromotions.Product.Name</td>
+                    <td>@productWithPromotions.Product.Price</td>
+                    <td>
+                        @foreach (var promotion in productWithPromotions.Promotions)
+                        {
+                            <div>@promotion.DiscountPercentage% off</div>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
