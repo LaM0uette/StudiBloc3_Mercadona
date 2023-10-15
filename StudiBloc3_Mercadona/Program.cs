@@ -22,6 +22,9 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<IRepository<Promotion>, Repository<Promotion>>();
+builder.Services.AddTransient<IPromotionService, PromotionService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
