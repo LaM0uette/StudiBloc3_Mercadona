@@ -11,6 +11,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:7045")  // l'URL de votre application Blazor
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 // PostgreSQL connection and related Services and Repositories
 var Configuration = builder.Configuration;
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -36,6 +47,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowSpecificOrigin");
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

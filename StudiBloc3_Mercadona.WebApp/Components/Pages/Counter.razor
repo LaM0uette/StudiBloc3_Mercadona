@@ -1,4 +1,6 @@
 ﻿@page "/counter"
+@using StudiBloc3_Mercadona.Model
+@inject HttpClient HttpClient
 
 <PageTitle>Counter</PageTitle>
 
@@ -11,9 +13,35 @@
 @code {
     private int currentCount = 0;
 
-    private void IncrementCount()
+    private async void IncrementCount()
     {
         currentCount++;
+        await CreateProductAsync();
+    }
+    
+    private async Task CreateProductAsync()
+    {
+        var product = new Product
+        {
+            CategoryId = 1,
+            Name = "Test6",
+            Description = "Test6",
+            Price = 21,
+            Image = "Test6"
+        };
+
+        var response = await HttpClient.PostAsJsonAsync("/api/Product/Product/Add", product);
+        
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("BRAVO !!!");
+        }
+        else
+        {
+    // Gérer l'erreur
+            var errorMessage = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Error: {errorMessage}");
+        }
     }
 
 }
