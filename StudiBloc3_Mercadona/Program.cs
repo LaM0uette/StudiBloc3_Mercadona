@@ -19,6 +19,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 builder.Services.AddTransient<IProductService, ProductService>();
 
+builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
