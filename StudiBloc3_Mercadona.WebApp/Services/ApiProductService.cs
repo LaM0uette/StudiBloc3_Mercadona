@@ -13,4 +13,10 @@ public class ApiProductService(HttpClient httpClient)
         var products = await response.Content.ReadFromJsonAsync<IEnumerable<Product>>();
         return products ?? Array.Empty<Product>();
     }
+
+    public async Task AddProductAsync(Product product)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/Product/Product/Add", product);
+        response.EnsureSuccessStatusCode();
+    }
 }

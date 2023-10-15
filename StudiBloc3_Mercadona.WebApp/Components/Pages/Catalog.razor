@@ -52,4 +52,10 @@
             </tbody>
         </table>
     }
+    
+    @if (IsAuthenticated)
+        {
+            <button @onclick="AddNewProduct">Add New Product</button>
+        }
+    
 </div>
