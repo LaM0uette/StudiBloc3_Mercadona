@@ -3,44 +3,18 @@ using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Core.Services;
 
-public class ProductService : IProductService
+public class ProductService(IRepository<Product> productRepository) : IProductService
 {
-    #region Statements
-
-    private readonly IRepository<Product> _productRepository;
-
-    public ProductService(IRepository<Product> productRepository)
-    {
-        _productRepository = productRepository;
-    }
-
-    #endregion
-
     #region Tasks
 
-    public async Task<IEnumerable<Product>> GetAllProductsAsync()
+    public Task<IEnumerable<Product>> GetAllProductsAsync()
     {
-        return await _productRepository.GetAllAsync();
+        return productRepository.GetAllAsync();
     }
 
-    public async Task<Product> GetProductByIdAsync(int id)
+    public Task AddProductAsync(Product product)
     {
-        return await _productRepository.GetByIdAsync(id) ?? throw new Exception();
-    }
-
-    public async Task AddProductAsync(Product product)
-    {
-        await _productRepository.AddAsync(product);
-    }
-
-    public async Task UpdateProductAsync(Product product)
-    {
-        await _productRepository.UpdateAsync(product);
-    }
-
-    public async Task DeleteProductAsync(Product product)
-    {
-        await _productRepository.DeleteAsync(product);
+        return productRepository.AddAsync(product);
     }
 
     #endregion
