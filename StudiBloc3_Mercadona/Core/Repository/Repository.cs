@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StudiBloc3_Mercadona.Core.Context;
 
 namespace StudiBloc3_Mercadona.Core.Repository;
 
-public class Repository<T>(DbContext dbContext) : IRepository<T> where T : class
+public class Repository<T>(AppDbContext dbContext) : IRepository<T> where T : class
 {
     public async Task<IEnumerable<T>> GetAllAsync()
     {
