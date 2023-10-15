@@ -3,12 +3,8 @@ using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Core.Context;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Product>? Product { get; set; }
     public DbSet<Category>? Category { get; set; }
-    
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
 }
