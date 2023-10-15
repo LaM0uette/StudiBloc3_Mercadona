@@ -3,12 +3,9 @@
 
 <PageTitle>Catalog</PageTitle>
 
-@code {
-    
-}
-
 <div>
     <h3>Products</h3>
+
     @if (ProductsWithPromotions == null)
     {
         <p>Loading...</p>
@@ -17,27 +14,37 @@
     {
         <table class="table">
             <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Promotions</th>
-                    <th>Action</th>
-                </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Promotions</th>
+                <th>Action</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var productWithPromotions in ProductsWithPromotions)
-                {
-                    <tr>
-                        <td>@productWithPromotions.Product.Id</td>
-                        <td>@productWithPromotions.Product.Name</td>
-                        <td>@productWithPromotions.Product.Price</td>
-                        <td>@string.Join(", ", productWithPromotions.Promotions.Select(p => p.DiscountPercentage))</td>
-                        <td><button @onclick="() => AddPromotion(productWithPromotions.Product.Id)">Add Promotion</button></td>
-                    </tr>
-                }
+            @foreach (var productWithPromotions in ProductsWithPromotions)
+            {
+                <tr>
+                    <td>@productWithPromotions.Product.Id</td>
+                    <td>@productWithPromotions.Product.Name</td>
+                    <td>@productWithPromotions.Product.Price</td>
+                    <td>@string.Join(", ", productWithPromotions.Promotions.Select(p => p.DiscountPercentage))</td>
+                    <td>
+                        <select @onchange="e => OnPromotionSelectionChanged(productWithPromotions.Product.Id, e)">
+                            <option value="0">-- Select --</option>
+                            @foreach (var promotion in Promotions)
+                            {
+                                <option value="@promotion.DiscountPercentage">@promotion.DiscountPercentage</option>
+                            }
+                        </select>
+                        <input type="text" @bind="@newPromotionValues[productWithPromotions.Product.Id]" />
+                        <button @onclick="() => AddPromotion(productWithPromotions.Product.Id)">Add Promotion</button>
+                    </td>
+                </tr>
             }
-        </tbody>
+            }
+            </tbody>
         </table>
     }
 </div>

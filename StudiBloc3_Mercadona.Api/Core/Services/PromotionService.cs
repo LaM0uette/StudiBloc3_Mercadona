@@ -11,6 +11,14 @@ public class PromotionService(IRepository<Promotion> promotionRepository) : IPro
     {
         return promotionRepository.GetAllAsync();
     }
+    
+    public Task<int> GetPromotionIdByDiscountPercentageAsync(int discountPercentage)
+    {
+        var allPromotions = promotionRepository.GetAllAsync();
+        allPromotions.Wait();
+        
+        return Task.FromResult(allPromotions.Result.FirstOrDefault(promotion => promotion.DiscountPercentage == discountPercentage)?.Id ?? -1);
+    }
 
     public Task AddPromotionAsync(Promotion promotion)
     {

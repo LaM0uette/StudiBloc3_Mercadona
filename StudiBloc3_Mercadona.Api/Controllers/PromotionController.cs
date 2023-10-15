@@ -16,7 +16,14 @@ public class PromotionController(IPromotionService promotionService) : Controlle
     {
         return promotionService.GetAllPromotionsAsync();
     }
-
+    
+    [HttpGet]
+    [Route("GetIdByDiscountPercentage/{discountPercentage:int}")]
+    public Task<int> GetPromotionIdByDiscountPercentageAsync(int discountPercentage)
+    {
+        return promotionService.GetPromotionIdByDiscountPercentageAsync(discountPercentage);
+    }
+ 
     [HttpPost]
     [Route("Add")]
     public IActionResult Add(Promotion promotion)
