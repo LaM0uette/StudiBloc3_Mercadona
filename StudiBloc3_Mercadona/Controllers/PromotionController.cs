@@ -6,7 +6,7 @@ namespace StudiBloc3_Mercadona.Controllers;
 
 [ApiController]
 [Route("api/[controller]/Promotion")]
-public class PromotionController(IPromotionService _promotionService) : ControllerBase
+public class PromotionController(IPromotionService promotionService) : ControllerBase
 {
     #region Routes
 
@@ -14,14 +14,14 @@ public class PromotionController(IPromotionService _promotionService) : Controll
     [Route("GetAllPromotions")]
     public Task<IEnumerable<Promotion>> GetAllPromotions()
     {
-        return _promotionService.GetAllPromotionsAsync();
+        return promotionService.GetAllPromotionsAsync();
     }
 
     [HttpPost]
     [Route("AddPromotion")]
     public IActionResult AddPromotion(Promotion promotion)
     {
-        _promotionService.AddPromotionAsync(promotion);
+        promotionService.AddPromotionAsync(promotion);
         return Ok();
     }
     

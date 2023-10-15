@@ -6,7 +6,7 @@ namespace StudiBloc3_Mercadona.Controllers;
 
 [ApiController]
 [Route("api/[controller]/Product")]
-public class ProductController(IProductService _productService) : ControllerBase
+public class ProductController(IProductService productService) : ControllerBase
 {
     #region Routes
 
@@ -14,14 +14,14 @@ public class ProductController(IProductService _productService) : ControllerBase
     [Route("GetAllProducts")]
     public Task<IEnumerable<Product>> GetAllProducts()
     {
-        return _productService.GetAllProductsAsync();
+        return productService.GetAllProductsAsync();
     }
 
     [HttpPost]
     [Route("AddProduct")]
     public IActionResult AddProduct(Product product)
     {
-        _productService.AddProductAsync(product);
+        productService.AddProductAsync(product);
         return Ok();
     }
     

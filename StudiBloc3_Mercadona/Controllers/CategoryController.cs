@@ -6,7 +6,7 @@ namespace StudiBloc3_Mercadona.Controllers;
 
 [ApiController]
 [Route("api/[controller]/Category")]
-public class CategoryController(ICategoryService _categoryService) : ControllerBase
+public class CategoryController(ICategoryService categoryService) : ControllerBase
 {
     #region Routes
 
@@ -14,14 +14,14 @@ public class CategoryController(ICategoryService _categoryService) : ControllerB
     [Route("GetAllCategories")]
     public Task<IEnumerable<Category>> GetAllCategories()
     {
-        return _categoryService.GetAllCategoriesAsync();
+        return categoryService.GetAllCategoriesAsync();
     }
 
     [HttpPost]
     [Route("AddCategory")]
     public IActionResult AddCategory(Category category)
     {
-        _categoryService.AddCategoryAsync(category);
+        categoryService.AddCategoryAsync(category);
         return Ok();
     }
     
