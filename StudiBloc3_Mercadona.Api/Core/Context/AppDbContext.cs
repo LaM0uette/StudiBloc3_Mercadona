@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudiBloc3_Mercadona.Api.Model;
+using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Api.Core.Context;
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudiBloc3_Mercadona.Api.Model;
+namespace StudiBloc3_Mercadona.Model;
 
 [Table("Promotion", Schema = "data")]
 public class Promotion

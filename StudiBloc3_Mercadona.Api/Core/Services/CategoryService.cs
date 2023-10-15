@@ -1,5 +1,5 @@
 ﻿using StudiBloc3_Mercadona.Api.Core.Repository;
-using StudiBloc3_Mercadona.Api.Model;
+using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Api.Core.Services;
 

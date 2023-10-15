@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudiBloc3_Mercadona.Api.Core.Services;
-using StudiBloc3_Mercadona.Api.Model;
+using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Api.Controllers;
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudiBloc3_Mercadona.Api.Model;
+namespace StudiBloc3_Mercadona.Model;
 
 [Table("Product", Schema = "data")]
 public class Product

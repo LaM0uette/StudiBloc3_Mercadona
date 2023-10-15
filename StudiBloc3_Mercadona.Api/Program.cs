@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StudiBloc3_Mercadona.Api.Core.Context;
 using StudiBloc3_Mercadona.Api.Core.Repository;
 using StudiBloc3_Mercadona.Api.Core.Services;
-using StudiBloc3_Mercadona.Api.Model;
+using StudiBloc3_Mercadona.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
