@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona", "StudiBloc3_Mercadona\StudiBloc3_Mercadona.csproj", "{75697095-AFE1-4D2F-9DD3-490BA61445EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.Api", "StudiBloc3_Mercadona.Api\StudiBloc3_Mercadona.Api.csproj", "{75697095-AFE1-4D2F-9DD3-490BA61445EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.WebApp", "StudiBloc3_Mercadona.WebApp\StudiBloc3_Mercadona.WebApp.csproj", "{D96DFC01-2F1E-4BC0-A841-505F01FFD422}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.Model", "StudiBloc3_Mercadona.Model\StudiBloc3_Mercadona.Model.csproj", "{411DFED4-68C6-46F6-85C0-9490F4CFA40B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{75697095-AFE1-4D2F-9DD3-490BA61445EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75697095-AFE1-4D2F-9DD3-490BA61445EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75697095-AFE1-4D2F-9DD3-490BA61445EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
