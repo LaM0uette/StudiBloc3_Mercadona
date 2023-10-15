@@ -9,7 +9,7 @@ public class CatalogBase : ComponentBase
     #region Statements
     
     protected IEnumerable<ProductWithPromotions> ProductsWithPromotions { get; private set; } = new List<ProductWithPromotions>();
-    
+    protected bool IsAuthenticated { get; set; } = true;
     protected Dictionary<int, string> newPromotionValues = new Dictionary<int, string>();
     
     protected class ProductWithPromotions
