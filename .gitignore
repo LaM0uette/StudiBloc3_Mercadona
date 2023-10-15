@@ -160,7 +160,6 @@ csx
 AppPackages/
 
 # Others
-sql
 [Tt]est[Rr]esult*
 *.Cache
 ClientBin
