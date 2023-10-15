@@ -1,23 +1,10 @@
 ﻿@page "/"
-@using StudiBloc3_Mercadona.Model
-@using StudiBloc3_Mercadona.WebApp.Services
-@inject ApiProductService ApiProductService
+@inherits CatalogBase
 
 <PageTitle>Catalog</PageTitle>
 
 @code {
-    private IEnumerable<Product> Products { get; set; } = new List<Product>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadProducts();
-        //return base.OnInitializedAsync();
-    }
-
-    private async Task LoadProducts()
-    {
-        Products = await ApiProductService.GetAllProductsAsync();
-    }
+    
 }
 
 <div>
