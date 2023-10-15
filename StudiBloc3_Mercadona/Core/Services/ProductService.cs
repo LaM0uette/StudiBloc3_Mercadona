@@ -3,13 +3,13 @@ using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Core.Services;
 
-public class ProductServices : IProductRepository
+public class ProductService : IProductService
 {
     #region Statements
 
     private readonly IRepository<Product> _productRepository;
 
-    public ProductServices(IRepository<Product> productRepository)
+    public ProductService(IRepository<Product> productRepository)
     {
         _productRepository = productRepository;
     }

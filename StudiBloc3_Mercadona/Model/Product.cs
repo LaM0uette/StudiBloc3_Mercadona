@@ -1,5 +1,8 @@
-﻿namespace StudiBloc3_Mercadona.Model;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace StudiBloc3_Mercadona.Model;
+
+[Table("Product", Schema = "data")]
 public class Product
 {
     public int Id { get; set; }
@@ -8,4 +11,7 @@ public class Product
     public string? Description { get; set; }
     public float Price { get; set; }
     public string? Image { get; set; }
+    
+    //[ForeignKey("CategoryId")]
+    //public Category Category { get; set; }
 }

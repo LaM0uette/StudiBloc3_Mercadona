@@ -5,9 +5,9 @@ namespace StudiBloc3_Mercadona.Core.Repository;
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    private readonly RepositoryDbContext _dbContext;
+    private readonly AppDbContext _dbContext;
 
-    public Repository(RepositoryDbContext dbContext)
+    public Repository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }

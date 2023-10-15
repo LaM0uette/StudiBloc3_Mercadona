@@ -1,8 +1,8 @@
 ﻿using StudiBloc3_Mercadona.Model;
 
-namespace StudiBloc3_Mercadona.Core.Repository;
+namespace StudiBloc3_Mercadona.Core.Services;
 
-public interface IProductRepository
+public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllProductsAsync();
     Task<Product> GetProductByIdAsync(int id);

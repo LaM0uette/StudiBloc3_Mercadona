@@ -1,5 +1,5 @@
 CREATE TABLE data."User" (
-  "Id" int PRIMARY KEY,
+  "Id" SERIAL PRIMARY KEY,
   "RoleId" int,
   "Name" varchar(255),
   "Mail" varchar(255),
@@ -7,12 +7,12 @@ CREATE TABLE data."User" (
 );
 
 CREATE TABLE data."Role" (
-  "Id" int PRIMARY KEY,
+  "Id" SERIAL PRIMARY KEY,
   "Name" varchar(255)
 );
 
 CREATE TABLE data."Product" (
-  "Id" int PRIMARY KEY,
+  "Id" SERIAL PRIMARY KEY,
   "CategoryId" int,
   "Name" varchar(255),
   "Description" text,
@@ -21,18 +21,18 @@ CREATE TABLE data."Product" (
 );
 
 CREATE TABLE data."Category" (
-  "Id" int PRIMARY KEY,
+  "Id" SERIAL PRIMARY KEY,
   "Name" varchar(255)
 );
 
 CREATE TABLE data."ProductPromotion" (
-  "Id" int PRIMARY KEY,
+  "Id" SERIAL PRIMARY KEY,
   "PromotionId" int,
   "ProductId" int
 );
 
 CREATE TABLE data."Promotion" (
-  "Id" int PRIMARY KEY,
+  "Id" SERIAL PRIMARY KEY,
   "DiscountPercentage" int
 );
 
