@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inherits CatalogBase
 @using StudiBloc3_Mercadona.WebApp.Components.Modal;
+@using StudiBloc3_Mercadona.Model
 
 <PageTitle>Catalog</PageTitle>
 
@@ -26,6 +27,8 @@
                 <h3>@completeProduct.Product.Name</h3>
                 <p>@completeProduct.Product.Description</p>
                 <p>@completeProduct.Product.Price €</p>
+                
+                <EditableDropdown T="Product" Items="@Products" DisplayValue="@DisplayProductName" />
                 
                 @if (IsAuthenticated)
                 {

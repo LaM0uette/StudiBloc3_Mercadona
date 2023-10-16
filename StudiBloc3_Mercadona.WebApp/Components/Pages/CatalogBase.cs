@@ -10,7 +10,7 @@ public class CatalogBase : ComponentBase
 
     protected bool IsAuthenticated { get; set; } = true;
 
-    private IEnumerable<Product> Products { get; set; } = new List<Product>();
+    protected IEnumerable<Product> Products { get; set; } = new List<Product>();
     protected IEnumerable<Promotion> Promotions { get; set; } = new List<Promotion>();
     private IEnumerable<ProductPromotion> ProductPromotions { get; set; } = new List<ProductPromotion>();
     protected IEnumerable<CompleteProduct> CompleteProducts { get; private set; } = new List<CompleteProduct>();
@@ -27,6 +27,11 @@ public class CatalogBase : ComponentBase
         return LoadAllDataAsync();
     }
 
+    protected string DisplayProductName(Product product)
+    {
+        return product?.Name ?? "Unnamed Product";
+    }
+    
     #endregion
 
     #region LoadData
