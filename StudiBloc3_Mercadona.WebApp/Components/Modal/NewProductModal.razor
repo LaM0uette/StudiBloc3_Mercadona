@@ -4,8 +4,17 @@
     <div class="modal-content">
         <span class="close" @onclick="HandleClose">&times;</span>
         <div>
-            <input type="text" placeholder="Product Name" @bind="Product.Name" />
-            <input type="number" placeholder="Price" @bind="Product.Price" />
+            <select @onchange="HandleCategoryChanged">
+                <option value="0">-- Select a promotion --</option>
+                @foreach (var category in Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <input type="text" placeholder="Name" @bind="Product.Name"/>
+            <input type="text" placeholder="Description" @bind="Product.Description"/>
+            <input type="number" placeholder="Price" @bind="Product.Price"/>
+            <InputFile OnChange="HandleFileSelected"/>
             <button @onclick="HandleSubmit">Add Product</button>
         </div>
     </div>

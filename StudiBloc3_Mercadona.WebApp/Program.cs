@@ -11,5 +11,6 @@ builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://
 builder.Services.AddScoped<ApiProductService>();
 builder.Services.AddScoped<ApiPromotionService>();
 builder.Services.AddScoped<ApiProductPromotionService>();
+builder.Services.AddScoped<ApiCategoryService>();
 
 await builder.Build().RunAsync();

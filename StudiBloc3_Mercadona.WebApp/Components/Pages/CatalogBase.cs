@@ -72,19 +72,7 @@ public class CatalogBase : ComponentBase
     
     protected async Task AddProduct(Product newProduct)
     {
-        var product = new Product
-        {
-            CategoryId = 1,
-            Name = "__",
-            Description = "__",
-            Price = 0,
-            Image = "__"
-        };
-
-        product.Name = newProduct.Name;
-        product.Price = newProduct.Price;
-
-        await ApiProductService.AddProductAsync(product);
+        await ApiProductService.AddProductAsync(newProduct);
         await LoadAllDataAsync();
         
         CloseModal();
@@ -115,6 +103,12 @@ public class CatalogBase : ComponentBase
 
             await LoadAllDataAsync();
         }
+    }
+    
+    public string ImageDataUrl(byte[] imageBytes)
+    {
+        var base64String = Convert.ToBase64String(imageBytes);
+        return $"data:image/jpeg;base64,{base64String}";
     }
 
     #endregion

@@ -17,9 +17,16 @@
         @foreach (var completeProduct in CompleteProducts)
         {
             <div class="product-card">
+
+                @if (completeProduct.Product.Image != null)
+                {
+                    <img class="product-image" src="@ImageDataUrl(completeProduct.Product.Image)" alt="@completeProduct.Product.Name image" width="300px"/>
+                }
+                
                 <h3>@completeProduct.Product.Name</h3>
                 <p>@completeProduct.Product.Description</p>
                 <p>@completeProduct.Product.Price €</p>
+                
                 @if (IsAuthenticated)
                 {
                     <div>

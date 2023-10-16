@@ -17,7 +17,7 @@ CREATE TABLE data."Product" (
   "Name" varchar(255),
   "Description" text,
   "Price" float,
-  "Image" varchar(255)
+  "Image" bytea
 );
 
 CREATE TABLE data."Category" (
