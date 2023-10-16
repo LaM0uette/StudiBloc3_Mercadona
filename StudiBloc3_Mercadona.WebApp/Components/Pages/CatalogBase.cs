@@ -13,11 +13,13 @@ public class CatalogBase : ComponentBase
     protected IEnumerable<Product> Products { get; set; } = new List<Product>();
     protected IEnumerable<Promotion> Promotions { get; set; } = new List<Promotion>();
     private IEnumerable<ProductPromotion> ProductPromotions { get; set; } = new List<ProductPromotion>();
-    protected IEnumerable<CompleteProduct> CompleteProducts { get; private set; } = new List<CompleteProduct>();
+    private IEnumerable<Category> Categories { get; set; } = new List<Category>();
+    protected IEnumerable<FullProduct> FullProducts { get; private set; } = new List<FullProduct>();
 
     [Inject] private ApiProductService ApiProductService { get; set; } = default!;
     [Inject] private ApiPromotionService ApiPromotionService { get; set; } = default!;
     [Inject] private ApiProductPromotionService ApiProductPromotionService { get; set; } = default!;
+    [Inject] private ApiCategoryService ApiCategoryService { get; set; } = default!;
 
     protected readonly Dictionary<int, string> newPromotionValues = new();
     protected bool isModalOpen;
@@ -41,26 +43,29 @@ public class CatalogBase : ComponentBase
         var loadProductsTask = LoadProducts();
         var loadPromotionsTask = LoadPromotions();
         var loadProductPromotionsTask = LoadProductPromotions();
+        var loadCategoriesTask = LoadCategories();
 
-        return Task.WhenAll(loadProductsTask, loadPromotionsTask, loadProductPromotionsTask).ContinueWith(_ =>
+        return Task.WhenAll(loadProductsTask, loadPromotionsTask, loadProductPromotionsTask, loadCategoriesTask).ContinueWith(_ =>
         {
-            var completeProducts =
-                from product in Products
+            var fullProducts = from product in Products
                 join productPromotion in ProductPromotions
                     on product.Id equals productPromotion.ProductId into productPromotionGroup
                 from productPromotion in productPromotionGroup.DefaultIfEmpty()
                 join promotion in Promotions
                     on productPromotion?.PromotionId equals promotion.Id into promotionGroup
                 from promotion in promotionGroup.DefaultIfEmpty()
-                group promotion by product
-                into grouping
-                select new CompleteProduct
+                join category in Categories
+                    on product.CategoryId equals category.Id into categoryGroup
+                from category in categoryGroup.DefaultIfEmpty()
+                select new FullProduct
                 {
-                    Product = grouping.Key,
-                    Promotions = grouping.Where(promotion => promotion is not null)
+                    Product = product,
+                    Promotion = promotion,
+                    ProductPromotion = productPromotion,
+                    Category = category
                 };
-
-            CompleteProducts = completeProducts.ToList();
+            
+            FullProducts = fullProducts.ToList();
             
             foreach (var product in Products)
                 newPromotionValues.TryAdd(product.Id, "0");
@@ -70,7 +75,7 @@ public class CatalogBase : ComponentBase
     private async Task LoadProducts() => Products = await ApiProductService.GetAllProductsAsync();
     private async Task LoadPromotions() => Promotions = await ApiPromotionService.GetAllPromotionsAsync();
     private async Task LoadProductPromotions() => ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
-    
+    private async Task LoadCategories() => Categories = await ApiCategoryService.GetAllCategoriesAsync();
     #endregion
 
     #region Functions

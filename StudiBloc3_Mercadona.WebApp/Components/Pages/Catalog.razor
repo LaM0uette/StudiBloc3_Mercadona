@@ -15,25 +15,25 @@
     }
 
     <div class="product-container">
-        @foreach (var completeProduct in CompleteProducts)
+        @foreach (var fullProduct in FullProducts)
         {
             <div class="product-card">
 
-                @if (completeProduct.Product.Image != null)
+                @if (fullProduct.Product.Image != null)
                 {
-                    <img class="product-image" src="@ImageDataUrl(completeProduct.Product.Image)" alt="@completeProduct.Product.Name image" width="300px"/>
+                    <img class="product-image" src="@ImageDataUrl(fullProduct.Product.Image)" alt="@fullProduct.Product.Name image" width="300px"/>
                 }
                 
-                <h3>@completeProduct.Product.Name</h3>
-                <p>@completeProduct.Product.Description</p>
-                <p>@completeProduct.Product.Price €</p>
+                <h3>@fullProduct.Product.Name</h3>
+                <p>@fullProduct.Product.Description</p>
+                <p>@fullProduct.Product.Price €</p>
                 
                 <EditableDropdown T="Product" Items="@Products" DisplayValue="@DisplayProductName" />
                 
                 @if (IsAuthenticated)
                 {
                     <div>
-                        <select @bind="newPromotionValues[completeProduct.Product.Id]">
+                        <select @bind="newPromotionValues[fullProduct.Product.Id]">
                             <option value="0">-- Select a promotion --</option>
 
                             @* Add all promotions already exists to the select *@
@@ -43,9 +43,9 @@
                             }
                         </select>
 
-                        <input type="number" @bind="newPromotionValues[completeProduct.Product.Id]"/>
+                        <input type="number" @bind="newPromotionValues[fullProduct.Product.Id]"/>
 
-                        <button @onclick="() => AddPromotion(completeProduct.Product.Id)">Add Promotion</button>
+                        <button @onclick="() => AddPromotion(fullProduct.Product.Id)">Add Promotion</button>
                     </div>
                 }
             </div>
