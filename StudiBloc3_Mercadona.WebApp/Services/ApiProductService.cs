@@ -14,9 +14,12 @@ public class ApiProductService(HttpClient httpClient)
         return products ?? Array.Empty<Product>();
     }
 
-    public async Task AddProductAsync(Product product)
+    public async Task<Product> AddProductAsync(Product product)
     {
         var response = await httpClient.PostAsJsonAsync("/api/Product/Product/Add", product);
         response.EnsureSuccessStatusCode();
+        
+        var addedProduct = await response.Content.ReadFromJsonAsync<Product>();
+        return addedProduct ?? new Product();
     }
 }
