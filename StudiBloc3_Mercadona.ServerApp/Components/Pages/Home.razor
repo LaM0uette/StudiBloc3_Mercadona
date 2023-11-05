@@ -9,6 +9,38 @@
 
 <h2>Products</h2>
 
+<EditForm Model="@product" OnValidSubmit="HandleValidSubmit" FormName="ProductForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Name">Nom:</label>
+        <InputText id="Name" class="form-control" @bind-Value="@product.Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <InputTextArea id="Description" class="form-control" @bind-Value="@product.Description" />
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Prix:</label>
+        <InputNumber id="Price" class="form-control" @bind-Value="@product.Price" />
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Catégorie ID:</label>
+        <InputNumber id="CategoryId" class="form-control" @bind-Value="@product.CategoryId" />
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Image (optionnel):</label>
+        <InputFile id="Image" OnChange="HandleFileSelect" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Ajouter le produit</button>
+</EditForm>
+
 <div class="products-container">
     @foreach (var product in Products)
     {

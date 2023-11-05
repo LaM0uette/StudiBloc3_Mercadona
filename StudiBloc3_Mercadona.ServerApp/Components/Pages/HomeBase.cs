@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using StudiBloc3_Mercadona.Model;
 using StudiBloc3_Mercadona.ServerApp.Services;
 
@@ -28,4 +29,24 @@ public class HomeBase : ComponentBase
     }
 
     #endregion
+    
+    protected Product product = new();
+
+    protected async Task HandleValidSubmit()
+    {
+        await ApiProductService.AddProductAsync(product);
+    }
+
+    protected async Task HandleFileSelect(InputFileChangeEventArgs e)
+    {
+        var imageFiles = e.GetMultipleFiles();
+        var imageFile = imageFiles.FirstOrDefault();
+        if (imageFile != null)
+        {
+            await using var stream = imageFile.OpenReadStream(maxAllowedSize: 1024 * 1024);
+            var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            product.Image = ms.ToArray();
+        }
+    }
 }
