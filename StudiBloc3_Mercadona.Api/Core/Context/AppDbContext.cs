@@ -5,8 +5,8 @@ namespace StudiBloc3_Mercadona.Api.Core.Context;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Product>? Product { get; set; }
-    public DbSet<Category>? Category { get; set; }
-    public DbSet<Promotion>? Promotion { get; set; }
-    public DbSet<ProductPromotion>? ProductPromotion { get; set; }
+    public DbSet<Product>? Product { get; init; }
+    public DbSet<Category>? Category { get; init; }
+    public DbSet<Promotion>? Promotion { get; init; }
+    public DbSet<ProductPromotion>? ProductPromotion { get; init; }
 }

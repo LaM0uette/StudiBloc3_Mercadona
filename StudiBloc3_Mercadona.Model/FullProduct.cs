@@ -9,7 +9,7 @@ public class FullProduct
     
     public string DisplayPriceWithPromotion()
     {
-        if (ProductPromotion == null) 
+        if (ProductPromotion is null) 
             return Product.Price.ToString("C");
 
         var priceWithPromotion = Product.Price - (Product.Price * ((float)Promotion.DiscountPercentage / 100));
