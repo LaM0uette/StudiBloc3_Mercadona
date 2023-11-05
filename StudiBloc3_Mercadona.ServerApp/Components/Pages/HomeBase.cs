@@ -18,6 +18,14 @@ public class HomeBase : ComponentBase
     }
 
     #endregion
-    
-    
+
+    #region Functions
+
+    protected static string ImageDataUrl(byte[] imageBytes)
+    {
+        var base64String = Convert.ToBase64String(imageBytes);
+        return $"data:image/jpeg;base64,{base64String}";
+    }
+
+    #endregion
 }

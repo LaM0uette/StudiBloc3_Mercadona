@@ -1,8 +1,33 @@
 ﻿@page "/"
 @inherits HomeBase
 
-<PageTitle>Marcodona</PageTitle>
+<PageTitle>Mercadona</PageTitle>
 
-<h1><img class="app-logo" src="mercadonaLogo.png" alt="mercadona_logo.png"/></h1>
+<h1>
+    <img class="app-logo" src="mercadonaLogo.png" alt="mercadona_logo.png image"/>
+</h1>
 
 <h2>Products</h2>
+
+<div class="products-container">
+    @foreach (var product in Products)
+    {
+        <div class="product-card">
+
+            @if (product.Image is not null)
+            {
+                <img class="product-image" src="@ImageDataUrl(product.Image)" alt="@product.Name image" width="300px"/>
+            }
+            else
+            {
+                <img class="product-image" src="null.png" alt="null image" width="300px"/>
+            }
+
+            <h3>@product.Name</h3>
+            <p>@product.Description</p>
+            <p>@product.CategoryId</p>
+            <p>@product.Price</p>
+            
+        </div>
+    }
+</div>
