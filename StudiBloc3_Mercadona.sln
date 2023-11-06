@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.Model"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.App", "StudiBloc3_Mercadona.App\StudiBloc3_Mercadona.App.csproj", "{5C6A537B-6496-4859-9FD0-69212917D56B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncFusionTest", "SyncFusionTest\SyncFusionTest.csproj", "{2F031B67-F98D-4B9C-9DF7-770E862245D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{5C6A537B-6496-4859-9FD0-69212917D56B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C6A537B-6496-4859-9FD0-69212917D56B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C6A537B-6496-4859-9FD0-69212917D56B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
