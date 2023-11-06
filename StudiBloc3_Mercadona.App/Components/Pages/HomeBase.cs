@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using StudiBloc3_Mercadona.Model;
-using StudiBloc3_Mercadona.ServerApp.Services;
+using StudiBloc3_Mercadona.App.Services;
 
-namespace StudiBloc3_Mercadona.ServerApp.Components.Pages;
+namespace StudiBloc3_Mercadona.App.Components.Pages;
 
 public class HomeBase : ComponentBase
 {
@@ -30,12 +30,7 @@ public class HomeBase : ComponentBase
 
     #endregion
     
-    protected Product product = new();
-
-    protected async Task HandleValidSubmit()
-    {
-        await ApiProductService.AddProductAsync(product);
-    }
+    protected Product NewProduct = new();
 
     protected async Task HandleFileSelect(InputFileChangeEventArgs e)
     {
@@ -46,7 +41,13 @@ public class HomeBase : ComponentBase
             await using var stream = imageFile.OpenReadStream(maxAllowedSize: 1024 * 1024);
             var ms = new MemoryStream();
             await stream.CopyToAsync(ms);
-            product.Image = ms.ToArray();
+            NewProduct.Image = ms.ToArray();
         }
+    }
+    
+    protected async Task HandleSubmit()
+    {
+        Console.WriteLine(NewProduct);
+        await ApiProductService.AddProductAsync(NewProduct);
     }
 }

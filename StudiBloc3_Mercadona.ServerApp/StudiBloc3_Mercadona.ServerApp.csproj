@@ -15,4 +15,8 @@
       <ProjectReference Include="..\StudiBloc3_Mercadona.Model\StudiBloc3_Mercadona.Model.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\Pages\" />
+    </ItemGroup>
+
 </Project>

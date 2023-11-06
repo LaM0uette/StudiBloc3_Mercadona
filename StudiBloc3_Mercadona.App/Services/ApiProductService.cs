@@ -1,6 +1,7 @@
-﻿using StudiBloc3_Mercadona.Model;
+﻿using System.Net.Http.Json;
+using StudiBloc3_Mercadona.Model;
 
-namespace StudiBloc3_Mercadona.ServerApp.Services;
+namespace StudiBloc3_Mercadona.App.Services;
 
 public class ApiProductService(HttpClient httpClient)
 {
