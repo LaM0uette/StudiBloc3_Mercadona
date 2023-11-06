@@ -9,13 +9,18 @@ public class HomeBase : ComponentBase
 {
     #region Statements
     
-    [Inject] private ApiProductService ApiProductService { get; set; } = default!;
+    [Inject] private ApiProductService ApiProductService { get; init; } = default!;
+    [Inject] private ApiCategoryService ApiCategoryService { get; init; } = default!;
 
-    protected List<Product> Products { get; set; } = new();
+    protected List<Product> Products { get; private set; } = new();
+    protected readonly Product NewProduct = new();
+    
+    protected List<Category> Categories { get; private set; } = new();
     
     protected override async Task OnInitializedAsync()
     {
         Products = await ApiProductService.GetAllProductsAsync();
+        Categories = await ApiCategoryService.GetAllCategoriesAsync();
     }
 
     #endregion
@@ -27,10 +32,6 @@ public class HomeBase : ComponentBase
         var base64String = Convert.ToBase64String(imageBytes);
         return $"data:image/jpeg;base64,{base64String}";
     }
-
-    #endregion
-    
-    protected Product NewProduct = new();
 
     protected async Task HandleFileSelect(InputFileChangeEventArgs e)
     {
@@ -47,7 +48,10 @@ public class HomeBase : ComponentBase
     
     protected async Task HandleSubmit()
     {
-        Console.WriteLine(NewProduct);
         await ApiProductService.AddProductAsync(NewProduct);
+        
+        Products.Add(NewProduct);
     }
+    
+    #endregion
 }

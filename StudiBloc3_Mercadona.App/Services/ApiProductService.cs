@@ -18,8 +18,5 @@ public class ApiProductService(HttpClient httpClient)
     {
         var response = await httpClient.PostAsJsonAsync("/api/Product/Product/Add", product);
         response.EnsureSuccessStatusCode();
-
-        //var newProduct = await response.Content.ReadFromJsonAsync<Product>();
-        //return newProduct ?? null;
     }
 }
