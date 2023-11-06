@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using StudiBloc3_Mercadona.Model
 @inherits HomeBase
 
 <PageTitle>Mercadona</PageTitle>
@@ -10,12 +11,21 @@
 <h2>Products</h2>
 
 <div>
-    <input type="number" placeholder="CategoryId" @bind="@NewProduct.CategoryId"/>
-    <input type="text" placeholder="Name" @bind="@NewProduct.Name"/>
-    <input type="text" placeholder="Description" @bind="@NewProduct.Description"/>
-    <input type="number" placeholder="Price" @bind="@NewProduct.Price"/>
-    <InputFile OnChange="HandleFileSelect"/>
+    <SfComboBox Width="200px" TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" @bind-Index="@CurrentIdxNewProduct">
+        <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+    </SfComboBox>
+    
+    <SfTextBox Width="200px" Placeholder="Name" @bind-Value="@NewProduct.Name"></SfTextBox>
+    <SfTextBox Width="200px" Placeholder="Description" @bind-Value="@NewProduct.Description"></SfTextBox>
+    <SfNumericTextBox TValue="float" Width="200px" Placeholder="Price" @bind-Value="@NewProduct.Price"></SfNumericTextBox>
+    
+    <SfUploader AutoUpload="true">
+          <UploaderEvents ValueChange="@OnChange"></UploaderEvents>
+    </SfUploader>
+    
+    @* <InputFile OnChange="HandleFileSelect"/> *@
     <button @onclick="HandleSubmit">Add Product</button>
+    <button @onclick="TEST">TEST</button>
 </div>
 
 <div class="products-container">
