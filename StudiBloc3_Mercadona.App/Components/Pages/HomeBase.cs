@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using StudiBloc3_Mercadona.Model;
 using StudiBloc3_Mercadona.App.Services;
+using Syncfusion.Blazor.DropDowns;
 using Syncfusion.Blazor.Inputs;
 
 namespace StudiBloc3_Mercadona.App.Components.Pages;
@@ -15,7 +15,7 @@ public class HomeBase : ComponentBase
 
     protected List<Product> Products { get; private set; } = new();
     protected readonly Product NewProduct = new();
-    protected int? CurrentIdxNewProduct { get; set; } = 1;
+    protected bool NewProductPopupIsVisible { get; set; }
     
     protected List<Category> Categories { get; private set; } = new();
     
@@ -57,11 +57,24 @@ public class HomeBase : ComponentBase
     
     protected async Task HandleSubmit()
     {
-        NewProduct.CategoryId = CurrentIdxNewProduct + 1 ?? 1;
-        
         await ApiProductService.AddProductAsync(NewProduct);
         Products.Add(NewProduct);
+        
+        CloseNewProductPopup();
     }
     
+    #endregion
+
+    #region SyncFusion
+    
+    protected void OnSfComboBoxCategoryChanged(string arg)
+    {
+        var categoryId = int.Parse(arg);
+        NewProduct.CategoryId = categoryId;
+    }
+
+    protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
+    private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
+
     #endregion
 }

@@ -10,14 +10,14 @@
 
 <h2 id="target">Products</h2>
 
-<SfButton @onclick="@OpenDialog">Ajouter un produit</SfButton>
+<SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
 
-<SfDialog Width="500px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible">
+<SfDialog Width="500px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
     <DialogTemplates>
         <Header> Ajouter un produit </Header>
         <Content> 
             <div>
-                <SfComboBox TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" @bind-Index="@CurrentIdxNewProduct">
+                <SfComboBox TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged">
                     <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
                 </SfComboBox>
             
@@ -34,16 +34,6 @@
         </Content>
     </DialogTemplates>
 </SfDialog>
-
-@code {
-    // TODO: mettre dans le code et fermer la popop a la validation
-    private bool IsVisible { get; set; }
-
-    private void OpenDialog()
-    {
-        IsVisible = true;
-    }
-}
 
 <div class="products-container">
     @foreach (var product in Products)
