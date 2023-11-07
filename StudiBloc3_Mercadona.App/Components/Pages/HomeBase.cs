@@ -51,15 +51,26 @@ public class HomeBase : ComponentBase
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                NewProduct.Image = null;
             }
         }
     }
     
     protected async Task HandleSubmit()
     {
-        await ApiProductService.AddProductAsync(NewProduct);
-        Products.Add(NewProduct);
-        
+        var productToAdd = new Product
+        {
+            CategoryId = NewProduct.CategoryId,
+            Name = NewProduct.Name,
+            Description = NewProduct.Description,
+            Price = NewProduct.Price,
+            Image = NewProduct.Image?.ToArray()
+        };
+
+        await ApiProductService.AddProductAsync(productToAdd);
+        Products.Add(productToAdd);
+
+        NewProduct.Image = null;
         CloseNewProductPopup();
     }
     
