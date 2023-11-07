@@ -34,58 +34,33 @@ public class HomeBase : ComponentBase
         var base64String = Convert.ToBase64String(imageBytes);
         return $"data:image/jpeg;base64,{base64String}";
     }
-
-    protected async Task HandleFileSelect(InputFileChangeEventArgs e)
+    
+    protected async Task HandleFileSelect(UploadChangeEventArgs args)
     {
-        var imageFiles = e.GetMultipleFiles();
-        var imageFile = imageFiles.FirstOrDefault();
-        if (imageFile != null)
+        var file = args.Files.FirstOrDefault();
+        if (file is not null)
         {
-            await using var stream = imageFile.OpenReadStream(maxAllowedSize: 1024 * 1024);
-            var ms = new MemoryStream();
-            await stream.CopyToAsync(ms);
-            NewProduct.Image = ms.ToArray();
-        }
-    }
-    protected async Task OnChange(UploadChangeEventArgs args)
-    {
-        try
-        {
-            foreach (var file in args.Files)
+            try
             {
-                var path = @"" + file.FileInfo.Name;
-                var filestream = new FileStream(path, FileMode.Create, FileAccess.Write);
-                
                 await using var stream = file.File.OpenReadStream(long.MaxValue);
                 var ms = new MemoryStream();
                 await stream.CopyToAsync(ms);
+                ms.Position = 0;
                 NewProduct.Image = ms.ToArray();
-                
-                filestream.Close();
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
     
     protected async Task HandleSubmit()
     {
+        NewProduct.CategoryId = CurrentIdxNewProduct + 1 ?? 1;
+        
         await ApiProductService.AddProductAsync(NewProduct);
-        
         Products.Add(NewProduct);
-    }
-
-    protected void TEST()
-    {
-        NewProduct.CategoryId = CurrentIdxNewProduct ?? 1;
-        
-        Console.WriteLine(NewProduct.CategoryId);
-        Console.WriteLine(NewProduct.Name);
-        Console.WriteLine(NewProduct.Description);
-        Console.WriteLine(NewProduct.Price);
-        Console.WriteLine(NewProduct.Image);
     }
     
     #endregion

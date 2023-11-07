@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using StudiBloc3_Mercadona.App.Components;
 using StudiBloc3_Mercadona.App.Services;
 using Syncfusion.Blazor;
+using Syncfusion.Licensing;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cWWBCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWH5ed3RXRGRYVUF1X0A=");
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 

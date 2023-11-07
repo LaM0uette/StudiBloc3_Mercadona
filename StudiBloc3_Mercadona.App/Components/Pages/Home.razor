@@ -8,24 +8,40 @@
     <img class="app-logo" src="mercadonaLogo.png" alt="mercadona_logo.png image"/>
 </h1>
 
-<h2>Products</h2>
+<h2 id="target">Products</h2>
+
+<SfButton @onclick="@OpenDialog">Open Dialog</SfButton>
+
+<SfDialog Width="250px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible">
+    <DialogTemplates>
+        <Header> Dialog </Header>
+        <Content> This is a dialog with header </Content>
+    </DialogTemplates>
+</SfDialog>
+
+@code {
+    private bool IsVisible { get; set; } = false;
+
+    private void OpenDialog()
+    {
+        IsVisible = true;
+    }
+}
 
 <div>
     <SfComboBox Width="200px" TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" @bind-Index="@CurrentIdxNewProduct">
         <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
     </SfComboBox>
-    
+
     <SfTextBox Width="200px" Placeholder="Name" @bind-Value="@NewProduct.Name"></SfTextBox>
     <SfTextBox Width="200px" Placeholder="Description" @bind-Value="@NewProduct.Description"></SfTextBox>
     <SfNumericTextBox TValue="float" Width="200px" Placeholder="Price" @bind-Value="@NewProduct.Price"></SfNumericTextBox>
-    
-    <SfUploader AutoUpload="true">
-          <UploaderEvents ValueChange="@OnChange"></UploaderEvents>
+
+    <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
+        <UploaderEvents ValueChange="@HandleFileSelect"></UploaderEvents>
     </SfUploader>
-    
-    @* <InputFile OnChange="HandleFileSelect"/> *@
+
     <button @onclick="HandleSubmit">Add Product</button>
-    <button @onclick="TEST">TEST</button>
 </div>
 
 <div class="products-container">
