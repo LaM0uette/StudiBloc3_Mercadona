@@ -15,6 +15,7 @@ h2 {
 /* products __________________________________________________________________________*/
 .products-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -35,6 +36,12 @@ h2 {
 
 
 /* new product __________________________________________________________________________*/
+.button-new-product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .new-product-popup-content {
     display: flex;
     flex-direction: column;

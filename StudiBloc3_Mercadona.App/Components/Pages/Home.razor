@@ -10,7 +10,19 @@
 
 <h2 id="target">Products</h2>
 
-<SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
+<div class="button-new-product-container">
+    <SfButton CssClass="button-new-product" @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
+    <style>
+        .button-new-product {
+            height: 40px;
+            width: 300px;
+            font-size: 1.2em;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</div>
+
 <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
     <DialogTemplates>
         <Header> Ajouter un produit </Header>
