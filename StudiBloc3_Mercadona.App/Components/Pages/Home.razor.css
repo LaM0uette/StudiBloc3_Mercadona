@@ -30,3 +30,12 @@ h2 {
     height: 35%;
     object-fit: cover;
 }
+
+
+.new-product-popup-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 40vh;
+}

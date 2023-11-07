@@ -12,11 +12,11 @@
 
 <SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
 
-<SfDialog Width="500px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
+<SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
     <DialogTemplates>
         <Header> Ajouter un produit </Header>
         <Content> 
-            <div>
+            <div class="new-product-popup-content">
                 <SfComboBox TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged">
                     <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
                 </SfComboBox>
