@@ -10,39 +10,40 @@
 
 <h2 id="target">Products</h2>
 
-<SfButton @onclick="@OpenDialog">Open Dialog</SfButton>
+<SfButton @onclick="@OpenDialog">Ajouter un produit</SfButton>
 
-<SfDialog Width="250px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible">
+<SfDialog Width="500px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible">
     <DialogTemplates>
-        <Header> Dialog </Header>
-        <Content> This is a dialog with header </Content>
+        <Header> Ajouter un produit </Header>
+        <Content> 
+            <div>
+                <SfComboBox TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" @bind-Index="@CurrentIdxNewProduct">
+                    <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+                </SfComboBox>
+            
+                <SfTextBox Placeholder="Name" @bind-Value="@NewProduct.Name"></SfTextBox>
+                <SfTextBox Placeholder="Description" @bind-Value="@NewProduct.Description"></SfTextBox>
+                <SfNumericTextBox TValue="float" Placeholder="Price" @bind-Value="@NewProduct.Price"></SfNumericTextBox>
+            
+                <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
+                    <UploaderEvents ValueChange="@HandleFileSelect"></UploaderEvents>
+                </SfUploader>
+            
+                <button @onclick="HandleSubmit">Add Product</button>
+            </div>
+        </Content>
     </DialogTemplates>
 </SfDialog>
 
 @code {
-    private bool IsVisible { get; set; } = false;
+    // TODO: mettre dans le code et fermer la popop a la validation
+    private bool IsVisible { get; set; }
 
     private void OpenDialog()
     {
         IsVisible = true;
     }
 }
-
-<div>
-    <SfComboBox Width="200px" TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" @bind-Index="@CurrentIdxNewProduct">
-        <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
-    </SfComboBox>
-
-    <SfTextBox Width="200px" Placeholder="Name" @bind-Value="@NewProduct.Name"></SfTextBox>
-    <SfTextBox Width="200px" Placeholder="Description" @bind-Value="@NewProduct.Description"></SfTextBox>
-    <SfNumericTextBox TValue="float" Width="200px" Placeholder="Price" @bind-Value="@NewProduct.Price"></SfNumericTextBox>
-
-    <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
-        <UploaderEvents ValueChange="@HandleFileSelect"></UploaderEvents>
-    </SfUploader>
-
-    <button @onclick="HandleSubmit">Add Product</button>
-</div>
 
 <div class="products-container">
     @foreach (var product in Products)
