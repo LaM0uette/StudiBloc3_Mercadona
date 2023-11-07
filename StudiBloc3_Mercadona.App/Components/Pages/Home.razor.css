@@ -11,6 +11,8 @@ h2 {
     text-align: center;
 }
 
+
+/* products __________________________________________________________________________*/
 .products-container {
     display: flex;
     justify-content: center;
@@ -32,6 +34,7 @@ h2 {
 }
 
 
+/* new product __________________________________________________________________________*/
 .new-product-popup-content {
     display: flex;
     flex-direction: column;

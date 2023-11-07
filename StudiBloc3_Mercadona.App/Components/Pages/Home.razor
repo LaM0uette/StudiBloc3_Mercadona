@@ -11,14 +11,22 @@
 <h2 id="target">Products</h2>
 
 <SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
-
 <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
     <DialogTemplates>
         <Header> Ajouter un produit </Header>
         <Content> 
             <div class="new-product-popup-content">
-                <SfComboBox TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged">
+                <SfComboBox @ref="@SfComboBoxNewCategory" TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged" AllowCustom="true" AllowFiltering="true">
                     <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+                    <ComboBoxEvents TValue="string" Filtering="@OnSfComboBoxCategoryFiltering" TItem="Category"></ComboBoxEvents>
+                        <ComboBoxTemplates TItem="Category">
+                            <NoRecordsTemplate>
+                                <div>
+                                    <div id="nodata">Catégorie inconnue, voulez vous la créer ?</div>
+                                    <SfButton id="btn" class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewCategory">Créer</SfButton>
+                                </div>
+                            </NoRecordsTemplate>
+                        </ComboBoxTemplates>
                 </SfComboBox>
             
                 <SfTextBox Placeholder="Name" @bind-Value="@NewProduct.Name"></SfTextBox>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using StudiBloc3_Mercadona.Model;
 using StudiBloc3_Mercadona.App.Services;
+using Syncfusion.Blazor.Data;
 using Syncfusion.Blazor.DropDowns;
 using Syncfusion.Blazor.Inputs;
 
@@ -10,14 +11,19 @@ public class HomeBase : ComponentBase
 {
     #region Statements
     
+    // Services
     [Inject] private ApiProductService ApiProductService { get; init; } = default!;
     [Inject] private ApiCategoryService ApiCategoryService { get; init; } = default!;
 
+    // Products
     protected List<Product> Products { get; private set; } = new();
     protected readonly Product NewProduct = new();
     protected bool NewProductPopupIsVisible { get; set; }
     
+    // Categories
     protected List<Category> Categories { get; private set; } = new();
+    protected SfComboBox<string, Category> SfComboBoxNewCategory = null!;
+    private string? NewCategoryName { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -80,12 +86,43 @@ public class HomeBase : ComponentBase
     
     protected void OnSfComboBoxCategoryChanged(string arg)
     {
+        Console.WriteLine(arg);
         var categoryId = int.Parse(arg);
         NewProduct.CategoryId = categoryId;
+    }
+    
+    protected Task OnSfComboBoxCategoryFiltering(FilteringEventArgs args)
+    {
+        NewCategoryName = args.Text;
+        args.PreventDefaultAction = true;
+        
+        var query = new Query().Where(new WhereFilter{ Field = "Name", Operator = "contains", value = args.Text, IgnoreCase = true });
+        query = !string.IsNullOrEmpty(args.Text) ? query : new Query();
+        
+        return SfComboBoxNewCategory.FilterAsync(Categories, query);
+    }
+    
+    protected async Task CreateNewCategory()
+    {
+        var customCategory = new Category
+        {
+            Id = Categories.Max(c => c.Id) + 1,
+            Name = NewCategoryName 
+        };
+        
+        await ApiCategoryService.AddCategoryAsync(customCategory);
+        await SfComboBoxNewCategory.AddItemsAsync(new List<Category> { customCategory });
+        Categories.Add(customCategory);
+        
+        await SfComboBoxNewCategory.HidePopupAsync();
     }
 
     protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
     private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
 
     #endregion
+    
+    
+    
+    
 }
