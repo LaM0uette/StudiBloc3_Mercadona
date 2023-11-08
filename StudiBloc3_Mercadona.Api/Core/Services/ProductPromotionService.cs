@@ -19,14 +19,14 @@ public class ProductPromotionService(IRepository<ProductPromotion> productPromot
         return productPromotion;
     }
     
-    public async Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
+    public Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
     {
-        await productPromotionRepository.UpdateAsync(productPromotion);
+        return productPromotionRepository.UpdateAsync(productPromotion);
     }
     
-    public async Task DeleteProductPromotionAsync(ProductPromotion productPromotion)
+    public Task DeleteProductPromotionAsync(ProductPromotion productPromotion)
     {
-        await productPromotionRepository.DeleteAsync(productPromotion);
+        return productPromotionRepository.DeleteAsync(productPromotion);
     }
 
     #endregion

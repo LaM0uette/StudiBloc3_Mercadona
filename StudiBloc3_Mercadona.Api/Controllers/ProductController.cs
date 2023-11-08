@@ -5,16 +5,15 @@ using StudiBloc3_Mercadona.Model;
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/Product")]
+[Route("api/[controller]")]
 public class ProductController(IProductService productService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<Product>> GetAll()
+    public async Task<IEnumerable<Product>> GetAll()
     {
-        return productService.GetAllProductsAsync();
+        var products = await productService.GetAllProductsAsync();
+        return products;
     }
     
     [HttpPost]
@@ -24,6 +23,4 @@ public class ProductController(IProductService productService) : ControllerBase
         await productService.AddProductAsync(product);
         return Ok(product);
     }
-    
-    #endregion
 }

@@ -5,16 +5,15 @@ using StudiBloc3_Mercadona.Model;
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/Category")]
+[Route("api/[controller]")]
 public class CategoryController(ICategoryService categoryService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<Category>> GetAll()
+    public async Task<IEnumerable<Category>> GetAll()
     {
-        return categoryService.GetAllCategoriesAsync();
+        var categories = await categoryService.GetAllCategoriesAsync();
+        return categories;
     }
 
     [HttpPost]
@@ -24,6 +23,4 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
         await categoryService.AddCategoryAsync(category);
         return Ok(category);
     }
-    
-    #endregion
 }

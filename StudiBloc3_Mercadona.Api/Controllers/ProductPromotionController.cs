@@ -5,16 +5,15 @@ using StudiBloc3_Mercadona.Model;
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/ProductPromotion")]
+[Route("api/[controller]")]
 public class ProductPromotionController(IProductPromotionService productPromotionService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<ProductPromotion>> GetAll()
+    public async Task<IEnumerable<ProductPromotion>> GetAll()
     {
-        return productPromotionService.GetAllProductPromotionsAsync();
+        var productPromotions = await productPromotionService.GetAllProductPromotionsAsync();
+        return productPromotions;
     }
 
     [HttpPost]
@@ -40,6 +39,4 @@ public class ProductPromotionController(IProductPromotionService productPromotio
         await productPromotionService.DeleteProductPromotionAsync(productPromotion);
         return Ok();
     }
-    
-    #endregion
 }

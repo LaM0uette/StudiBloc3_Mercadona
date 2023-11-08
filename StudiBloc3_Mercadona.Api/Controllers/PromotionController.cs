@@ -5,23 +5,15 @@ using StudiBloc3_Mercadona.Model;
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/Promotion")]
+[Route("api/[controller]")]
 public class PromotionController(IPromotionService promotionService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<Promotion>> GetAll()
+    public async Task<IEnumerable<Promotion>> GetAll()
     {
-        return promotionService.GetAllPromotionsAsync();
-    }
-    
-    [HttpGet]
-    [Route("GetIdByDiscountPercentage/{discountPercentage:int}")]
-    public Task<int> GetPromotionIdByDiscountPercentageAsync(int discountPercentage)
-    {
-        return promotionService.GetPromotionIdByDiscountPercentageAsync(discountPercentage);
+        var promotions = await promotionService.GetAllPromotionsAsync();
+        return promotions;
     }
  
     [HttpPost]
@@ -31,6 +23,4 @@ public class PromotionController(IPromotionService promotionService) : Controlle
         await promotionService.AddPromotionAsync(promotion);
         return Ok(promotion);
     }
-    
-    #endregion
 }

@@ -5,6 +5,5 @@ namespace StudiBloc3_Mercadona.Api.Core.Services;
 public interface IPromotionService
 {
     Task<IEnumerable<Promotion>> GetAllPromotionsAsync();
-    Task<int> GetPromotionIdByDiscountPercentageAsync(int discountPercentage);
     Task<Promotion> AddPromotionAsync(Promotion promotion);
 }

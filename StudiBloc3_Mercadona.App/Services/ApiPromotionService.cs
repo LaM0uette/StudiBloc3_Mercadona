@@ -7,7 +7,7 @@ public class ApiPromotionService(HttpClient httpClient)
 {
     public async Task<List<Promotion>> GetAllPromotionsAsync()
     {
-        var response = await httpClient.GetAsync("/api/Promotion/Promotion/GetAll");
+        var response = await httpClient.GetAsync("/api/Promotion/GetAll");
         response.EnsureSuccessStatusCode();
         
         var promotion = await response.Content.ReadFromJsonAsync<List<Promotion>>();
@@ -16,7 +16,7 @@ public class ApiPromotionService(HttpClient httpClient)
     
     public async Task<Promotion?> AddPromotionAsync(Promotion promotion)
     {
-        var response = await httpClient.PostAsJsonAsync("/api/Promotion/Promotion/Add", promotion);
+        var response = await httpClient.PostAsJsonAsync("/api/Promotion/Add", promotion);
         response.EnsureSuccessStatusCode();
         
         return await response.Content.ReadFromJsonAsync<Promotion>();

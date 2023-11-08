@@ -5,11 +5,10 @@ namespace StudiBloc3_Mercadona.Api.Core.Services;
 
 public class CategoryService(IRepository<Category> categoryRepository) : ICategoryService
 {
-    #region Tasks
-
-    public Task<IEnumerable<Category>> GetAllCategoriesAsync()
+    public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
     {
-        return categoryRepository.GetAllAsync();
+        var categories = await categoryRepository.GetAllAsync();
+        return categories;
     }
 
     public async Task<Category> AddCategoryAsync(Category category)
@@ -17,6 +16,4 @@ public class CategoryService(IRepository<Category> categoryRepository) : ICatego
         await categoryRepository.AddAsync(category);
         return category; 
     }
-
-    #endregion
 }

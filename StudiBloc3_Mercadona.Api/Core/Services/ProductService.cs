@@ -5,8 +5,6 @@ namespace StudiBloc3_Mercadona.Api.Core.Services;
 
 public class ProductService(IRepository<Product> productRepository) : IProductService
 {
-    #region Tasks
-
     public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
         var products = await productRepository.GetAllAsync();
@@ -18,6 +16,4 @@ public class ProductService(IRepository<Product> productRepository) : IProductSe
         await productRepository.AddAsync(product);
         return product; 
     }
-
-    #endregion
 }
