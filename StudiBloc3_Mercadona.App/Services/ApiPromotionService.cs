@@ -14,9 +14,11 @@ public class ApiPromotionService(HttpClient httpClient)
         return promotion ?? new List<Promotion>();
     }
     
-    public async Task AddPromotionAsync(Promotion promotion)
+    public async Task<Promotion?> AddPromotionAsync(Promotion promotion)
     {
         var response = await httpClient.PostAsJsonAsync("/api/Promotion/Promotion/Add", promotion);
         response.EnsureSuccessStatusCode();
+        
+        return await response.Content.ReadFromJsonAsync<Promotion>();
     }
 }

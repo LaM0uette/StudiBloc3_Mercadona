@@ -13,17 +13,12 @@ public class ApiProductService(HttpClient httpClient)
         var products = await response.Content.ReadFromJsonAsync<List<Product>>();
         return products ?? new List<Product>();
     }
-
-    public async Task AddProductAsync(Product product)
+    
+    public async Task<Product?> AddProductAsync(Product product)
     {
         var response = await httpClient.PostAsJsonAsync("/api/Product/Product/Add", product);
         response.EnsureSuccessStatusCode();
-    }
-    
-    public async Task<Product> AddProductTestAsync(Product product)
-    {
-        var response = await httpClient.PostAsJsonAsync("/api/Product/Product/AddTest", product);
-        response.EnsureSuccessStatusCode();
+        
         return await response.Content.ReadFromJsonAsync<Product>();
     }
 }

@@ -26,10 +26,10 @@ public class PromotionController(IPromotionService promotionService) : Controlle
  
     [HttpPost]
     [Route("Add")]
-    public IActionResult Add(Promotion promotion)
+    public async Task<ActionResult<Promotion>> Add(Promotion promotion)
     {
-        promotionService.AddPromotionAsync(promotion);
-        return Ok();
+        await promotionService.AddPromotionAsync(promotion);
+        return Ok(promotion);
     }
     
     #endregion

@@ -16,20 +16,12 @@ public class ProductController(IProductService productService) : ControllerBase
     {
         return productService.GetAllProductsAsync();
     }
-
-    [HttpPost]
-    [Route("Add")]
-    public IActionResult Add(Product product)
-    {
-        productService.AddProductAsync(product);
-        return Ok();
-    }
     
     [HttpPost]
-    [Route("AddTest")]
-    public async Task<ActionResult<Product>> AddTest(Product product)
+    [Route("Add")]
+    public async Task<ActionResult<Product>> Add(Product product)
     {
-        await productService.AddProductTestAsync(product);
+        await productService.AddProductAsync(product);
         return Ok(product);
     }
     

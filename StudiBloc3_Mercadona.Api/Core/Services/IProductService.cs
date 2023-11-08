@@ -5,6 +5,5 @@ namespace StudiBloc3_Mercadona.Api.Core.Services;
 public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllProductsAsync();
-    Task AddProductAsync(Product product);
-    Task<Product> AddProductTestAsync(Product product);
+    Task<Product> AddProductAsync(Product product);
 }

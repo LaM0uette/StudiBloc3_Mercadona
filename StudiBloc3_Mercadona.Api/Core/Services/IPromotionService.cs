@@ -6,5 +6,5 @@ public interface IPromotionService
 {
     Task<IEnumerable<Promotion>> GetAllPromotionsAsync();
     Task<int> GetPromotionIdByDiscountPercentageAsync(int discountPercentage);
-    Task AddPromotionAsync(Promotion promotion);
+    Task<Promotion> AddPromotionAsync(Promotion promotion);
 }

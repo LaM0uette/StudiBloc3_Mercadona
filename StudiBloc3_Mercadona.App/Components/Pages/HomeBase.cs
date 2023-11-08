@@ -88,7 +88,7 @@ public class HomeBase : ComponentBase
             Image = NewProduct.Image?.ToArray()
         };
 
-        var addedProduct = await ApiProductService.AddProductTestAsync(productToAdd);
+        var addedProduct = await ApiProductService.AddProductAsync(productToAdd);
         if (addedProduct != null)
         {
             Products.Add(addedProduct); 
@@ -124,9 +124,12 @@ public class HomeBase : ComponentBase
                 ProductId = SelectedProduct.Id,
                 PromotionId = NewPromotion.Id
             };
-
-            await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
-            ProductPromotions.Add(productPromotion);
+            
+            var addedPromotion = await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
+            if (addedPromotion != null)
+            {
+                ProductPromotions.Add(addedPromotion);
+            }
         }
         
         CloseNewProductPromotionsPopup();
@@ -175,15 +178,18 @@ public class HomeBase : ComponentBase
     {
         var customCategory = new Category
         {
-            Id = Categories.Max(c => c.Id) + 1,
             Name = NewCategoryName
         };
-
-        await ApiCategoryService.AddCategoryAsync(customCategory);
-        await SfComboBoxNewCategory.AddItemsAsync(new List<Category> {customCategory});
-        Categories.Add(customCategory);
-
+        
+        var addedCategory = await ApiCategoryService.AddCategoryAsync(customCategory);
+        if (addedCategory != null)
+        {
+            await SfComboBoxNewCategory.AddItemsAsync(new List<Category> {addedCategory});
+            Categories.Add(addedCategory);
+        }
+        
         await SfComboBoxNewCategory.HidePopupAsync();
+        StateHasChanged();
     }
 
     protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
@@ -211,15 +217,18 @@ public class HomeBase : ComponentBase
     {
         var customPromotion = new Promotion
         {
-            Id = Promotions.Max(c => c.Id) + 1,
             DiscountPercentage = NewPromotionsDiscount
         };
-
-        await ApiPromotionService.AddPromotionAsync(customPromotion);
-        await SfComboBoxNewPromotions.AddItemsAsync(new List<Promotion> {customPromotion});
-        Promotions.Add(customPromotion);
+        
+        var addedPromotion = await ApiPromotionService.AddPromotionAsync(customPromotion);
+        if (addedPromotion != null)
+        {
+            await SfComboBoxNewPromotions.AddItemsAsync(new List<Promotion> {addedPromotion});
+            Promotions.Add(addedPromotion);
+        }
 
         await SfComboBoxNewPromotions.HidePopupAsync();
+        StateHasChanged();
     }
     
     protected void OpenNewProductPromotionsPopup(Product product)

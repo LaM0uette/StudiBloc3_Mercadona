@@ -19,10 +19,10 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
 
     [HttpPost]
     [Route("Add")]
-    public IActionResult Add(Category category)
+    public async Task<ActionResult<Category>> Add(Category category)
     {
-        categoryService.AddCategoryAsync(category);
-        return Ok();
+        await categoryService.AddCategoryAsync(category);
+        return Ok(category);
     }
     
     #endregion

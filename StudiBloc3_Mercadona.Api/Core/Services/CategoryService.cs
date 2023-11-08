@@ -12,9 +12,10 @@ public class CategoryService(IRepository<Category> categoryRepository) : ICatego
         return categoryRepository.GetAllAsync();
     }
 
-    public Task AddCategoryAsync(Category category)
+    public async Task<Category> AddCategoryAsync(Category category)
     {
-        return categoryRepository.AddAsync(category);
+        await categoryRepository.AddAsync(category);
+        return category; 
     }
 
     #endregion

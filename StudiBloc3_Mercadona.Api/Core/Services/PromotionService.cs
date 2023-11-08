@@ -7,9 +7,10 @@ public class PromotionService(IRepository<Promotion> promotionRepository) : IPro
 {
     #region Tasks
 
-    public Task<IEnumerable<Promotion>> GetAllPromotionsAsync()
+    public async Task<IEnumerable<Promotion>> GetAllPromotionsAsync()
     {
-        return promotionRepository.GetAllAsync();
+        var promotions = await promotionRepository.GetAllAsync();
+        return promotions;
     }
     
     public Task<int> GetPromotionIdByDiscountPercentageAsync(int discountPercentage)
@@ -20,9 +21,10 @@ public class PromotionService(IRepository<Promotion> promotionRepository) : IPro
         return Task.FromResult(allPromotions.Result.FirstOrDefault(promotion => promotion.DiscountPercentage == discountPercentage)?.Id ?? -1);
     }
 
-    public Task AddPromotionAsync(Promotion promotion)
+    public async Task<Promotion> AddPromotionAsync(Promotion promotion)
     {
-        return promotionRepository.AddAsync(promotion);
+        await promotionRepository.AddAsync(promotion);
+        return promotion;
     }
 
     #endregion

@@ -14,9 +14,11 @@ public class ApiCategoryService(HttpClient httpClient)
         return categories ?? new List<Category>();
     }
 
-    public async Task AddCategoryAsync(Category category)
+    public async Task<Category?> AddCategoryAsync(Category category)
     {
         var response = await httpClient.PostAsJsonAsync("/api/Category/Category/Add", category);
         response.EnsureSuccessStatusCode();
+        
+        return await response.Content.ReadFromJsonAsync<Category>();
     }
 }

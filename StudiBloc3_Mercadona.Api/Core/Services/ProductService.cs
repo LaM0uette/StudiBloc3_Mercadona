@@ -7,17 +7,13 @@ public class ProductService(IRepository<Product> productRepository) : IProductSe
 {
     #region Tasks
 
-    public Task<IEnumerable<Product>> GetAllProductsAsync()
+    public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
-        return productRepository.GetAllAsync();
-    }
-
-    public Task AddProductAsync(Product product)
-    {
-        return productRepository.AddAsync(product);
+        var products = await productRepository.GetAllAsync();
+        return products;
     }
     
-    public async Task<Product> AddProductTestAsync(Product product)
+    public async Task<Product> AddProductAsync(Product product)
     {
         await productRepository.AddAsync(product);
         return product; 

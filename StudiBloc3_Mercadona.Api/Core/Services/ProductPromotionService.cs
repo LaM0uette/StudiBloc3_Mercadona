@@ -7,24 +7,26 @@ public class ProductPromotionService(IRepository<ProductPromotion> productPromot
 {
     #region Tasks
 
-    public Task<IEnumerable<ProductPromotion>> GetAllProductPromotionsAsync()
+    public async Task<IEnumerable<ProductPromotion>> GetAllProductPromotionsAsync()
     {
-        return productPromotionRepository.GetAllAsync();
+        var productPromotions = await productPromotionRepository.GetAllAsync();
+        return productPromotions;
     }
 
-    public Task AddProductPromotionAsync(ProductPromotion productPromotion)
+    public async Task<ProductPromotion> AddProductPromotionAsync(ProductPromotion productPromotion)
     {
-        return productPromotionRepository.AddAsync(productPromotion);
+        await productPromotionRepository.AddAsync(productPromotion);
+        return productPromotion;
     }
     
-    public Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
+    public async Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
     {
-        return productPromotionRepository.UpdateAsync(productPromotion);
+        await productPromotionRepository.UpdateAsync(productPromotion);
     }
     
-    public Task DeleteProductPromotionAsync(ProductPromotion productPromotion)
+    public async Task DeleteProductPromotionAsync(ProductPromotion productPromotion)
     {
-        return productPromotionRepository.DeleteAsync(productPromotion);
+        await productPromotionRepository.DeleteAsync(productPromotion);
     }
 
     #endregion

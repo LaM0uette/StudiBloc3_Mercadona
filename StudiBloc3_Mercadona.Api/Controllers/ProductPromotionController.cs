@@ -19,10 +19,10 @@ public class ProductPromotionController(IProductPromotionService productPromotio
 
     [HttpPost]
     [Route("Add")]
-    public async Task<IActionResult> Add(ProductPromotion productPromotion)
+    public async Task<ActionResult<ProductPromotion>> Add(ProductPromotion productPromotion)
     {
         await productPromotionService.AddProductPromotionAsync(productPromotion);
-        return Ok();
+        return Ok(productPromotion);
     }
 
     [HttpPut]

@@ -14,10 +14,12 @@ public class ApiProductPromotionService(HttpClient httpClient)
         return productPromotion ?? new List<ProductPromotion>();
     }
     
-    public async Task AddProductPromotionAsync(ProductPromotion productPromotion)
+    public async Task<ProductPromotion?> AddProductPromotionAsync(ProductPromotion productPromotion)
     {
         var response = await httpClient.PostAsJsonAsync("/api/ProductPromotion/ProductPromotion/Add", productPromotion);
         response.EnsureSuccessStatusCode();
+        
+        return await response.Content.ReadFromJsonAsync<ProductPromotion>();
     }
     
     public async Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
