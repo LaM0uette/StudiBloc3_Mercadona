@@ -59,7 +59,7 @@
     @foreach (var product in Products)
     {
         var productCopy = product;
-        var promotion = GetPromotionForProduct(product.Id);
+        var pricingInfo = CalculateDiscountedPrice(product);
 
         <div class="product-card">
 
@@ -75,15 +75,15 @@
             <h3>@product.Name</h3>
             <p>@product.Description</p>
             <p>@product.CategoryId</p>
-            <p>@product.Price€</p>
-
-            @if (promotion != null)
+            @if (pricingInfo != null)
             {
-                <p>Promotion: @promotion.DiscountPercentage % off</p>
+                <p>Prix original : @pricingInfo.Value.originalPrice €</p>
+                <p>Promotion : @((1 - (pricingInfo.Value.discountedPrice / pricingInfo.Value.originalPrice)) * 100) % off</p>
+                <p>Nouveau prix : @pricingInfo.Value.discountedPrice €</p>
             }
             else
             {
-                <p>Pas de promotion actuellement</p>
+                <p>Prix : @product.Price €</p>
             }
 
             <div class="button-new-product-container">

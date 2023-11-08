@@ -81,6 +81,7 @@ public class HomeBase : ComponentBase
     {
         var productToAdd = new Product
         {
+            Id = Products.Max(c => c.Id) + 1,
             CategoryId = NewProduct.CategoryId,
             Name = NewProduct.Name,
             Description = NewProduct.Description,
@@ -128,12 +129,21 @@ public class HomeBase : ComponentBase
         CloseNewProductPromotionsPopup();
     }
     
-    protected Promotion GetPromotionForProduct(int productId)
+    protected (float originalPrice, float discountedPrice)? CalculateDiscountedPrice(Product product)
     {
-        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == productId);
-        return productPromotion != null ? Promotions.FirstOrDefault(p => p.Id == productPromotion.PromotionId) : null;
+        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id);
+        if (productPromotion != null)
+        {
+            var promotion = Promotions.FirstOrDefault(p => p.Id == productPromotion.PromotionId);
+            if (promotion != null)
+            {
+                var discountMultiplier = (100 - promotion.DiscountPercentage) / 100.0f;
+                var discountedPrice = product.Price * discountMultiplier;
+                return (product.Price, discountedPrice);
+            }
+        }
+        return null;
     }
-
 
     #endregion
 
