@@ -2,13 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.Api", "StudiBloc3_Mercadona.Api\StudiBloc3_Mercadona.Api.csproj", "{75697095-AFE1-4D2F-9DD3-490BA61445EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.WebApp", "StudiBloc3_Mercadona.WebApp\StudiBloc3_Mercadona.WebApp.csproj", "{D96DFC01-2F1E-4BC0-A841-505F01FFD422}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.Model", "StudiBloc3_Mercadona.Model\StudiBloc3_Mercadona.Model.csproj", "{411DFED4-68C6-46F6-85C0-9490F4CFA40B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudiBloc3_Mercadona.App", "StudiBloc3_Mercadona.App\StudiBloc3_Mercadona.App.csproj", "{5C6A537B-6496-4859-9FD0-69212917D56B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncFusionTest", "SyncFusionTest\SyncFusionTest.csproj", "{2F031B67-F98D-4B9C-9DF7-770E862245D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +16,6 @@ Global
 		{75697095-AFE1-4D2F-9DD3-490BA61445EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75697095-AFE1-4D2F-9DD3-490BA61445EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75697095-AFE1-4D2F-9DD3-490BA61445EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D96DFC01-2F1E-4BC0-A841-505F01FFD422}.Release|Any CPU.Build.0 = Release|Any CPU
 		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411DFED4-68C6-46F6-85C0-9490F4CFA40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,9 +24,5 @@ Global
 		{5C6A537B-6496-4859-9FD0-69212917D56B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C6A537B-6496-4859-9FD0-69212917D56B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C6A537B-6496-4859-9FD0-69212917D56B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F031B67-F98D-4B9C-9DF7-770E862245D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
