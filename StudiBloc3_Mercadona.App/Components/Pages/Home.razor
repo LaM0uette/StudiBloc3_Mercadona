@@ -58,6 +58,8 @@
 <div class="products-container">
     @foreach (var product in Products)
     {
+        var productCopy = product;
+        
         <div class="product-card">
 
             @if (product.Image is not null)
@@ -75,7 +77,7 @@
             <p>@product.Price</p>
             
             <div class="button-new-product-container">
-                <SfButton CssClass="button-new-product" @onclick="@OpenNewProductPromotionsPopup">Ajouter une promotion</SfButton>
+                <SfButton CssClass="button-new-product" @onclick="() => OpenNewProductPromotionsPopup(productCopy)">Ajouter une promotion</SfButton>
                 <style>
                     .button-new-product {
                         height: 40px;
@@ -105,7 +107,7 @@
                                     </ComboBoxTemplates>
                             </SfComboBox>
                         
-                            <button @onclick="HandlePromotionSubmit">Ajouter la promotion</button>
+                            <SfButton CssClass="button-new-product" @onclick="@AddPromotionToProduct">Ajouter une promotion</SfButton>
                         </div>
                     </Content>
                 </DialogTemplates>

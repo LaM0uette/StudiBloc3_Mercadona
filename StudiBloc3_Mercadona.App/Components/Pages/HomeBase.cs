@@ -10,7 +10,7 @@ namespace StudiBloc3_Mercadona.App.Components.Pages;
 public class HomeBase : ComponentBase
 {
     #region Statements
-    
+
     // Services
     [Inject] private ApiProductService ApiProductService { get; init; } = default!;
     [Inject] private ApiCategoryService ApiCategoryService { get; init; } = default!;
@@ -20,23 +20,25 @@ public class HomeBase : ComponentBase
     // Products
     protected List<Product> Products { get; private set; } = new();
     protected readonly Product NewProduct = new();
+    protected Product SelectedProduct = new();
     protected bool NewProductPopupIsVisible { get; set; }
-    
+
     // Categories
     protected List<Category> Categories { get; private set; } = new();
     protected SfComboBox<string, Category> SfComboBoxNewCategory = null!;
     private string? NewCategoryName { get; set; }
-    
+
     // Promotion
     protected List<Promotion> Promotions { get; private set; } = new();
     protected SfComboBox<int, Promotion> SfComboBoxNewPromotions = null!;
     private int NewPromotionsDiscount { get; set; }
-    
+
     // ProductPromotion
     protected List<ProductPromotion> ProductPromotions { get; private set; } = new();
     protected readonly Product NewProductPromotions = new();
+    protected int NewPromotionId;
     protected bool NewProductPromotionsPopupIsVisible { get; set; }
-    
+
     protected override async Task OnInitializedAsync()
     {
         Products = await ApiProductService.GetAllProductsAsync();
@@ -54,7 +56,7 @@ public class HomeBase : ComponentBase
         var base64String = Convert.ToBase64String(imageBytes);
         return $"data:image/jpeg;base64,{base64String}";
     }
-    
+
     protected async Task HandleFileSelect(UploadChangeEventArgs args)
     {
         var file = args.Files.FirstOrDefault();
@@ -75,7 +77,7 @@ public class HomeBase : ComponentBase
             }
         }
     }
-    
+
     protected async Task HandleSubmit()
     {
         var productToAdd = new Product
@@ -93,96 +95,113 @@ public class HomeBase : ComponentBase
         NewProduct.Image = null;
         CloseNewProductPopup();
     }
-    
-    protected async Task HandlePromotionSubmit()
+
+    protected async Task AddPromotionToProduct()
     {
-        var productToAdd = new Product
+        var existingProductPromotion =
+            ProductPromotions.FirstOrDefault(pp => pp.ProductId == SelectedProduct.Id); //  && pp.PromotionId == NewPromotionId
+
+        if (existingProductPromotion != null)
         {
-            CategoryId = NewProduct.CategoryId,
-            Name = NewProduct.Name,
-            Description = NewProduct.Description,
-            Price = NewProduct.Price,
-            Image = NewProduct.Image?.ToArray()
-        };
+            // Si elle existe déjà, vous pouvez choisir de la mettre à jour ou de ne rien faire.
+            // Pour mettre à jour, vous pouvez écrire un code pour mettre à jour la promotion existante dans la base de données.
+            // Exemple: existingProductPromotion.PromotionId = newPromotionId;
+            // await ApiProductPromotionService.UpdateProductPromotionAsync(existingProductPromotion);
+            // Cependant, comme vous ne voulez pas de doublons, vous ne feriez probablement rien ici.
+        }
+        else
+        {
+            var productPromotion = new ProductPromotion
+            {
+                ProductId = SelectedProduct.Id,
+                PromotionId = NewPromotionId
+            };
 
-        await ApiProductService.AddProductAsync(productToAdd);
-        Products.Add(productToAdd);
+            await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
+            ProductPromotions.Add(productPromotion);
+        }
 
-        NewProduct.Image = null;
         CloseNewProductPromotionsPopup();
     }
-    
+
     #endregion
 
     #region SyncFusion
-    
+
     protected void OnSfComboBoxCategoryChanged(string arg)
     {
         var categoryId = int.Parse(arg);
         NewProduct.CategoryId = categoryId;
     }
-    
+
     protected Task OnSfComboBoxCategoryFiltering(FilteringEventArgs args)
     {
         NewCategoryName = args.Text;
         args.PreventDefaultAction = true;
-        
-        var query = new Query().Where(new WhereFilter{ Field = "Name", Operator = "contains", value = args.Text, IgnoreCase = true });
+
+        var query = new Query().Where(new WhereFilter
+            {Field = "Name", Operator = "contains", value = args.Text, IgnoreCase = true});
         query = !string.IsNullOrEmpty(args.Text) ? query : new Query();
-        
+
         return SfComboBoxNewCategory.FilterAsync(Categories, query);
     }
-    
+
     protected async Task CreateNewCategory()
     {
         var customCategory = new Category
         {
             Id = Categories.Max(c => c.Id) + 1,
-            Name = NewCategoryName 
+            Name = NewCategoryName
         };
-        
+
         await ApiCategoryService.AddCategoryAsync(customCategory);
-        await SfComboBoxNewCategory.AddItemsAsync(new List<Category> { customCategory });
+        await SfComboBoxNewCategory.AddItemsAsync(new List<Category> {customCategory});
         Categories.Add(customCategory);
-        
+
         await SfComboBoxNewCategory.HidePopupAsync();
     }
-    
+
     protected void OnSfComboBoxPromotionChanged(int arg)
     {
-        Console.WriteLine(arg);
+        NewPromotionId = arg;
     }
-    
+
     protected Task OnSfComboBoxPromotionFiltering(FilteringEventArgs args)
     {
         NewPromotionsDiscount = Convert.ToInt32(args.Text);
         args.PreventDefaultAction = true;
-        
-        var query = new Query().Where(new WhereFilter{ Field = "DiscountPercentage", Operator = "contains", value = args.Text, IgnoreCase = true });
+
+        var query = new Query().Where(new WhereFilter
+            {Field = "DiscountPercentage", Operator = "contains", value = args.Text, IgnoreCase = true});
         query = !string.IsNullOrEmpty(args.Text) ? query : new Query();
-        
+
         return SfComboBoxNewPromotions.FilterAsync(Promotions, query);
     }
-    
+
     protected async Task CreateNewPromotion()
     {
         var customPromotion = new Promotion
         {
             Id = Promotions.Max(c => c.Id) + 1,
-            DiscountPercentage = NewPromotionsDiscount 
+            DiscountPercentage = NewPromotionsDiscount
         };
-        
+
         await ApiPromotionService.AddPromotionAsync(customPromotion);
-        await SfComboBoxNewPromotions.AddItemsAsync(new List<Promotion> { customPromotion });
+        await SfComboBoxNewPromotions.AddItemsAsync(new List<Promotion> {customPromotion});
         Promotions.Add(customPromotion);
-        
+
         await SfComboBoxNewCategory.HidePopupAsync();
     }
 
     protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
     private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
-    
-    protected void OpenNewProductPromotionsPopup() => NewProductPromotionsPopupIsVisible = true;
+
+    protected void OpenNewProductPromotionsPopup(Product product)
+    {
+        // Stockez le produit sélectionné dans une propriété afin de pouvoir l'utiliser plus tard pour ajouter la promotion
+        SelectedProduct = product;
+        NewProductPromotionsPopupIsVisible = true;
+    }
     private void CloseNewProductPromotionsPopup() => NewProductPromotionsPopupIsVisible = false;
 
     #endregion
