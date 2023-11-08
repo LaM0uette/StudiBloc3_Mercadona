@@ -98,16 +98,21 @@ public class HomeBase : ComponentBase
 
     protected async Task AddPromotionToProduct()
     {
-        var existingProductPromotion =
-            ProductPromotions.FirstOrDefault(pp => pp.ProductId == SelectedProduct.Id); //  && pp.PromotionId == NewPromotionId
+        var existingProductPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == SelectedProduct.Id);
 
         if (existingProductPromotion != null)
         {
-            // Si elle existe déjà, vous pouvez choisir de la mettre à jour ou de ne rien faire.
-            // Pour mettre à jour, vous pouvez écrire un code pour mettre à jour la promotion existante dans la base de données.
-            // Exemple: existingProductPromotion.PromotionId = newPromotionId;
-            // await ApiProductPromotionService.UpdateProductPromotionAsync(existingProductPromotion);
-            // Cependant, comme vous ne voulez pas de doublons, vous ne feriez probablement rien ici.
+            // TODO: Update product promotion
+            // var index = ProductPromotions.IndexOf(existingProductPromotion);
+            // var newProductPromotion = new ProductPromotion
+            // {
+            //     ProductId = SelectedProduct.Id,
+            //     PromotionId = NewPromotionId
+            // };
+            //
+            // ProductPromotions[index] = newProductPromotion;
+            //
+            // await ApiProductPromotionService.UpdateProductPromotionAsync(newProductPromotion);
         }
         else
         {
@@ -120,7 +125,7 @@ public class HomeBase : ComponentBase
             await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
             ProductPromotions.Add(productPromotion);
         }
-
+        
         CloseNewProductPromotionsPopup();
     }
 

@@ -16,6 +16,16 @@ public class ProductPromotionService(IRepository<ProductPromotion> productPromot
     {
         return productPromotionRepository.AddAsync(productPromotion);
     }
+    
+    public Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
+    {
+        return productPromotionRepository.UpdateAsync(productPromotion);
+    }
+    
+    public Task DeleteProductPromotionAsync(ProductPromotion productPromotion)
+    {
+        return productPromotionRepository.DeleteAsync(productPromotion);
+    }
 
     #endregion
 }

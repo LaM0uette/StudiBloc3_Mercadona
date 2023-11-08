@@ -19,9 +19,25 @@ public class ProductPromotionController(IProductPromotionService productPromotio
 
     [HttpPost]
     [Route("Add")]
-    public IActionResult Add(ProductPromotion productPromotion)
+    public async Task<IActionResult> Add(ProductPromotion productPromotion)
     {
-        productPromotionService.AddProductPromotionAsync(productPromotion);
+        await productPromotionService.AddProductPromotionAsync(productPromotion);
+        return Ok();
+    }
+
+    [HttpPut]
+    [Route("Update")]
+    public async Task<IActionResult> Update(ProductPromotion productPromotion)
+    {
+        await productPromotionService.UpdateProductPromotionAsync(productPromotion);
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("Delete")]
+    public async Task<IActionResult> Delete(ProductPromotion productPromotion)
+    {
+        await productPromotionService.DeleteProductPromotionAsync(productPromotion);
         return Ok();
     }
     

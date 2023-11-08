@@ -19,4 +19,16 @@ public class ApiProductPromotionService(HttpClient httpClient)
         var response = await httpClient.PostAsJsonAsync("/api/ProductPromotion/ProductPromotion/Add", productPromotion);
         response.EnsureSuccessStatusCode();
     }
+    
+    public async Task UpdateProductPromotionAsync(ProductPromotion productPromotion)
+    {
+        var response = await httpClient.PutAsJsonAsync("/api/ProductPromotion/ProductPromotion/Update", productPromotion);
+        response.EnsureSuccessStatusCode();
+    }
+    
+    public async Task DeleteProductPromotionAsync(ProductPromotion productPromotion)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/ProductPromotion/ProductPromotion/Delete", productPromotion);
+        response.EnsureSuccessStatusCode();
+    }
 }
