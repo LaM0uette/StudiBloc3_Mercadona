@@ -25,5 +25,13 @@ public class ProductController(IProductService productService) : ControllerBase
         return Ok();
     }
     
+    [HttpPost]
+    [Route("AddTest")]
+    public async Task<ActionResult<Product>> AddTest(Product product)
+    {
+        await productService.AddProductTestAsync(product);
+        return Ok(product);
+    }
+    
     #endregion
 }

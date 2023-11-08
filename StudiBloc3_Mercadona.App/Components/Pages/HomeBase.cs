@@ -81,7 +81,6 @@ public class HomeBase : ComponentBase
     {
         var productToAdd = new Product
         {
-            Id = Products.Max(c => c.Id) + 1,
             CategoryId = NewProduct.CategoryId,
             Name = NewProduct.Name,
             Description = NewProduct.Description,
@@ -89,11 +88,15 @@ public class HomeBase : ComponentBase
             Image = NewProduct.Image?.ToArray()
         };
 
-        await ApiProductService.AddProductAsync(productToAdd);
-        Products.Add(productToAdd);
+        var addedProduct = await ApiProductService.AddProductTestAsync(productToAdd);
+        if (addedProduct != null)
+        {
+            Products.Add(addedProduct); 
+        }
 
         NewProduct.Image = null;
         CloseNewProductPopup();
+        StateHasChanged();
     }
 
     protected async Task AddPromotionToProduct()

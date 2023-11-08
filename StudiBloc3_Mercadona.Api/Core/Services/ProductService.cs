@@ -16,6 +16,12 @@ public class ProductService(IRepository<Product> productRepository) : IProductSe
     {
         return productRepository.AddAsync(product);
     }
+    
+    public async Task<Product> AddProductTestAsync(Product product)
+    {
+        await productRepository.AddAsync(product);
+        return product; 
+    }
 
     #endregion
 }

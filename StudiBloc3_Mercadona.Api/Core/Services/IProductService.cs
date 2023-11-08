@@ -6,4 +6,5 @@ public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllProductsAsync();
     Task AddProductAsync(Product product);
+    Task<Product> AddProductTestAsync(Product product);
 }
