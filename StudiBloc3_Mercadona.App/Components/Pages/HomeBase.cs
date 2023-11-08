@@ -30,13 +30,12 @@ public class HomeBase : ComponentBase
 
     // Promotion
     protected List<Promotion> Promotions { get; private set; } = new();
+    protected readonly Product NewPromotion = new();
     protected SfComboBox<int, Promotion> SfComboBoxNewPromotions = null!;
     private int NewPromotionsDiscount { get; set; }
 
     // ProductPromotion
     protected List<ProductPromotion> ProductPromotions { get; private set; } = new();
-    protected readonly Product NewProductPromotions = new();
-    protected int NewPromotionId;
     protected bool NewProductPromotionsPopupIsVisible { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -119,7 +118,7 @@ public class HomeBase : ComponentBase
             var productPromotion = new ProductPromotion
             {
                 ProductId = SelectedProduct.Id,
-                PromotionId = NewPromotionId
+                PromotionId = NewPromotion.Id
             };
 
             await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
@@ -133,6 +132,7 @@ public class HomeBase : ComponentBase
 
     #region SyncFusion
 
+    // Category
     protected void OnSfComboBoxCategoryChanged(string arg)
     {
         var categoryId = int.Parse(arg);
@@ -166,9 +166,13 @@ public class HomeBase : ComponentBase
         await SfComboBoxNewCategory.HidePopupAsync();
     }
 
+    protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
+    private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
+
+    // Promotion
     protected void OnSfComboBoxPromotionChanged(int arg)
     {
-        NewPromotionId = arg;
+        NewPromotion.Id = arg;
     }
 
     protected Task OnSfComboBoxPromotionFiltering(FilteringEventArgs args)
@@ -195,12 +199,9 @@ public class HomeBase : ComponentBase
         await SfComboBoxNewPromotions.AddItemsAsync(new List<Promotion> {customPromotion});
         Promotions.Add(customPromotion);
 
-        await SfComboBoxNewCategory.HidePopupAsync();
+        await SfComboBoxNewPromotions.HidePopupAsync();
     }
-
-    protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
-    private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
-
+    
     protected void OpenNewProductPromotionsPopup(Product product)
     {
         // Stockez le produit sélectionné dans une propriété afin de pouvoir l'utiliser plus tard pour ajouter la promotion
