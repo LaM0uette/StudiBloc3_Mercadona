@@ -127,6 +127,13 @@ public class HomeBase : ComponentBase
         
         CloseNewProductPromotionsPopup();
     }
+    
+    protected Promotion GetPromotionForProduct(int productId)
+    {
+        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == productId);
+        return productPromotion != null ? Promotions.FirstOrDefault(p => p.Id == productPromotion.PromotionId) : null;
+    }
+
 
     #endregion
 

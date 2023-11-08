@@ -26,29 +26,29 @@
 <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
     <DialogTemplates>
         <Header> Ajouter un produit </Header>
-        <Content> 
+        <Content>
             <div class="new-product-popup-content">
                 <SfComboBox @ref="@SfComboBoxNewCategory" TValue="string" TItem="Category" Placeholder="Select a category" DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged" AllowCustom="true" AllowFiltering="true">
                     <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
                     <ComboBoxEvents TValue="string" Filtering="@OnSfComboBoxCategoryFiltering" TItem="Category"></ComboBoxEvents>
-                        <ComboBoxTemplates TItem="Category">
-                            <NoRecordsTemplate>
-                                <div>
-                                    <div id="nodata">Catégorie inconnue, voulez vous la créer ?</div>
-                                    <SfButton id="btn" class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewCategory">Créer</SfButton>
-                                </div>
-                            </NoRecordsTemplate>
-                        </ComboBoxTemplates>
+                    <ComboBoxTemplates TItem="Category">
+                        <NoRecordsTemplate>
+                            <div>
+                                <div id="nodata">Catégorie inconnue, voulez vous la créer ?</div>
+                                <SfButton id="btn" class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewCategory">Créer</SfButton>
+                            </div>
+                        </NoRecordsTemplate>
+                    </ComboBoxTemplates>
                 </SfComboBox>
-            
+
                 <SfTextBox Placeholder="Name" @bind-Value="@NewProduct.Name"></SfTextBox>
                 <SfTextBox Placeholder="Description" @bind-Value="@NewProduct.Description"></SfTextBox>
                 <SfNumericTextBox TValue="float" Placeholder="Price" @bind-Value="@NewProduct.Price"></SfNumericTextBox>
-            
+
                 <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
                     <UploaderEvents ValueChange="@HandleFileSelect"></UploaderEvents>
                 </SfUploader>
-            
+
                 <button @onclick="HandleSubmit">Add Product</button>
             </div>
         </Content>
@@ -59,7 +59,8 @@
     @foreach (var product in Products)
     {
         var productCopy = product;
-        
+        var promotion = GetPromotionForProduct(product.Id);
+
         <div class="product-card">
 
             @if (product.Image is not null)
@@ -74,8 +75,17 @@
             <h3>@product.Name</h3>
             <p>@product.Description</p>
             <p>@product.CategoryId</p>
-            <p>@product.Price</p>
-            
+            <p>@product.Price€</p>
+
+            @if (promotion != null)
+            {
+                <p>Promotion: @promotion.DiscountPercentage % off</p>
+            }
+            else
+            {
+                <p>Pas de promotion actuellement</p>
+            }
+
             <div class="button-new-product-container">
                 <SfButton CssClass="button-new-product" @onclick="() => OpenNewProductPromotionsPopup(productCopy)">Ajouter une promotion</SfButton>
                 <style>
@@ -88,25 +98,25 @@
                     }
                 </style>
             </div>
-            
+
             <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPromotionsPopupIsVisible">
                 <DialogTemplates>
                     <Header> Ajouter une promotion </Header>
-                    <Content> 
+                    <Content>
                         <div class="new-product-popup-content">
                             <SfComboBox @ref="@SfComboBoxNewPromotions" TValue="int" TItem="Promotion" Placeholder="Select a promotion" DataSource="@Promotions" ValueChanged="OnSfComboBoxPromotionChanged" AllowCustom="true" AllowFiltering="true">
                                 <ComboBoxFieldSettings Value="Id" Text="DiscountPercentage"></ComboBoxFieldSettings>
                                 <ComboBoxEvents TValue="int" Filtering="@OnSfComboBoxPromotionFiltering" TItem="Promotion"></ComboBoxEvents>
-                                    <ComboBoxTemplates TItem="Promotion">
-                                        <NoRecordsTemplate>
-                                            <div>
-                                                <div id="nodata">Promotion inconnue, voulez vous la créer ?</div>
-                                                <SfButton id="btn" class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewPromotion">Créer</SfButton>
-                                            </div>
-                                        </NoRecordsTemplate>
-                                    </ComboBoxTemplates>
+                                <ComboBoxTemplates TItem="Promotion">
+                                    <NoRecordsTemplate>
+                                        <div>
+                                            <div id="nodata">Promotion inconnue, voulez vous la créer ?</div>
+                                            <SfButton id="btn" class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewPromotion">Créer</SfButton>
+                                        </div>
+                                    </NoRecordsTemplate>
+                                </ComboBoxTemplates>
                             </SfComboBox>
-                        
+
                             <SfButton CssClass="button-new-product" @onclick="@AddPromotionToProduct">Ajouter une promotion</SfButton>
                         </div>
                     </Content>
