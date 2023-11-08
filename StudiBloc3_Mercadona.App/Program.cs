@@ -15,5 +15,7 @@ builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7173")});
 builder.Services.AddScoped<ApiProductService>();
 builder.Services.AddScoped<ApiCategoryService>();
+builder.Services.AddScoped<ApiPromotionService>();
+builder.Services.AddScoped<ApiProductPromotionService>();
 
 await builder.Build().RunAsync();

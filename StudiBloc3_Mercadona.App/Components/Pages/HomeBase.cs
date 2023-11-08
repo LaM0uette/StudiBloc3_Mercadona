@@ -14,6 +14,8 @@ public class HomeBase : ComponentBase
     // Services
     [Inject] private ApiProductService ApiProductService { get; init; } = default!;
     [Inject] private ApiCategoryService ApiCategoryService { get; init; } = default!;
+    [Inject] private ApiPromotionService ApiPromotionService { get; init; } = default!;
+    [Inject] private ApiProductPromotionService ApiProductPromotionService { get; init; } = default!;
 
     // Products
     protected List<Product> Products { get; private set; } = new();
@@ -25,10 +27,22 @@ public class HomeBase : ComponentBase
     protected SfComboBox<string, Category> SfComboBoxNewCategory = null!;
     private string? NewCategoryName { get; set; }
     
+    // Promotion
+    protected List<Promotion> Promotions { get; private set; } = new();
+    protected SfComboBox<int, Promotion> SfComboBoxNewPromotions = null!;
+    private int NewPromotionsDiscount { get; set; }
+    
+    // ProductPromotion
+    protected List<ProductPromotion> ProductPromotions { get; private set; } = new();
+    protected readonly Product NewProductPromotions = new();
+    protected bool NewProductPromotionsPopupIsVisible { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         Products = await ApiProductService.GetAllProductsAsync();
         Categories = await ApiCategoryService.GetAllCategoriesAsync();
+        Promotions = await ApiPromotionService.GetAllPromotionsAsync();
+        ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
     }
 
     #endregion
@@ -80,13 +94,30 @@ public class HomeBase : ComponentBase
         CloseNewProductPopup();
     }
     
+    protected async Task HandlePromotionSubmit()
+    {
+        var productToAdd = new Product
+        {
+            CategoryId = NewProduct.CategoryId,
+            Name = NewProduct.Name,
+            Description = NewProduct.Description,
+            Price = NewProduct.Price,
+            Image = NewProduct.Image?.ToArray()
+        };
+
+        await ApiProductService.AddProductAsync(productToAdd);
+        Products.Add(productToAdd);
+
+        NewProduct.Image = null;
+        CloseNewProductPromotionsPopup();
+    }
+    
     #endregion
 
     #region SyncFusion
     
     protected void OnSfComboBoxCategoryChanged(string arg)
     {
-        Console.WriteLine(arg);
         var categoryId = int.Parse(arg);
         NewProduct.CategoryId = categoryId;
     }
@@ -116,13 +147,43 @@ public class HomeBase : ComponentBase
         
         await SfComboBoxNewCategory.HidePopupAsync();
     }
+    
+    protected void OnSfComboBoxPromotionChanged(int arg)
+    {
+        Console.WriteLine(arg);
+    }
+    
+    protected Task OnSfComboBoxPromotionFiltering(FilteringEventArgs args)
+    {
+        NewPromotionsDiscount = Convert.ToInt32(args.Text);
+        args.PreventDefaultAction = true;
+        
+        var query = new Query().Where(new WhereFilter{ Field = "DiscountPercentage", Operator = "contains", value = args.Text, IgnoreCase = true });
+        query = !string.IsNullOrEmpty(args.Text) ? query : new Query();
+        
+        return SfComboBoxNewPromotions.FilterAsync(Promotions, query);
+    }
+    
+    protected async Task CreateNewPromotion()
+    {
+        var customPromotion = new Promotion
+        {
+            Id = Promotions.Max(c => c.Id) + 1,
+            DiscountPercentage = NewPromotionsDiscount 
+        };
+        
+        await ApiPromotionService.AddPromotionAsync(customPromotion);
+        await SfComboBoxNewPromotions.AddItemsAsync(new List<Promotion> { customPromotion });
+        Promotions.Add(customPromotion);
+        
+        await SfComboBoxNewCategory.HidePopupAsync();
+    }
 
     protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
     private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
+    
+    protected void OpenNewProductPromotionsPopup() => NewProductPromotionsPopupIsVisible = true;
+    private void CloseNewProductPromotionsPopup() => NewProductPromotionsPopupIsVisible = false;
 
     #endregion
-    
-    
-    
-    
 }
