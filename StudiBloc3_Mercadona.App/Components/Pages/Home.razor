@@ -88,6 +88,7 @@
             <p>@product.Description</p>
             <p>@categoryName</p>
 
+            @* TODO: afficher le prix en gras et rouge s'il est en promotion *@
             @if (discountedPrice is not null)
             {
                 <p>Prix : @discountedPrice.Value.originalPrice €</p>
