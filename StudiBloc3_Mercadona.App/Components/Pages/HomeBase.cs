@@ -71,6 +71,12 @@ public class HomeBase : ComponentBase
         
         return (product.Price, discountedPrice);
     }
+    
+    protected string GetProductCategoryName(Product product)
+    {
+        var category = Categories.FirstOrDefault(c => c.Id == product.CategoryId);
+        return category?.Name ?? "Unknown";
+    }
 
     #endregion
 

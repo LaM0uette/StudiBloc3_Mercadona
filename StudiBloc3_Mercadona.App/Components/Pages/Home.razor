@@ -70,6 +70,7 @@
     @foreach (var product in Products)
     {
         var productInstance = product;
+        var categoryName = GetProductCategoryName(product);
         var discountedPrice = CalculateDiscountedPrice(product);
 
         <div class="product-card">
@@ -85,8 +86,7 @@
 
             <h3>@product.Name</h3>
             <p>@product.Description</p>
-            @* TODO: display category name instead of id *@
-            <p>@product.CategoryId</p>
+            <p>@categoryName</p>
 
             @if (discountedPrice is not null)
             {
