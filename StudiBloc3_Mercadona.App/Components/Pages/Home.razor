@@ -93,7 +93,7 @@
                 <p>Prix : @discountedPrice.Value.originalPrice €</p>
                 <p>Promotion : @((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100) % off</p>
                 <p>Nouveau prix : @discountedPrice.Value.discountedPrice €</p>
-                                                                         
+
                 @* Button for showing popup of editing product promotion creation *@
                 <div class="button-new-item___container">
                     <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Modifier la promotion</SfButton>
@@ -102,14 +102,14 @@
             else
             {
                 <p>Prix : @product.Price €</p>
-                                         
+
                 @* Button for showing popup of new product promotion creation *@
                 <div class="button-new-item___container">
                     <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Ajouter une promotion</SfButton>
                 </div>
             }
 
-            @* New product promotion ___________________________ *@
+            @* Product promotion ___________________________ *@
             <div>
 
                 @* Dialog for creating a new product promotion *@
@@ -144,7 +144,7 @@
                         </Content>
                     </DialogTemplates>
                 </SfDialog>
-                
+
             </div>
 
         </div>
