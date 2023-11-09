@@ -109,46 +109,47 @@
                 </div>
             }
 
-            @* Product promotion ___________________________ *@
-            <div>
-
-                @* Dialog for creating a new product promotion *@
-                <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPromotionsPopupIsVisible">
-                    <DialogTemplates>
-
-                        <Header> Ajouter une promotion </Header>
-
-                        <Content>
-                            <div class="sfpopup-content">
-
-                                <SfComboBox @ref="@SfComboBoxNewPromotion" TValue="int" TItem="Promotion"
-                                            Placeholder="Choisir une promotion..." DataSource="@Promotions" ValueChanged="OnSfComboBoxPromotionChanged"
-                                            AllowCustom="true" AllowFiltering="true">
-                                    <ComboBoxFieldSettings Value="Id" Text="DiscountPercentage"></ComboBoxFieldSettings>
-                                    <ComboBoxEvents TValue="int" Filtering="@OnSfComboBoxPromotionFiltering" TItem="Promotion"></ComboBoxEvents>
-                                    <ComboBoxTemplates TItem="Promotion">
-                                        <NoRecordsTemplate>
-
-                                            <div>
-                                                <div>Promotion non trouvée, voulez-vous la créer ?</div>
-                                                <SfButton class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewPromotion">Créer</SfButton>
-                                            </div>
-
-                                        </NoRecordsTemplate>
-                                    </ComboBoxTemplates>
-                                </SfComboBox>
-
-                                <SfButton @onclick="@NewProductPromotionSubmit">Ajouter la promotion</SfButton>
-
-                            </div>
-                        </Content>
-                    </DialogTemplates>
-                </SfDialog>
-
-            </div>
-
         </div>
     }
+    
+</div>
+
+@* Product promotion ___________________________ *@
+<div>
+
+    @* Dialog for creating a new product promotion *@
+    <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPromotionsPopupIsVisible">
+        <DialogTemplates>
+
+            <Header> Ajouter une promotion </Header>
+
+            <Content>
+                <div class="sfpopup-content">
+
+                    <SfComboBox @ref="@SfComboBoxNewPromotion" TValue="int" TItem="Promotion"
+                                Placeholder="Choisir une promotion..." DataSource="@Promotions" ValueChanged="OnSfComboBoxPromotionChanged"
+                                AllowCustom="true" AllowFiltering="true">
+                        <ComboBoxFieldSettings Value="Id" Text="DiscountPercentage"></ComboBoxFieldSettings>
+                        <ComboBoxEvents TValue="int" Filtering="@OnSfComboBoxPromotionFiltering" TItem="Promotion"></ComboBoxEvents>
+                        <ComboBoxTemplates TItem="Promotion">
+                            <NoRecordsTemplate>
+
+                                <div>
+                                    <div>Promotion non trouvée, voulez-vous la créer ?</div>
+                                    <SfButton class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewPromotion">Créer</SfButton>
+                                </div>
+
+                            </NoRecordsTemplate>
+                        </ComboBoxTemplates>
+                    </SfComboBox>
+
+                    <SfButton @onclick="@NewProductPromotionSubmit">Ajouter la promotion</SfButton>
+
+                </div>
+            </Content>
+        </DialogTemplates>
+    </SfDialog>
+
 </div>
 
 <style>
