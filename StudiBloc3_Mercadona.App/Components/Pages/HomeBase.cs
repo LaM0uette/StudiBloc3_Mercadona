@@ -34,12 +34,11 @@ public class HomeBase : ComponentBase
 
     // Promotion
     protected List<Promotion> Promotions { get; private set; } = new();
-    protected readonly Product NewPromotion = new();
-    private int NewPromotionsDiscount { get; set; }
+    private readonly Product NewPromotion = new();
 
     // ProductPromotion
-    protected List<ProductPromotion> ProductPromotions { get; private set; } = new();
-    
+    private List<ProductPromotion> ProductPromotions { get; set; } = new();
+    private int NewPromotionsDiscount { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,7 +52,7 @@ public class HomeBase : ComponentBase
 
     #region Functions
 
-    protected static string ImageDataUrl(byte[] imageBytes)
+    protected static string ImageBytesToImageDataUrl(byte[] imageBytes)
     {
         var base64String = Convert.ToBase64String(imageBytes);
         return $"data:image/jpeg;base64,{base64String}";
@@ -62,17 +61,15 @@ public class HomeBase : ComponentBase
     protected (float originalPrice, float discountedPrice)? CalculateDiscountedPrice(Product product)
     {
         var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id);
-        if (productPromotion != null)
-        {
-            var promotion = Promotions.FirstOrDefault(p => p.Id == productPromotion.PromotionId);
-            if (promotion != null)
-            {
-                var discountMultiplier = (100 - promotion.DiscountPercentage) / 100.0f;
-                var discountedPrice = product.Price * discountMultiplier;
-                return (product.Price, discountedPrice);
-            }
-        }
-        return null;
+        if (productPromotion is null) return null;
+        
+        var promotion = Promotions.FirstOrDefault(p => p.Id == productPromotion.PromotionId);
+        if (promotion is null) return null;
+        
+        var discountMultiplier = (100 - promotion.DiscountPercentage) / 100f;
+        var discountedPrice = product.Price * discountMultiplier;
+        
+        return (product.Price, discountedPrice);
     }
 
     #endregion
@@ -84,13 +81,16 @@ public class HomeBase : ComponentBase
     protected async Task OnSfUploaderNewProductImageChanged(UploadChangeEventArgs args)
     {
         var file = args.Files.FirstOrDefault();
+        
         if (file is not null)
         {
             try
             {
                 await using var stream = file.File.OpenReadStream(long.MaxValue);
+                
                 var ms = new MemoryStream();
                 await stream.CopyToAsync(ms);
+                
                 ms.Position = 0;
                 NewProduct.Image = ms.ToArray();
             }
@@ -104,7 +104,7 @@ public class HomeBase : ComponentBase
     
     protected async Task NewProductSubmit()
     {
-        var productToAdd = new Product
+        var newProduct = new Product
         {
             CategoryId = NewProduct.CategoryId,
             Name = NewProduct.Name,
@@ -113,7 +113,7 @@ public class HomeBase : ComponentBase
             Image = NewProduct.Image?.ToArray()
         };
 
-        var addedProduct = await ApiProductService.AddProductAsync(productToAdd);
+        var addedProduct = await ApiProductService.AddProductAsync(newProduct);
         if (addedProduct != null)
         {
             Products.Add(addedProduct); 
@@ -123,10 +123,16 @@ public class HomeBase : ComponentBase
         CloseNewProductPopup();
         StateHasChanged();
     }
-    
-    protected void OpenNewProductPopup() => NewProductPopupIsVisible = true;
-    
-    private void CloseNewProductPopup() => NewProductPopupIsVisible = false;
+
+    protected void OpenNewProductPopup()
+    {
+        NewProductPopupIsVisible = true;
+    }
+
+    private void CloseNewProductPopup()
+    {
+        NewProductPopupIsVisible = false;
+    }
 
     #endregion
 
@@ -143,8 +149,7 @@ public class HomeBase : ComponentBase
         NewCategoryName = args.Text;
         args.PreventDefaultAction = true;
 
-        var query = new Query().Where(new WhereFilter
-            {Field = "Name", Operator = "contains", value = args.Text, IgnoreCase = true});
+        var query = new Query().Where(new WhereFilter{Field = "Name", Operator = "contains", value = args.Text, IgnoreCase = true});
         query = !string.IsNullOrEmpty(args.Text) ? query : new Query();
 
         return SfComboBoxNewCategory.FilterAsync(Categories, query);
@@ -152,12 +157,12 @@ public class HomeBase : ComponentBase
     
     protected async Task CreateNewCategory()
     {
-        var customCategory = new Category
+        var newCategory = new Category
         {
             Name = NewCategoryName
         };
         
-        var addedCategory = await ApiCategoryService.AddCategoryAsync(customCategory);
+        var addedCategory = await ApiCategoryService.AddCategoryAsync(newCategory);
         if (addedCategory != null)
         {
             await SfComboBoxNewCategory.AddItemsAsync(new List<Category> {addedCategory});
@@ -182,8 +187,7 @@ public class HomeBase : ComponentBase
         NewPromotionsDiscount = Convert.ToInt32(args.Text);
         args.PreventDefaultAction = true;
 
-        var query = new Query().Where(new WhereFilter
-            {Field = "DiscountPercentage", Operator = "contains", value = args.Text, IgnoreCase = true});
+        var query = new Query().Where(new WhereFilter{Field = "DiscountPercentage", Operator = "contains", value = args.Text, IgnoreCase = true});
         query = !string.IsNullOrEmpty(args.Text) ? query : new Query();
 
         return SfComboBoxNewPromotion.FilterAsync(Promotions, query);
@@ -191,12 +195,12 @@ public class HomeBase : ComponentBase
     
     protected async Task CreateNewPromotion()
     {
-        var customPromotion = new Promotion
+        var newPromotion = new Promotion
         {
             DiscountPercentage = NewPromotionsDiscount
         };
         
-        var addedPromotion = await ApiPromotionService.AddPromotionAsync(customPromotion);
+        var addedPromotion = await ApiPromotionService.AddPromotionAsync(newPromotion);
         if (addedPromotion != null)
         {
             await SfComboBoxNewPromotion.AddItemsAsync(new List<Promotion> {addedPromotion});
@@ -212,8 +216,11 @@ public class HomeBase : ComponentBase
         SelectedProduct = product;
         NewProductPromotionsPopupIsVisible = true;
     }
-    
-    private void CloseNewProductPromotionsPopup() => NewProductPromotionsPopupIsVisible = false;
+
+    private void CloseNewProductPromotionsPopup()
+    {
+        NewProductPromotionsPopupIsVisible = false;
+    }
 
     #endregion
 
@@ -223,29 +230,29 @@ public class HomeBase : ComponentBase
     {
         var existingProductPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == SelectedProduct.Id);
 
-        if (existingProductPromotion != null)
+        if (existingProductPromotion is not null)
         {
-            // TODO: Update product promotion
-            // var index = ProductPromotions.IndexOf(existingProductPromotion);
-            // var newProductPromotion = new ProductPromotion
-            // {
-            //     ProductId = SelectedProduct.Id,
-            //     PromotionId = NewPromotionId
-            // };
-            //
-            // ProductPromotions[index] = newProductPromotion;
-            //
-            // await ApiProductPromotionService.UpdateProductPromotionAsync(newProductPromotion);
+            var newProductPromotion = new ProductPromotion
+            {
+                Id = existingProductPromotion.Id,
+                ProductId = existingProductPromotion.ProductId,
+                PromotionId = NewPromotion.Id
+            };
+            
+            var index = ProductPromotions.IndexOf(existingProductPromotion);
+            ProductPromotions[index] = newProductPromotion;
+            
+            await ApiProductPromotionService.UpdateProductPromotionAsync(newProductPromotion);
         }
         else
         {
-            var productPromotion = new ProductPromotion
+            var newProductPromotion = new ProductPromotion
             {
                 ProductId = SelectedProduct.Id,
                 PromotionId = NewPromotion.Id
             };
             
-            var addedPromotion = await ApiProductPromotionService.AddProductPromotionAsync(productPromotion);
+            var addedPromotion = await ApiProductPromotionService.AddProductPromotionAsync(newProductPromotion);
             if (addedPromotion != null)
             {
                 ProductPromotions.Add(addedPromotion);
