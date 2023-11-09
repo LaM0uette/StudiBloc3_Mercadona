@@ -84,35 +84,44 @@
                 <img class="product-image" src="Resources/Img/null.png" alt="null image"/>
             }
 
-            <h3>@product.Name</h3>
-            <p>@product.Description</p>
-            <p>@categoryName</p>
+            <div class="product-name">
+                <h3>@product.Name</h3>
+                <p>&nbsp;-&nbsp;@categoryName</p>
+            </div>
+            
+            <p class="product-description">@product.Description</p>
+            
+            <div class="product-card___info">
+                
+                @if (discountedPrice is not null)
+                {
+                    <div class="new-product-pricing">
+                        <p class="new-product-price">@discountedPrice.Value.discountedPrice€</p>
+                        <p class="old-product-price">@product.Price€</p>
+                        <div class="discount-value">
+                            <p>-@((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100)%</p>
+                        </div>
+                    </div>
 
-            @* TODO: afficher le prix en gras et rouge s'il est en promotion *@
-            @if (discountedPrice is not null)
-            {
-                <p>Prix : @discountedPrice.Value.originalPrice €</p>
-                <p>Promotion : @((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100) % off</p>
-                <p>Nouveau prix : @discountedPrice.Value.discountedPrice €</p>
+                    @* Button for showing popup of editing product promotion creation *@
+                    <div class="button-new-item___container">
+                        <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Modifier la promotion</SfButton>
+                    </div>
+                }
+                else
+                {
+                    <p class="product-price">@product.Price€</p>
 
-                @* Button for showing popup of editing product promotion creation *@
-                <div class="button-new-item___container">
-                    <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Modifier la promotion</SfButton>
-                </div>
-            }
-            else
-            {
-                <p>Prix : @product.Price €</p>
-
-                @* Button for showing popup of new product promotion creation *@
-                <div class="button-new-item___container">
-                    <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Ajouter une promotion</SfButton>
-                </div>
-            }
+                    @* Button for showing popup of new product promotion creation *@
+                    <div class="button-new-item___container">
+                        <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Ajouter une promotion</SfButton>
+                    </div>
+                }
+            </div>
 
         </div>
     }
-    
+
 </div>
 
 @* Product promotion ___________________________ *@
