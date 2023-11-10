@@ -24,7 +24,7 @@ public class HomeBase : ComponentBase
     protected bool NewProductPromotionsPopupIsVisible { get; set; }
 
     // Products
-    protected List<Product> Products { get; private set; } = new();
+    private List<Product> Products { get; set; } = new();
     protected readonly Product NewProduct = new();
     private Product SelectedProduct = new();
     
