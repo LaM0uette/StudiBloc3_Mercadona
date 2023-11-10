@@ -45,9 +45,12 @@ public class HomeBase : ComponentBase
 
     // ProductPromotion
     private List<ProductPromotion> ProductPromotions { get; set; } = new();
-    private int NewPromotionsDiscount { get; set; }
-    protected DateTime NewProductPromotionStartDate { get; set; } = DateTime.Today;
-    protected DateTime NewProductPromotionEndDate { get; set; } = DateTime.Today.AddDays(7);
+    protected ProductPromotion NewProductPromotion { get; set; } = new()
+    {
+        StartDate = DateTime.Today,
+        EndDate = DateTime.Today.AddDays(7)
+    };
+    private int CustomPromotionsDiscount { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -211,7 +214,7 @@ public class HomeBase : ComponentBase
     
     protected Task OnSfComboBoxPromotionFiltering(FilteringEventArgs args)
     {
-        NewPromotionsDiscount = Convert.ToInt32(args.Text);
+        CustomPromotionsDiscount = Convert.ToInt32(args.Text);
         args.PreventDefaultAction = true;
 
         var query = new Query().Where(new WhereFilter{Field = "DiscountPercentage", Operator = "contains", value = args.Text, IgnoreCase = true});
@@ -224,7 +227,7 @@ public class HomeBase : ComponentBase
     {
         var newPromotion = new Promotion
         {
-            DiscountPercentage = NewPromotionsDiscount
+            DiscountPercentage = CustomPromotionsDiscount
         };
         
         var addedPromotion = await ApiPromotionService.AddPromotionAsync(newPromotion);
@@ -256,15 +259,17 @@ public class HomeBase : ComponentBase
     protected async Task NewProductPromotionSubmit()
     {
         var existingProductPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == SelectedProduct.Id);
-
+        var utcStartDate = DateTime.SpecifyKind(NewProductPromotion.StartDate, DateTimeKind.Utc);
+        var utcEndDate = DateTime.SpecifyKind(NewProductPromotion.EndDate, DateTimeKind.Utc);
+        
         if (existingProductPromotion is not null)
         {
             var newProductPromotion = new ProductPromotion
             {
                 Id = existingProductPromotion.Id,
                 ProductId = existingProductPromotion.ProductId,
-                StartDate = existingProductPromotion.StartDate,
-                EndDate = existingProductPromotion.EndDate,
+                StartDate = utcStartDate,
+                EndDate = utcEndDate,
                 PromotionId = NewPromotion.Id
             };
             
@@ -275,9 +280,6 @@ public class HomeBase : ComponentBase
         }
         else
         {
-            var utcStartDate = DateTime.SpecifyKind(NewProductPromotionStartDate, DateTimeKind.Utc);
-            var utcEndDate = DateTime.SpecifyKind(NewProductPromotionEndDate, DateTimeKind.Utc);
-
             var newProductPromotion = new ProductPromotion
             {
                 ProductId = SelectedProduct.Id,

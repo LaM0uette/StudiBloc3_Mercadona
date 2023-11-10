@@ -8,6 +8,6 @@ public class ProductPromotion
     public int Id { get; set; }
     public int ProductId { get; set; }
     public int PromotionId { get; set; }
-    public DateTime? StartDate { get; set; }
-    public DateTime? EndDate { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
 }

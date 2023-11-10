@@ -157,9 +157,9 @@
                         </ComboBoxTemplates>
                     </SfComboBox>
 
-                    <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotionStartDate" Min="@DateTime.Today"></SfDatePicker>
+                    <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotion.StartDate" Min="@DateTime.Today"></SfDatePicker>
                     
-                    <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotionEndDate" Min="@DateTime.Today"></SfDatePicker>
+                    <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotion.EndDate" Min="@DateTime.Today"></SfDatePicker>
                     
                     <SfButton @onclick="@NewProductPromotionSubmit">Ajouter la promotion</SfButton>
 
