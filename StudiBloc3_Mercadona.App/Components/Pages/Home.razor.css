@@ -15,6 +15,12 @@ h1 {
     padding: 0;
 }
 
+.header-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 
 /* SyncFusion ____________________________ */
 .sfpopup-content {
@@ -28,9 +34,7 @@ h1 {
 
 /* New product ___________________________ */
 .button-new-item___container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: 15px;
 }
 
 

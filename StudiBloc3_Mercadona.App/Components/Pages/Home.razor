@@ -9,63 +9,25 @@
 </h1>
 
 @* New product ___________________________ *@
-<div>
+<div class="header-bar">
+    
+    @* Filter by Category *@
+    <SfComboBox Width="17%" TItem="Category" TValue="string" DataSource="@Categories" Placeholder="Sélectionner une catégorie"
+                AllowCustom="false" AllowFiltering="false" ValueChanged="OnSfComboBoxSelectCategoryChanged">
+        <ComboBoxFieldSettings Text="Name" Value="Id"></ComboBoxFieldSettings>
+    </SfComboBox>
+    
+    <div style="margin: 0 15px 0 15px"></div>
 
     @* Button for showing popup of new product creation *@
-    <div class="button-new-item___container">
-        <SfButton CssClass="button-new-item" @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
-    </div>
-
-    @* Dialog for creating a new product *@
-    <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
-        <DialogTemplates>
-
-            <Header> Ajouter un produit </Header>
-
-            <Content>
-                <div class="sfpopup-content">
-
-                    @* Combobox Category *@
-                    <SfComboBox @ref="@SfComboBoxNewCategory" TValue="string" TItem="Category"
-                                Placeholder="Choisir une catégorie..." DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged"
-                                AllowCustom="true" AllowFiltering="true">
-                        <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
-                        <ComboBoxEvents TValue="string" Filtering="@OnSfComboBoxCategoryFiltering" TItem="Category"></ComboBoxEvents>
-                        <ComboBoxTemplates TItem="Category">
-                            <NoRecordsTemplate>
-
-                                <div>
-                                    <p>Catégorie non trouvée, voulez-vous la créer ?</p>
-                                    <SfButton class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewCategory">Créer</SfButton>
-                                </div>
-
-                            </NoRecordsTemplate>
-                        </ComboBoxTemplates>
-                    </SfComboBox>
-
-                    <SfTextBox Placeholder="Nom..." @bind-Value="@NewProduct.Name"></SfTextBox>
-                    <SfTextBox Placeholder="Description..." @bind-Value="@NewProduct.Description"></SfTextBox>
-                    <SfNumericTextBox TValue="float" Placeholder="Prix (€)..." @bind-Value="@NewProduct.Price"></SfNumericTextBox>
-
-                    @* Image selector *@
-                    <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
-                        <UploaderEvents ValueChange="@OnSfUploaderNewProductImageChanged"></UploaderEvents>
-                    </SfUploader>
-
-                    <SfButton @onclick="@NewProductSubmit">Ajouter le produit</SfButton>
-
-                </div>
-            </Content>
-
-        </DialogTemplates>
-    </SfDialog>
+    <SfButton CssClass="button-new-item" @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
 
 </div>
 
 @* Catalog ___________________________ *@
 <div class="products-container">
 
-    @foreach (var product in Products)
+    @foreach (var product in FilteredProducts)
     {
         var productInstance = product;
         var categoryName = GetProductCategoryName(product);
@@ -122,8 +84,52 @@
 
 </div>
 
-@* Product promotion ___________________________ *@
+@* Dialogs ___________________________ *@
 <div>
+    
+    @* Dialog for creating a new product *@
+    <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">
+        <DialogTemplates>
+
+            <Header> Ajouter un produit </Header>
+
+            <Content>
+                <div class="sfpopup-content">
+
+                    @* Combobox Category *@
+                    <SfComboBox @ref="@SfComboBoxNewCategory" TValue="string" TItem="Category"
+                                Placeholder="Choisir une catégorie..." DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged"
+                                AllowCustom="true" AllowFiltering="true">
+                        <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
+                        <ComboBoxEvents TValue="string" Filtering="@OnSfComboBoxCategoryFiltering" TItem="Category"></ComboBoxEvents>
+                        <ComboBoxTemplates TItem="Category">
+                            <NoRecordsTemplate>
+
+                                <div>
+                                    <p>Catégorie non trouvée, voulez-vous la créer ?</p>
+                                    <SfButton class="e-control e-btn" style="margin-top: 10px" @onclick="@CreateNewCategory">Créer</SfButton>
+                                </div>
+
+                            </NoRecordsTemplate>
+                        </ComboBoxTemplates>
+                    </SfComboBox>
+
+                    <SfTextBox Placeholder="Nom..." @bind-Value="@NewProduct.Name"></SfTextBox>
+                    <SfTextBox Placeholder="Description..." @bind-Value="@NewProduct.Description"></SfTextBox>
+                    <SfNumericTextBox TValue="float" Placeholder="Prix (€)..." @bind-Value="@NewProduct.Price"></SfNumericTextBox>
+
+                    @* Image selector *@
+                    <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
+                        <UploaderEvents ValueChange="@OnSfUploaderNewProductImageChanged"></UploaderEvents>
+                    </SfUploader>
+
+                    <SfButton @onclick="@NewProductSubmit">Ajouter le produit</SfButton>
+
+                </div>
+            </Content>
+
+        </DialogTemplates>
+    </SfDialog>
 
     @* Dialog for creating a new product promotion *@
     <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPromotionsPopupIsVisible">

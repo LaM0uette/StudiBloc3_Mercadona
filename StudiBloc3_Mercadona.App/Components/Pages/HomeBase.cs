@@ -28,6 +28,13 @@ public class HomeBase : ComponentBase
     protected readonly Product NewProduct = new();
     private Product SelectedProduct = new();
     
+    // Products Filter
+    private int? SelectedCategoryId { get; set; }
+    protected IEnumerable<Product> FilteredProducts =>
+        SelectedCategoryId.HasValue
+            ? Products.Where(p => p.CategoryId == SelectedCategoryId.Value)
+            : Products;
+    
     // Categories
     protected List<Category> Categories { get; private set; } = new();
     private string? NewCategoryName { get; set; }
@@ -143,6 +150,18 @@ public class HomeBase : ComponentBase
     #endregion
 
     #region SyncFusion_Category
+    
+    protected void OnSfComboBoxSelectCategoryChanged(string arg)
+    {
+        if (arg is "" or null)
+        {
+            SelectedCategoryId = null;
+            return;
+        }
+        
+        var categoryId = int.Parse(arg);
+        SelectedCategoryId = categoryId;
+    }
 
     protected void OnSfComboBoxCategoryChanged(string arg)
     {
@@ -178,7 +197,7 @@ public class HomeBase : ComponentBase
         await SfComboBoxNewCategory.HidePopupAsync();
         StateHasChanged();
     }
-
+    
     #endregion
 
     #region SyncFusion_Promotion
