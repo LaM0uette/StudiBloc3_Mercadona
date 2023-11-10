@@ -39,7 +39,7 @@ public class HomeBase : ComponentBase
     protected List<Category> Categories { get; private set; } = new();
     private string? NewCategoryName { get; set; }
 
-    // Promotion TODO: ajouter les date de début et de fin de la promotion !
+    // Promotion
     protected List<Promotion> Promotions { get; private set; } = new();
     private readonly Product NewPromotion = new();
 
