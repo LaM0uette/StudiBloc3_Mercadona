@@ -8,8 +8,6 @@
     <img class="app-logo" src="Resources/Img/mercadona-title.png" alt="mercadona_logo.png image"/>
 </h1>
 
-<h2>Catalogue</h2>
-
 @* New product ___________________________ *@
 <div>
 
@@ -96,10 +94,10 @@
                 @if (discountedPrice is not null)
                 {
                     <div class="new-product-pricing">
-                        <p class="new-product-price">@discountedPrice.Value.discountedPrice€</p>
-                        <p class="old-product-price">@product.Price€</p>
+                        <p class="new-product-price">@discountedPrice.Value.discountedPrice.ToString("F2")€</p>
+                        <p class="old-product-price">@product.Price.ToString("F2")€</p>
                         <div class="discount-value">
-                            <p>-@((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100)%</p>
+                            <p>-@Math.Round((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100).ToString("F0")%</p>
                         </div>
                     </div>
 
@@ -110,7 +108,7 @@
                 }
                 else
                 {
-                    <p class="product-price">@product.Price€</p>
+                    <p class="product-price">@product.Price.ToString("F2")€</p>
 
                     @* Button for showing popup of new product promotion creation *@
                     <div class="button-new-item___container">
