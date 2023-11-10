@@ -44,7 +44,7 @@ public class HomeBase : ComponentBase
     private readonly Product NewPromotion = new();
 
     // ProductPromotion
-    private List<ProductPromotion> ProductPromotions { get; set; } = new();
+    protected List<ProductPromotion> ProductPromotions { get; set; } = new();
     protected ProductPromotion NewProductPromotion { get; set; } = new()
     {
         StartDate = DateTime.Today,
@@ -87,6 +87,19 @@ public class HomeBase : ComponentBase
     
         return (product.Price, discountedPrice);
     }
+    
+    protected int GetRemainingDaysForPromotion(ProductPromotion? promotion)
+    {
+        if (promotion is null)
+        {
+            return 0;
+        }
+
+        var endDate = promotion.EndDate.Date.AddDays(1);
+        var today = DateTime.UtcNow.Date;
+        return (endDate - today).Days;
+    }
+
     
     protected string GetProductCategoryName(Product product)
     {

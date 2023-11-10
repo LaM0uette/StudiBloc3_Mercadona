@@ -32,6 +32,8 @@
         var productInstance = product;
         var categoryName = GetProductCategoryName(product);
         var discountedPrice = CalculateDiscountedPrice(product);
+        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id);
+        var remainingDays = GetRemainingDaysForPromotion(productPromotion);
 
         <div class="product-card">
 
@@ -59,7 +61,7 @@
                         <p class="new-product-price">@discountedPrice.Value.discountedPrice.ToString("F2")€</p>
                         <p class="old-product-price">@product.Price.ToString("F2")€</p>
                         <div class="discount-value">
-                            <p>-@Math.Round((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100).ToString("F0")%</p>
+                            <p>-@Math.Round((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100).ToString("F0")% - @remainingDays jours restants</p>
                         </div>
                     </div>
 
