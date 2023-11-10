@@ -12,7 +12,7 @@
 <div class="header-bar">
     
     @* Filter by Category *@
-    <SfComboBox Width="17%" TItem="Category" TValue="string" DataSource="@Categories" Placeholder="Sélectionner une catégorie"
+    <SfComboBox CssClass="category-filter" TItem="Category" TValue="string" DataSource="@Categories" Placeholder="Sélectionner une catégorie"
                 AllowCustom="false" AllowFiltering="false" ValueChanged="OnSfComboBoxSelectCategoryChanged">
         <ComboBoxFieldSettings Text="Name" Value="Id"></ComboBoxFieldSettings>
     </SfComboBox>
@@ -20,7 +20,7 @@
     <div style="margin: 0 15px 0 15px"></div>
 
     @* Button for showing popup of new product creation *@
-    <SfButton CssClass="button-new-item" @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
+    <SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
 
 </div>
 
@@ -167,6 +167,11 @@
 </div>
 
 <style>
+    .category-filter {
+    min-width: 150px;
+    max-width: 250px;
+    }
+
     .button-new-item {
         height: 40px;
         width: 300px;

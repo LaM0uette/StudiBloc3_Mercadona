@@ -5,7 +5,7 @@
 /* Page __________________________________ */
 .app-logo {
     display: block;
-    margin: auto;
+    margin: 0 auto 3.2em auto;
     width: 25vmax;
     height: auto;
 }
