@@ -88,7 +88,7 @@ public class HomeBase : ComponentBase
         return (product.Price, discountedPrice);
     }
     
-    protected int GetRemainingDaysForPromotion(ProductPromotion? promotion)
+    protected static int GetRemainingDaysForPromotion(ProductPromotion? promotion)
     {
         if (promotion is null)
         {
@@ -99,7 +99,6 @@ public class HomeBase : ComponentBase
         var today = DateTime.UtcNow.Date;
         return (endDate - today).Days;
     }
-
     
     protected string GetProductCategoryName(Product product)
     {
@@ -297,6 +296,8 @@ public class HomeBase : ComponentBase
 
     protected async Task NewProductPromotionSubmit()
     {
+        if (NewPromotion.Id == 0) return;
+        
         var existingProductPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == SelectedProduct.Id);
         var utcStartDate = DateTime.SpecifyKind(NewProductPromotion.StartDate, DateTimeKind.Utc);
         var utcEndDate = DateTime.SpecifyKind(NewProductPromotion.EndDate, DateTimeKind.Utc);
