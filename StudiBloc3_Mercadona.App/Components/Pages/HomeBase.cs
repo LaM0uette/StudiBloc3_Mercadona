@@ -58,6 +58,8 @@ public class HomeBase : ComponentBase
         Categories = await ApiCategoryService.GetAllCategoriesAsync();
         Promotions = await ApiPromotionService.GetAllPromotionsAsync();
         ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
+        
+        await DeleteExpiredPromotions();
     }
 
     #endregion
@@ -92,6 +94,28 @@ public class HomeBase : ComponentBase
         return category?.Name ?? "Unknown";
     }
 
+    private async Task DeleteExpiredPromotions()
+    {
+        //This function should be launched at regular intervals from the backend but for simplicity I added it here.
+        
+        var expiredPromotions = ProductPromotions.Where(pp => pp.EndDate < DateTime.Today).ToList();
+
+        foreach (var expiredPromotion in expiredPromotions)
+        {
+            try
+            {
+                await ApiProductPromotionService.DeleteProductPromotionAsync(expiredPromotion);
+                ProductPromotions.Remove(expiredPromotion);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        StateHasChanged();
+    }
+    
     #endregion
 
     #region SyncFusion
