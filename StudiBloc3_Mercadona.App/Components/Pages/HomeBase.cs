@@ -72,15 +72,17 @@ public class HomeBase : ComponentBase
     
     protected (float originalPrice, float discountedPrice)? CalculateDiscountedPrice(Product product)
     {
-        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id);
+        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id 
+                                                                      && pp.StartDate <= DateTime.UtcNow 
+                                                                      && pp.EndDate.AddDays(1) > DateTime.UtcNow);
         if (productPromotion is null) return null;
-        
+    
         var promotion = Promotions.FirstOrDefault(p => p.Id == productPromotion.PromotionId);
         if (promotion is null) return null;
-        
+    
         var discountMultiplier = (100 - promotion.DiscountPercentage) / 100f;
         var discountedPrice = product.Price * discountMultiplier;
-        
+    
         return (product.Price, discountedPrice);
     }
     
