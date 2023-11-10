@@ -1,0 +1,35 @@
+﻿@page "/"
+@using StudiBloc3_Mercadona.App.Services
+@inject NavigationManager NavigationManager
+@inject AuthenticationService authService
+
+<h3>Connexion</h3>
+
+<div>
+    <input type="text" placeholder="Nom d'utilisateur" @bind="@username" />
+    <input type="password" placeholder="Mot de passe" @bind="@password" />
+    <button @onclick="@Login">Se connecter</button>
+    <button @onclick="@ContinueAsGuest">Continuer en tant qu'invité</button>
+</div>
+
+@code {
+    private string username;
+    private string password;
+
+    private async void Login()
+    {
+        var result = await authService.Login(username, password);
+        if (!result)
+        {
+            return;
+        }
+        
+        NavigationManager.NavigateTo("/catalog");
+    }
+
+    private void ContinueAsGuest()
+    {
+        authService.Logout();
+        NavigationManager.NavigateTo("/catalog");
+    }
+}
