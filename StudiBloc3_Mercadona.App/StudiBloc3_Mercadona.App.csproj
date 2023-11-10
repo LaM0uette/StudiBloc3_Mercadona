@@ -11,10 +11,11 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-rc.2.23480.2" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="8.0.100-1.23067.1" />
         <PackageReference Include="Syncfusion.Blazor.Buttons" Version="23.1.44" />
-        <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="23.1.43" />
-        <PackageReference Include="Syncfusion.Blazor.Inputs" Version="23.1.43" />
+        <PackageReference Include="Syncfusion.Blazor.Calendars" Version="23.1.44" />
+        <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="23.1.44" />
+        <PackageReference Include="Syncfusion.Blazor.Inputs" Version="23.1.44" />
         <PackageReference Include="Syncfusion.Blazor.Popups" Version="23.1.44" />
-        <PackageReference Include="Syncfusion.Blazor.Themes" Version="23.1.43" />
+        <PackageReference Include="Syncfusion.Blazor.Themes" Version="23.1.44" />
     </ItemGroup>
 
     <ItemGroup>

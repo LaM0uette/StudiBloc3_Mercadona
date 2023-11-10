@@ -46,6 +46,8 @@ public class HomeBase : ComponentBase
     // ProductPromotion
     private List<ProductPromotion> ProductPromotions { get; set; } = new();
     private int NewPromotionsDiscount { get; set; }
+    protected DateTime NewProductPromotionStartDate { get; set; } = DateTime.Today;
+    protected DateTime NewProductPromotionEndDate { get; set; } = DateTime.Today.AddDays(7);
 
     protected override async Task OnInitializedAsync()
     {
@@ -261,6 +263,8 @@ public class HomeBase : ComponentBase
             {
                 Id = existingProductPromotion.Id,
                 ProductId = existingProductPromotion.ProductId,
+                StartDate = existingProductPromotion.StartDate,
+                EndDate = existingProductPromotion.EndDate,
                 PromotionId = NewPromotion.Id
             };
             
@@ -271,10 +275,15 @@ public class HomeBase : ComponentBase
         }
         else
         {
+            var utcStartDate = DateTime.SpecifyKind(NewProductPromotionStartDate, DateTimeKind.Utc);
+            var utcEndDate = DateTime.SpecifyKind(NewProductPromotionEndDate, DateTimeKind.Utc);
+
             var newProductPromotion = new ProductPromotion
             {
                 ProductId = SelectedProduct.Id,
-                PromotionId = NewPromotion.Id
+                PromotionId = NewPromotion.Id,
+                StartDate = utcStartDate,
+                EndDate = utcEndDate
             };
             
             var addedPromotion = await ApiProductPromotionService.AddProductPromotionAsync(newProductPromotion);

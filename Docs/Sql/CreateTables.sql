@@ -28,7 +28,9 @@ CREATE TABLE data."Category" (
 CREATE TABLE data."ProductPromotion" (
   "Id" SERIAL PRIMARY KEY,
   "ProductId" int,
-  "PromotionId" int
+  "PromotionId" int,
+  "StartDate" DATE,
+  "EndDate" DATE
 );
 
 CREATE TABLE data."Promotion" (
