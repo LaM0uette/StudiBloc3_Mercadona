@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using StudiBloc3_Mercadona.App.Components;
@@ -13,6 +14,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddSyncfusionBlazor();
 
 builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddBlazoredLocalStorage();
 
 //builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7173")});
 builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://studi-mercadona-api.azurewebsites.net")});

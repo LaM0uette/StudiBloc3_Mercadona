@@ -1,12 +1,8 @@
 ﻿@page "/catalog"
 @using StudiBloc3_Mercadona.Model
-@using StudiBloc3_Mercadona.App.Services
 @inherits CatalogBase
-@inject AuthenticationService authService
 
-
-
-@if (authService.IsAuthenticated)
+@if (IsUserAuthenticated)
 {
     <PageTitle>Mercadona - admin</PageTitle>
 }
@@ -29,7 +25,7 @@ else
     </SfComboBox>
     
     @* Button for showing popup of new product creation *@
-    @if (authService.IsAuthenticated)
+    @if (IsUserAuthenticated)
     {
         <div style="margin: 0 15px 0 15px"></div>
         <SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
@@ -78,7 +74,7 @@ else
                         </div>
                     </div>
 
-                    @if (authService.IsAuthenticated)
+                    @if (IsUserAuthenticated)
                     {
                         @* Button for showing popup of editing product promotion creation *@
                         <div class="button-new-item___container">
@@ -90,7 +86,7 @@ else
                 {
                     <p class="product-price">@product.Price.ToString("F2")€</p>
 
-                    @if (authService.IsAuthenticated)
+                    @if (IsUserAuthenticated)
                     {
                         @* Button for showing popup of new product promotion creation *@
                         <div class="button-new-item___container">
@@ -108,7 +104,7 @@ else
 @* Dialogs ___________________________ *@
 <div>
     
-    @if (authService.IsAuthenticated)
+    @if (IsUserAuthenticated)
     {
         @* Dialog for creating a new product *@
         <SfDialog Width="35%" ShowCloseIcon="true" IsModal="true" @bind-Visible="@NewProductPopupIsVisible">

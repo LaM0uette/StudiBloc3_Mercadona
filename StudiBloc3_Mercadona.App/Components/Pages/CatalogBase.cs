@@ -16,6 +16,10 @@ public class CatalogBase : ComponentBase
     [Inject] private ApiCategoryService ApiCategoryService { get; init; } = default!;
     [Inject] private ApiPromotionService ApiPromotionService { get; init; } = default!;
     [Inject] private ApiProductPromotionService ApiProductPromotionService { get; init; } = default!;
+    [Inject] private AuthenticationService authService { get; init; } = default!;
+    
+    // Authentication
+    protected bool IsUserAuthenticated { get; private set; }
     
     // SyncFusion
     protected SfComboBox<string, Category> SfComboBoxNewCategory = null!;
@@ -51,15 +55,23 @@ public class CatalogBase : ComponentBase
         EndDate = DateTime.Today.AddDays(7)
     };
     private int CustomPromotionsDiscount { get; set; }
-
+    
     protected override async Task OnInitializedAsync()
     {
+        await AuthConnection();
+        
         Products = await ApiProductService.GetAllProductsAsync();
         Categories = await ApiCategoryService.GetAllCategoriesAsync();
         Promotions = await ApiPromotionService.GetAllPromotionsAsync();
         ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
         
         await DeleteExpiredPromotions();
+    }
+
+    private async Task AuthConnection()
+    {
+        var isAuthenticated = await authService.IsUserAuthenticated();
+        IsUserAuthenticated = isAuthenticated;
     }
 
     #endregion
