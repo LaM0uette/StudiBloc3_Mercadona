@@ -35,68 +35,75 @@ else
 
 @* Catalog ___________________________ *@
 <div class="products-container">
-
-    @foreach (var product in FilteredProducts)
+    
+    @if (IsLoading)
     {
-        var productInstance = product;
-        var categoryName = GetProductCategoryName(product);
-        var discountedPrice = CalculateDiscountedPrice(product);
-        var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id);
-        var remainingDays = GetRemainingDaysForPromotion(productPromotion);
+        <p>Chargement en cours...</p>
+    }
+    else
+    {
+        @foreach (var product in FilteredProducts)
+        {
+            var productInstance = product;
+            var categoryName = GetProductCategoryName(product);
+            var discountedPrice = CalculateDiscountedPrice(product);
+            var productPromotion = ProductPromotions.FirstOrDefault(pp => pp.ProductId == product.Id);
+            var remainingDays = GetRemainingDaysForPromotion(productPromotion);
 
-        <div class="product-card">
+            <div class="product-card">
 
-            @if (product.Image is not null)
-            {
-                <img class="product-image" src="@ImageBytesToImageDataUrl(product.Image)" alt="@product.Name image"/>
-            }
-            else
-            {
-                <img class="product-image" src="resources/Img/null.png" alt="null image"/>
-            }
-
-            <div class="product-name">
-                <h3>@product.Name</h3>
-                <p>&nbsp;-&nbsp;@categoryName</p>
-            </div>
-            
-            <p class="product-description">@product.Description</p>
-            
-            <div class="product-card___info">
-                
-                @if (discountedPrice is not null)
+                @if (product.Image is not null)
                 {
-                    <div class="new-product-pricing">
-                        <p class="new-product-price">@discountedPrice.Value.discountedPrice.ToString("F2")€</p>
-                        <p class="old-product-price">@product.Price.ToString("F2")€</p>
-                        <div class="discount-value">
-                            <p>-@Math.Round((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100).ToString("F0")% - @remainingDays jours restants</p>
-                        </div>
-                    </div>
-
-                    @if (IsUserAuthenticated)
-                    {
-                        @* Button for showing popup of editing product promotion creation *@
-                        <div class="button-new-item___container">
-                            <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Modifier la promotion</SfButton>
-                        </div>
-                    }
+                    <img class="product-image" src="@ImageBytesToImageDataUrl(product.Image)" alt="@product.Name image"/>
                 }
                 else
                 {
-                    <p class="product-price">@product.Price.ToString("F2")€</p>
-
-                    @if (IsUserAuthenticated)
-                    {
-                        @* Button for showing popup of new product promotion creation *@
-                        <div class="button-new-item___container">
-                            <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Ajouter une promotion</SfButton>
-                        </div>
-                    }
+                    <img class="product-image" src="resources/Img/null.png" alt="null image"/>
                 }
-            </div>
 
-        </div>
+                <div class="product-name">
+                    <h3>@product.Name</h3>
+                    <p>&nbsp;-&nbsp;@categoryName</p>
+                </div>
+
+                <p class="product-description">@product.Description</p>
+
+                <div class="product-card___info">
+
+                    @if (discountedPrice is not null)
+                    {
+                        <div class="new-product-pricing">
+                            <p class="new-product-price">@discountedPrice.Value.discountedPrice.ToString("F2")€</p>
+                            <p class="old-product-price">@product.Price.ToString("F2")€</p>
+                            <div class="discount-value">
+                                <p>-@Math.Round((1 - discountedPrice.Value.discountedPrice / discountedPrice.Value.originalPrice) * 100).ToString("F0")% - @remainingDays jours restants</p>
+                            </div>
+                        </div>
+
+                        @if (IsUserAuthenticated)
+                        {
+                            @* Button for showing popup of editing product promotion creation *@
+                            <div class="button-new-item___container">
+                                <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Modifier la promotion</SfButton>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="product-price">@product.Price.ToString("F2")€</p>
+
+                        @if (IsUserAuthenticated)
+                        {
+                            @* Button for showing popup of new product promotion creation *@
+                            <div class="button-new-item___container">
+                                <SfButton CssClass="button-new-item" @onclick="() => OpenNewProductPromotionsPopup(productInstance)">Ajouter une promotion</SfButton>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+        }
     }
 
 </div>

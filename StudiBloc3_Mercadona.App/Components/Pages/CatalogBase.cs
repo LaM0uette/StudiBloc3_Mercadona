@@ -20,6 +20,7 @@ public class CatalogBase : ComponentBase
     
     // Authentication
     protected bool IsUserAuthenticated { get; private set; }
+    protected bool IsLoading { get; set; }
     
     // SyncFusion
     protected SfComboBox<string, Category> SfComboBoxNewCategory = null!;
@@ -58,14 +59,23 @@ public class CatalogBase : ComponentBase
     
     protected override async Task OnInitializedAsync()
     {
-        await AuthConnection();
+        IsLoading = true;
         
-        Products = await ApiProductService.GetAllProductsAsync();
-        Categories = await ApiCategoryService.GetAllCategoriesAsync();
-        Promotions = await ApiPromotionService.GetAllPromotionsAsync();
-        ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
+        try
+        {
+            await AuthConnection();
         
-        await DeleteExpiredPromotions();
+            Products = await ApiProductService.GetAllProductsAsync();
+            Categories = await ApiCategoryService.GetAllCategoriesAsync();
+            Promotions = await ApiPromotionService.GetAllPromotionsAsync();
+            ProductPromotions = await ApiProductPromotionService.GetAllProductPromotionsAsync();
+        
+            await DeleteExpiredPromotions();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private async Task AuthConnection()
