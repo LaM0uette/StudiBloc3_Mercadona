@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Mercadona';
-    src: url('./fonts/Muli-Regular.ttf') format('truetype');
+    src: url('../fonts/Muli-Regular.ttf') format('truetype');
 }
 
 html, body {
