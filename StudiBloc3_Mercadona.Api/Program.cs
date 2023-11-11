@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StudiBloc3_Mercadona.Api.Core.Context;
 using StudiBloc3_Mercadona.Api.Core.Repository;
 using StudiBloc3_Mercadona.Api.Core.Services;
@@ -11,16 +13,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "AllowSpecificOrigin",
-        policyBuilder =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-            policyBuilder.WithOrigins("https://localhost:7055", "https://studi-mercadona.azurewebsites.net")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey("STUDI_HARDCODE_KEY"u8.ToArray())
+        };
+    });
 
 // PostgreSQL connection and related Services and Repositories
 var Configuration = builder.Configuration;
@@ -50,6 +52,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

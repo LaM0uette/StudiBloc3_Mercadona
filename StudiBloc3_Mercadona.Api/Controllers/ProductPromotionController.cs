@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudiBloc3_Mercadona.Api.Core.Services;
 using StudiBloc3_Mercadona.Model;
 
@@ -17,6 +18,7 @@ public class ProductPromotionController(IProductPromotionService productPromotio
     }
 
     [HttpPost]
+    [Authorize]
     [Route("Add")]
     public async Task<ActionResult<ProductPromotion>> Add(ProductPromotion productPromotion)
     {
@@ -25,6 +27,7 @@ public class ProductPromotionController(IProductPromotionService productPromotio
     }
 
     [HttpPut]
+    [Authorize]
     [Route("Update")]
     public async Task<IActionResult> Update(ProductPromotion productPromotion)
     {
@@ -33,6 +36,7 @@ public class ProductPromotionController(IProductPromotionService productPromotio
     }
 
     [HttpPost]
+    [Authorize]
     [Route("Delete")]
     public async Task<IActionResult> Delete(ProductPromotion productPromotion)
     {

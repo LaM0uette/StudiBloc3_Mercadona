@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudiBloc3_Mercadona.Api.Core.Services;
 using StudiBloc3_Mercadona.Model;
 
@@ -17,6 +18,7 @@ public class PromotionController(IPromotionService promotionService) : Controlle
     }
  
     [HttpPost]
+    [Authorize]
     [Route("Add")]
     public async Task<ActionResult<Promotion>> Add(Promotion promotion)
     {
