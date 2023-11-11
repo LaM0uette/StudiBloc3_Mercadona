@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowSpecificOrigin",
         policyBuilder =>
         {
-            policyBuilder.WithOrigins("https://localhost:7055")
+            policyBuilder.WithOrigins("https://localhost:7055", "https://studi-mercadona.azurewebsites.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });

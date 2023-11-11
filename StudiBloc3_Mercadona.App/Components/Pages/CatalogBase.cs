@@ -7,7 +7,7 @@ using Syncfusion.Blazor.Inputs;
 
 namespace StudiBloc3_Mercadona.App.Components.Pages;
 
-public class HomeBase : ComponentBase
+public class CatalogBase : ComponentBase
 {
     #region Statements
 
