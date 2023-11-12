@@ -3,6 +3,10 @@
     src: url('../fonts/Muli-Regular.ttf') format('truetype');
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     font-family: 'Mercadona', Helvetica, Arial, sans-serif;
 }

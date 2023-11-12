@@ -1,20 +1,5 @@
-﻿* {
-    box-sizing: border-box;
-}
-
+﻿
 /* Page __________________________________ */
-.app-logo {
-    display: block;
-    margin: 0 auto 3.2em auto;
-    width: 25vmax;
-    height: auto;
-}
-
-h1 {
-    margin: 0;
-    padding: 0;
-}
-
 .header-bar {
     display: flex;
     flex-direction: row;

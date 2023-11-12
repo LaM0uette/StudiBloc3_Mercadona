@@ -8,6 +8,18 @@ main {
     flex: 1;
 }
 
+.app-logo {
+    display: block;
+    margin: 0 auto 3.2em auto;
+    width: 25vmax;
+    height: auto;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
 @media (min-width: 641px) {
     .page {
         flex-direction: row;
