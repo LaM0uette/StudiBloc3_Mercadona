@@ -140,8 +140,8 @@ else
                             </ComboBoxTemplates>
                         </SfComboBox>
 
-                        <SfTextBox Placeholder="Nom..." @bind-Value="@NewProduct.Name"></SfTextBox>
-                        <SfTextBox Placeholder="Description..." @bind-Value="@NewProduct.Description"></SfTextBox>
+                        <SfTextBox Type="InputType.Text" Placeholder="Nom..." @bind-Value="@NewProduct.Name"></SfTextBox>
+                        <SfTextBox Type="InputType.Text" Placeholder="Description..." @bind-Value="@NewProduct.Description"></SfTextBox>
                         <SfNumericTextBox TValue="float" Placeholder="Prix (€)..." @bind-Value="@NewProduct.Price"></SfNumericTextBox>
 
                         @* Image selector *@
