@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -13,14 +14,27 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowSpecificOrigin",
+        policyBuilder =>
+        {
+            policyBuilder.WithOrigins("https://localhost:7055")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidIssuer = "https://studi-mercadona.azurewebsites.net",
+            ValidAudience = "https://studi-mercadona-api.azurewebsites.net",
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey("STUDI_HARDCODE_KEY"u8.ToArray())
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("DkDslmwwPYCdGqscpuHxUnPRS9QfpaiLqzPN0DOlkzE="))
         };
     });
 
