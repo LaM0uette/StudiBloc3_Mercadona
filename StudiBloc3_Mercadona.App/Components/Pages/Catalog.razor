@@ -19,15 +19,18 @@ else
 <div class="header-bar">
     
     @* Filter by Category *@
-    <SfComboBox CssClass="category-filter" TItem="Category" TValue="string" DataSource="@Categories" Placeholder="Sélectionner une catégorie"
-                AllowCustom="false" AllowFiltering="false" ValueChanged="OnSfComboBoxSelectCategoryChanged">
-        <ComboBoxFieldSettings Text="Name" Value="Id"></ComboBoxFieldSettings>
-    </SfComboBox>
+    <div class="category-filter-container">
+        <label>Filtre par catégories</label>
+        <SfComboBox Width="90%" TItem="Category" TValue="string" DataSource="@Categories" Placeholder="Sélectionner une catégorie"
+                    AllowCustom="false" AllowFiltering="false" ValueChanged="OnSfComboBoxSelectCategoryChanged">
+            <ComboBoxFieldSettings Text="Name" Value="Id"></ComboBoxFieldSettings>
+        </SfComboBox>
+    </div>
     
     @* Button for showing popup of new product creation *@
     @if (IsUserAuthenticated)
     {
-        <div style="margin: 0 15px 0 15px"></div>
+        <div style="margin: 0 10px 0 10px"></div>
         <SfButton @onclick="@OpenNewProductPopup">Ajouter un produit</SfButton>
     }
 
@@ -123,7 +126,8 @@ else
                     <div class="sfpopup-content">
 
                         @* Combobox Category *@
-                        <SfComboBox @ref="@SfComboBoxNewCategory" TValue="string" TItem="Category"
+                        <label style="margin-top: 1em">Catégorie</label>
+                        <SfComboBox Width="90%" @ref="@SfComboBoxNewCategory" TValue="string" TItem="Category"
                                     Placeholder="Choisir une catégorie..." DataSource="@Categories" ValueChanged="OnSfComboBoxCategoryChanged"
                                     AllowCustom="true" AllowFiltering="true">
                             <ComboBoxFieldSettings Value="Id" Text="Name"></ComboBoxFieldSettings>
@@ -140,15 +144,22 @@ else
                             </ComboBoxTemplates>
                         </SfComboBox>
 
-                        <SfTextBox Type="InputType.Text" Placeholder="Nom..." @bind-Value="@NewProduct.Name"></SfTextBox>
-                        <SfTextBox Type="InputType.Text" Placeholder="Description..." @bind-Value="@NewProduct.Description"></SfTextBox>
-                        <SfNumericTextBox TValue="float" Placeholder="Prix (€)..." @bind-Value="@NewProduct.Price"></SfNumericTextBox>
+                        <label style="margin-top: 1em">Nom du produit</label>
+                        <SfTextBox Width="90%" Type="InputType.Text" Placeholder="Nom..." @bind-Value="@NewProduct.Name"></SfTextBox>
+                        
+                        <label style="margin-top: 1em">Description</label>
+                        <SfTextBox Width="90%" Type="InputType.Text" Placeholder="Description..." @bind-Value="@NewProduct.Description"></SfTextBox>
+                        
+                        <label style="margin-top: 1em">Prix</label>
+                        <SfNumericTextBox Width="90%" TValue="float" Placeholder="Prix (€)..." @bind-Value="@NewProduct.Price"></SfNumericTextBox>
 
                         @* Image selector *@
-                        <SfUploader AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
+                        <label style="margin-top: 1em">Image</label>
+                        <SfUploader CssClass="image-uploader" AutoUpload="true" AllowMultiple="false" TValue="byte[]" AllowedExtensions=".png, .jpg, .jpeg">
                             <UploaderEvents ValueChange="@OnSfUploaderNewProductImageChanged"></UploaderEvents>
                         </SfUploader>
 
+                        <div style="margin-top: 1em"></div>
                         <SfButton @onclick="@NewProductSubmit">Ajouter le produit</SfButton>
 
                     </div>
@@ -166,6 +177,7 @@ else
                 <Content>
                     <div class="sfpopup-content">
 
+                        <label style="margin-top: 1em">Promotion</label>
                         <SfComboBox @ref="@SfComboBoxNewPromotion" TValue="int" TItem="Promotion"
                                     Placeholder="Choisir une promotion..." DataSource="@Promotions" ValueChanged="OnSfComboBoxPromotionChanged"
                                     AllowCustom="true" AllowFiltering="true">
@@ -183,10 +195,13 @@ else
                             </ComboBoxTemplates>
                         </SfComboBox>
 
+                        <label style="margin-top: 1em">Date de début</label>
                         <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotion.StartDate" Min="@DateTime.Today"></SfDatePicker>
                         
+                        <label style="margin-top: 1em">Date de fin</label>
                         <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotion.EndDate" Min="@DateTime.Today"></SfDatePicker>
                         
+                        <div style="margin-top: 1em"></div>
                         <SfButton @onclick="@NewProductPromotionSubmit">Ajouter la promotion</SfButton>
 
                     </div>
@@ -199,10 +214,6 @@ else
 </div>
 
 <style>
-    .category-filter {
-    min-width: 150px;
-    max-width: 250px;
-    }
     
     .button-new-item {
         height: 40px;
@@ -211,4 +222,9 @@ else
         margin: 0;
         padding: 0;
     }
+    
+    .image-uploader {
+        width: 90%;
+    }
+    
 </style>

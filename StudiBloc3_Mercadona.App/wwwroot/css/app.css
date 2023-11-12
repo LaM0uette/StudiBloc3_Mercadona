@@ -106,3 +106,8 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+label {
+    width: 90%;
+    text-align: left;
+}

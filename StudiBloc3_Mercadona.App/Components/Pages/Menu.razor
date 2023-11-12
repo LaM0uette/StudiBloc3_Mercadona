@@ -5,18 +5,23 @@
 
 <div class="form">
     <div class="form-container">
-        <SfTextBox Width="80%" Type="InputType.Text" Placeholder="Nom d'utilisateur..." @bind-Value="@Username"></SfTextBox>
-        <SfTextBox Width="80%" Type="InputType.Password" Placeholder="Mot de passe..." @bind-Value="@Password"></SfTextBox>
         
+        <label>Nom d'utilisateur</label>
+        <SfTextBox Width="90%" Type="InputType.Text" Placeholder="Nom d'utilisateur..." @bind-Value="@Username"></SfTextBox>
+
+        <label style="margin-top: 1em">Mot de passe</label>
+        <SfTextBox Width="90%" Type="InputType.Password" Placeholder="Mot de passe..." @bind-Value="@Password"></SfTextBox>
+
         <SfButton CssClass="button login" @onclick="@Login">Se connecter</SfButton>
         <SfButton CssClass="button guest" @onclick="@ContinueAsGuest">Continuer en tant qu'invité</SfButton>
+        
     </div>
 </div>
 
 <style>
 
     .button {
-        width: 80%;
+        width: 90%;
         font-size: 1.2em;
         margin: 0;
         padding: 0;
