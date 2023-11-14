@@ -5,17 +5,15 @@ namespace StudiBloc3_Mercadona.Api.Core.Services;
 
 public class PromotionService(IRepository<Promotion> promotionRepository) : IPromotionService
 {
-    #region Tasks
-
-    public Task<IEnumerable<Promotion>> GetAllPromotionsAsync()
+    public async Task<IEnumerable<Promotion>> GetAllPromotionsAsync()
     {
-        return promotionRepository.GetAllAsync();
+        var promotions = await promotionRepository.GetAllAsync();
+        return promotions;
     }
 
-    public Task AddPromotionAsync(Promotion promotion)
+    public async Task<Promotion> AddPromotionAsync(Promotion promotion)
     {
-        return promotionRepository.AddAsync(promotion);
+        await promotionRepository.AddAsync(promotion);
+        return promotion;
     }
-
-    #endregion
 }

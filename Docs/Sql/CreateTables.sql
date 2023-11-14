@@ -17,7 +17,7 @@ CREATE TABLE data."Product" (
   "Name" varchar(255),
   "Description" text,
   "Price" float,
-  "Image" varchar(255)
+  "Image" bytea
 );
 
 CREATE TABLE data."Category" (
@@ -28,7 +28,9 @@ CREATE TABLE data."Category" (
 CREATE TABLE data."ProductPromotion" (
   "Id" SERIAL PRIMARY KEY,
   "ProductId" int,
-  "PromotionId" int
+  "PromotionId" int,
+  "StartDate" DATE,
+  "EndDate" DATE
 );
 
 CREATE TABLE data."Promotion" (

@@ -1,29 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudiBloc3_Mercadona.Api.Core.Services;
 using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/Promotion")]
+[Route("api/[controller]")]
 public class PromotionController(IPromotionService promotionService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<Promotion>> GetAll()
+    public async Task<IEnumerable<Promotion>> GetAll()
     {
-        return promotionService.GetAllPromotionsAsync();
+        var promotions = await promotionService.GetAllPromotionsAsync();
+        return promotions;
     }
-
+ 
     [HttpPost]
+    [Authorize]
     [Route("Add")]
-    public IActionResult Add(Promotion promotion)
+    public async Task<ActionResult<Promotion>> Add(Promotion promotion)
     {
-        promotionService.AddPromotionAsync(promotion);
-        return Ok();
+        await promotionService.AddPromotionAsync(promotion);
+        return Ok(promotion);
     }
-    
-    #endregion
 }

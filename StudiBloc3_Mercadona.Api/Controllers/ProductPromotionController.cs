@@ -1,29 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudiBloc3_Mercadona.Api.Core.Services;
 using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/ProductPromotion")]
+[Route("api/[controller]")]
 public class ProductPromotionController(IProductPromotionService productPromotionService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<ProductPromotion>> GetAll()
+    public async Task<IEnumerable<ProductPromotion>> GetAll()
     {
-        return productPromotionService.GetAllProductPromotionsAsync();
+        var productPromotions = await productPromotionService.GetAllProductPromotionsAsync();
+        return productPromotions;
     }
 
     [HttpPost]
+    [Authorize]
     [Route("Add")]
-    public IActionResult Add(ProductPromotion productPromotion)
+    public async Task<ActionResult<ProductPromotion>> Add(ProductPromotion productPromotion)
     {
-        productPromotionService.AddProductPromotionAsync(productPromotion);
+        await productPromotionService.AddProductPromotionAsync(productPromotion);
+        return Ok(productPromotion);
+    }
+
+    [HttpPut]
+    [Authorize]
+    [Route("Update")]
+    public async Task<IActionResult> Update(ProductPromotion productPromotion)
+    {
+        await productPromotionService.UpdateProductPromotionAsync(productPromotion);
         return Ok();
     }
-    
-    #endregion
+
+    [HttpPost]
+    [Authorize]
+    [Route("Delete")]
+    public async Task<IActionResult> Delete(ProductPromotion productPromotion)
+    {
+        await productPromotionService.DeleteProductPromotionAsync(productPromotion);
+        return Ok();
+    }
 }

@@ -10,17 +10,12 @@ public class Repository<T>(AppDbContext dbContext) : IRepository<T> where T : cl
         return await dbContext.Set<T>().ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(int id)
-    {
-        return await dbContext.Set<T>().FindAsync(id) ?? throw new Exception();
-    }
-
     public async Task AddAsync(T entity)
     {
         await dbContext.Set<T>().AddAsync(entity);
         await dbContext.SaveChangesAsync();
     }
-
+    
     public async Task UpdateAsync(T entity)
     {
         dbContext.Entry(entity).State = EntityState.Modified;

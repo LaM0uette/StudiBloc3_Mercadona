@@ -161,6 +161,7 @@ AppPackages/
 
 # Others
 [Tt]est[Rr]esult*
+SyncFusionTest*
 *.Cache
 ClientBin
 [Ss]tyle[Cc]op.*

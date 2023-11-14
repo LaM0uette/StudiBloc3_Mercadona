@@ -1,29 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudiBloc3_Mercadona.Api.Core.Services;
 using StudiBloc3_Mercadona.Model;
 
 namespace StudiBloc3_Mercadona.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]/Product")]
+[Route("api/[controller]")]
 public class ProductController(IProductService productService) : ControllerBase
 {
-    #region Routes
-
     [HttpGet]
     [Route("GetAll")]
-    public Task<IEnumerable<Product>> GetAll()
+    public async Task<IEnumerable<Product>> GetAll()
     {
-        return productService.GetAllProductsAsync();
-    }
-
-    [HttpPost]
-    [Route("Add")]
-    public IActionResult Add(Product product)
-    {
-        productService.AddProductAsync(product);
-        return Ok();
+        var products = await productService.GetAllProductsAsync();
+        return products;
     }
     
-    #endregion
+    [HttpPost]
+    [Authorize]
+    [Route("Add")]
+    public async Task<ActionResult<Product>> Add(Product product)
+    {
+        await productService.AddProductAsync(product);
+        return Ok(product);
+    }
 }

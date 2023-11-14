@@ -5,5 +5,5 @@ namespace StudiBloc3_Mercadona.Api.Core.Services;
 public interface IPromotionService
 {
     Task<IEnumerable<Promotion>> GetAllPromotionsAsync();
-    Task AddPromotionAsync(Promotion promotion);
+    Task<Promotion> AddPromotionAsync(Promotion promotion);
 }
