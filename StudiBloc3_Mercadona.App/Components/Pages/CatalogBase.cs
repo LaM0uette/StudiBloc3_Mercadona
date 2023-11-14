@@ -252,7 +252,7 @@ public class CatalogBase : ComponentBase
     
     protected void OnSfComboBoxSelectCategoryChanged(string arg)
     {
-        if (arg is "" or null)
+        if (string.IsNullOrEmpty(arg))
         {
             SelectedCategoryId = null;
             return;
@@ -264,6 +264,8 @@ public class CatalogBase : ComponentBase
 
     protected void OnSfComboBoxCategoryChanged(string arg)
     {
+        if (string.IsNullOrEmpty(arg)) return;
+        
         var categoryId = int.Parse(arg);
         NewProduct.CategoryId = categoryId;
     }
@@ -305,11 +307,14 @@ public class CatalogBase : ComponentBase
     
     protected void OnSfComboBoxPromotionChanged(int arg)
     {
+        if (arg <= 0) return;
         NewPromotion.Id = arg;
     }
     
     protected Task OnSfComboBoxPromotionFiltering(FilteringEventArgs args)
     {
+        if (!int.TryParse(args.Text, out _)) return Task.CompletedTask;
+        
         CustomPromotionsDiscount = Convert.ToInt32(args.Text);
         args.PreventDefaultAction = true;
 

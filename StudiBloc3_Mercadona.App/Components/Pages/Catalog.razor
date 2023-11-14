@@ -171,6 +171,7 @@ else
                 <Header> Ajouter une promotion </Header>
 
                 <Content>
+                    
                     <div class="sfpopup-content">
 
                         <label style="margin-top: 1em">Promotion</label>
@@ -193,14 +194,15 @@ else
 
                         <label style="margin-top: 1em">Date de début</label>
                         <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotion.StartDate" Min="@DateTime.Today"></SfDatePicker>
-                        
+
                         <label style="margin-top: 1em">Date de fin</label>
                         <SfDatePicker TValue="DateTime" @bind-Value="@NewProductPromotion.EndDate" Min="@DateTime.Today"></SfDatePicker>
-                        
+
                         <div style="margin-top: 1em"></div>
                         <SfButton @onclick="@NewProductPromotionSubmit">Ajouter la promotion</SfButton>
 
                     </div>
+                    
                 </Content>
                 
             </DialogTemplates>

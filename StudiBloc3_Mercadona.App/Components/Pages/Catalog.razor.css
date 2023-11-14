@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     width: 30%;
+    min-width: 190px;
 }
 
 
