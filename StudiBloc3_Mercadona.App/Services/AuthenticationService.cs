@@ -16,7 +16,6 @@ public class AuthenticationService(ILocalStorageService localStorage, HttpClient
         }
 
         var token = await response.Content.ReadAsStringAsync();
-        Console.WriteLine("Login successful - " + token);
         await localStorage.SetItemAsync("jwtToken", token);
         await InitializeHttpClient(token);
 

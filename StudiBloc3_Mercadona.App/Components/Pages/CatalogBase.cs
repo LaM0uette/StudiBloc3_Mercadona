@@ -152,6 +152,38 @@ public class CatalogBase : ComponentBase
     
     #endregion
 
+    #region Checks
+
+    private static bool CategoryIsValid(Category category)
+    {
+        return !string.IsNullOrEmpty(category.Name);
+    }
+    
+    private static bool ProductIsValid(Product product)
+    {
+        if (product.CategoryId <= 0) return false;
+        if (string.IsNullOrEmpty(product.Name)) return false;
+        if (product.Price <= 0) return false;
+        
+        return true;
+    }
+    
+    private static bool PromotionIsValid(Promotion promotion)
+    {
+        return promotion.DiscountPercentage > 0;
+    }
+    
+    private static bool ProductPromotionIsValid(ProductPromotion productPromotion)
+    {
+        if (productPromotion.ProductId <= 0) return false;
+        if (productPromotion.PromotionId <= 0) return false;
+        if (productPromotion.StartDate > productPromotion.EndDate) return false;
+        
+        return true;
+    }
+
+    #endregion
+
     #region SyncFusion
     
     #region SyncFusion_NewProduct
@@ -190,6 +222,8 @@ public class CatalogBase : ComponentBase
             Price = NewProduct.Price,
             Image = NewProduct.Image?.ToArray()
         };
+        
+        if (!ProductIsValid(newProduct)) return;
 
         var addedProduct = await ApiProductService.AddProductAsync(newProduct);
         if (addedProduct != null)
@@ -252,6 +286,8 @@ public class CatalogBase : ComponentBase
             Name = NewCategoryName
         };
         
+        if (!CategoryIsValid(newCategory)) return;
+        
         var addedCategory = await ApiCategoryService.AddCategoryAsync(newCategory);
         if (addedCategory != null)
         {
@@ -289,6 +325,8 @@ public class CatalogBase : ComponentBase
         {
             DiscountPercentage = CustomPromotionsDiscount
         };
+        
+        if (!PromotionIsValid(newPromotion)) return;
         
         var addedPromotion = await ApiPromotionService.AddPromotionAsync(newPromotion);
         if (addedPromotion != null)
@@ -330,10 +368,12 @@ public class CatalogBase : ComponentBase
             {
                 Id = existingProductPromotion.Id,
                 ProductId = existingProductPromotion.ProductId,
+                PromotionId = NewPromotion.Id,
                 StartDate = utcStartDate,
-                EndDate = utcEndDate,
-                PromotionId = NewPromotion.Id
+                EndDate = utcEndDate
             };
+            
+            if (!ProductPromotionIsValid(newProductPromotion)) return;
             
             var index = ProductPromotions.IndexOf(existingProductPromotion);
             ProductPromotions[index] = newProductPromotion;
@@ -349,6 +389,8 @@ public class CatalogBase : ComponentBase
                 StartDate = utcStartDate,
                 EndDate = utcEndDate
             };
+            
+            if (!ProductPromotionIsValid(newProductPromotion)) return;
             
             var addedPromotion = await ApiProductPromotionService.AddProductPromotionAsync(newProductPromotion);
             if (addedPromotion != null)

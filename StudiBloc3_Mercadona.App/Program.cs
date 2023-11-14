@@ -16,8 +16,8 @@ builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddBlazoredLocalStorage();
 
-//builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7173")});
-builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://studi-mercadona-api.azurewebsites.net")});
+builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://localhost:7173")});
+//builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("https://studi-mercadona-api.azurewebsites.net")});
 builder.Services.AddScoped<ApiProductService>();
 builder.Services.AddScoped<ApiCategoryService>();
 builder.Services.AddScoped<ApiPromotionService>();
