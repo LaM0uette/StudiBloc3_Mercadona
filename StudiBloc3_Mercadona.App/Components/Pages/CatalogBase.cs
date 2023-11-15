@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Components;
 using StudiBloc3_Mercadona.Model;
 using StudiBloc3_Mercadona.App.Services;
 using Syncfusion.Blazor.Data;
@@ -162,8 +163,11 @@ public class CatalogBase : ComponentBase
     
     private static bool ProductIsValid(Product product)
     {
+        const string pattern = "^[a-zA-Z0-9 ]*$";
+        var regex = new Regex(pattern);
+        
         if (product.CategoryId <= 0) return false;
-        if (string.IsNullOrEmpty(product.Name)) return false;
+        if (string.IsNullOrEmpty(product.Name) || !regex.IsMatch(product.Name)) return false;
         if (product.Price <= 0) return false;
         
         return true;
