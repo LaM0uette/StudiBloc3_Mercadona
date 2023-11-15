@@ -34,11 +34,12 @@ public class CatalogBase : ComponentBase
     private Product SelectedProduct = new();
     
     // Products Filter
-    private int? SelectedCategoryId { get; set; }
-    protected IEnumerable<Product> FilteredProducts =>
-        SelectedCategoryId.HasValue
-            ? Products.Where(p => p.CategoryId == SelectedCategoryId.Value)
+    private Category[] SelectedCategories { get; set; } = Array.Empty<Category>();
+    protected IEnumerable<Product> FilteredProductsByCategories =>
+        SelectedCategories.Length > 0
+            ? Products.Where(p => SelectedCategories.Any(c => c.Id == p.CategoryId))
             : Products;
+    
     
     // Categories
     protected List<Category> Categories { get; private set; } = new();
@@ -250,16 +251,15 @@ public class CatalogBase : ComponentBase
 
     #region SyncFusion_Category
     
-    protected void OnSfComboBoxSelectCategoryChanged(string arg)
+    protected void OnSfComboBoxSelectCategoryChanged(Category[]? categories)
     {
-        if (string.IsNullOrEmpty(arg))
+        if (categories is null || categories.Length <= 0)
         {
-            SelectedCategoryId = null;
+            SelectedCategories = Array.Empty<Category>();
             return;
         }
-        
-        var categoryId = int.Parse(arg);
-        SelectedCategoryId = categoryId;
+
+        SelectedCategories = categories;
     }
 
     protected void OnSfComboBoxCategoryChanged(string arg)

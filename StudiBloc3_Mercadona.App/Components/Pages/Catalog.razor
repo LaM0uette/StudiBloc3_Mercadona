@@ -17,10 +17,11 @@ else
     @* Filter by Category *@
     <div class="category-filter-container">
         <label>Filtre par catégories</label>
-        <SfComboBox Width="90%" TItem="Category" TValue="string" DataSource="@Categories" Placeholder="Sélectionner une catégorie"
-                    AllowCustom="false" AllowFiltering="false" ValueChanged="OnSfComboBoxSelectCategoryChanged">
-            <ComboBoxFieldSettings Text="Name" Value="Id"></ComboBoxFieldSettings>
-        </SfComboBox>
+        <SfMultiSelect Width="90%" TValue="Category[]" TItem="Category" 
+                       Placeholder="Sélectionnez une ou plusieurs catégories" DataSource="@Categories"
+                        ValueChanged="OnSfComboBoxSelectCategoryChanged">
+            <MultiSelectFieldSettings Text="Name" Value="Id"></MultiSelectFieldSettings>
+        </SfMultiSelect>
     </div>
     
     @* Button for showing popup of new product creation *@
@@ -41,7 +42,7 @@ else
     }
     else
     {
-        @foreach (var product in FilteredProducts)
+        @foreach (var product in FilteredProductsByCategories)
         {
             var productInstance = product;
             var categoryName = GetProductCategoryName(product);
