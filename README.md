@@ -15,11 +15,12 @@ Microservices
 - Versioning: Git
 - IDE: Jetbrains Rider
 
-## Web API
-https://studi-mercadona-api.azurewebsites.net
+## Lien de l'application
 
-## Web App
 https://studi-mercadona.azurewebsites.net
 
-## Documentation
-https://doriandevillele.fr/StudiBloc3Doc/index.html
+### Autres liens :
+
+[Documentation](https://doriandevillele.fr/StudiBloc3Doc/index.html) |
+[API ( pas d'ui )](https://studi-mercadona-api.azurewebsites.net)
+
