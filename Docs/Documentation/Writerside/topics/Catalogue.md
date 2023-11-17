@@ -3,12 +3,12 @@
 Sur la page principale du magasin (le catalogue) on y retrouve la liste complète des produits de la société **Mercadona**
 ![](catalog.png)
 
-### Filtres
+## Filtres
 
 Vous avez la possibilité de filtrer les produits par catégorie. Vous pouvez ajouter plusieurs filtres en même temps.
 ![](catalog-filter.png)
 
-### Cartes produits
+## Cartes produits
 
 Voici un détail de chaque carte qui représente les produits :
 ![](product-card.png)
