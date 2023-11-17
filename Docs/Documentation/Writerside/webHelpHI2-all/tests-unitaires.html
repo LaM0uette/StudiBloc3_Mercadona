@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat"><html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex">  <meta name="built-on" content="2023-11-17T15:18:20.9258461"><meta name="build-number" content="${buildNumber}">       <title>Tests unitaires | Mercadona Documentation</title><script id="virtual-toc-data" type="application/json">[{"id":"introduction","level":0,"title":"Introduction","anchor":"#introduction"},{"id":"tests-unitaires-dans-le-projet","level":0,"title":"Tests unitaires dans le projet","anchor":"#tests-unitaires-dans-le-projet"},{"id":"exemple-de-tests","level":0,"title":"Exemple de tests","anchor":"#exemple-de-tests"},{"id":"couverture-de-tests","level":0,"title":"Couverture de tests","anchor":"#couverture-de-tests"}]</script><script id="topic-shortcuts" type="application/json"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.1.5-b176/app.css" rel="stylesheet">   <link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><link rel="manifest" href="https://jetbrains.com/site.webmanifest"><link rel="mask-icon" href="https://jetbrains.com/safari-pinned-tab.svg" color="#000000"><meta name="msapplication-TileColor" content="#000000"/><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"/><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"/><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"/><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"/><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"/>  <meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Tests unitaires | Mercadona Documentation"/><meta property="og:description" content=""/><meta property="og:image" content=""/><meta property="og:site_name" content="Mercadona Documentation Help"/><meta property="og:type" content="website"/><meta property="og:locale" content="en_US"/><meta property="og:url" content="tests-unitaires.html"/><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Tests unitaires | Mercadona Documentation"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json"> { "@context": "http://schema.org", "@type": "WebPage", "@id": "tests-unitaires.html#webpage", "url": "tests-unitaires.html", "name": "Tests unitaires | Mercadona Documentation", "description": "", "image": "", "inLanguage":"en-US" }</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json"> { "@type": "WebSite", "@id": "/#website", "url": "/", "name": "Mercadona Documentation Help" }</script><!-- End Schema.org --> <!-- Mermaid light/dark themes -->  <link rel="stylesheet" type="text/css" href="mermaid.css">  </head>     <body data-id="Tests-unitaires" data-main-title="Tests unitaires" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}"  data-template="article"  data-breadcrumbs="Documentation-technique.md|Documentation technique"  >   <div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Mercadona Documentation  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Tests-unitaires"  id="Tests-unitaires.md"  >Tests unitaires</h1>  <section class="chapter"><h2 id="introduction" data-toc="introduction">Introduction</h2><p id="1748d5df_1154">Les tests unitaires sont des tests qui permettent de v&eacute;rifier le bon fonctionnement d'une unit&eacute; de code. Une unit&eacute; de code peut &ecirc;tre une fonction, une classe, un module, etc. Les tests unitaires sont g&eacute;n&eacute;ralement &eacute;crits par les d&eacute;veloppeurs eux-m&ecirc;mes, et sont ex&eacute;cut&eacute;s &agrave; chaque fois que le code est modifi&eacute;. Ils permettent de s'assurer que les modifications apport&eacute;es n'ont pas cass&eacute; le code existant.</p></section><section class="chapter"><h2 id="tests-unitaires-dans-le-projet" data-toc="tests-unitaires-dans-le-projet">Tests unitaires dans le projet</h2><p id="1748d5df_1155">Dans le projet, j'ai utilis&eacute; le framework de tests <span class="control" id="1748d5df_1156">xUnit</span>. Ce framework permet de cr&eacute;er des tests unitaires en C# et de les ex&eacute;cuter. Tous les tests sont s&eacute;par&eacute;s dans un projet &agrave; part.</p><section class="chapter"><h3 id="tests-sur-l-api" data-toc="tests-sur-l-api">Tests sur l'API</h3><p id="1748d5df_1157">Pour l'API, il &eacute;tait important de tester :</p><ul class="list _ul" id="1748d5df_1158"    ><li class="list__item" id="1748d5df_1159"><p>Le contexte de la base de donn&eacute;es</p></li><li class="list__item" id="1748d5df_1160"><p>Les contr&ocirc;leurs</p></li><li class="list__item" id="1748d5df_1161"><p>Les services</p></li></ul></section><section class="chapter"><h3 id="tests-de-la-webapp" data-toc="tests-de-la-webapp">Tests de la WebApp</h3><p id="1748d5df_1162">Pour la WebApp, il &eacute;tait important de tester :</p><ul class="list _ul" id="1748d5df_1163"    ><li class="list__item" id="1748d5df_1164"><p>Les services</p></li></ul></section></section><section class="chapter"><h2 id="exemple-de-tests" data-toc="exemple-de-tests">Exemple de tests</h2><p id="1748d5df_1165">Voici quelque exemple de tests unitaires que j'ai r&eacute;alis&eacute;s dans le projet :</p><div class="code-block" data-lang="csharp"         >
+[Fact]
+public async Task GetAll_ReturnsAllProducts()
+{
+    var mockService = new Mock&lt;IProductService&gt;();
+    mockService.Setup(service =&gt; service.GetAllProductsAsync())
+        .ReturnsAsync(new List&lt;Product&gt; { new(), new() });
+
+    var controller = new ProductController(mockService.Object);
+
+    var result = await controller.GetAll();
+
+    var products = Assert.IsAssignableFrom&lt;IEnumerable&lt;Product&gt;&gt;(result);
+    Assert.Equal(2, products.Count());
+}
+</div><div class="code-block" data-lang="csharp"         >
+[Fact]
+public async Task GetAllProductsAsync_ReturnsAllProducts()
+{
+    var mockRepo = new Mock&lt;IRepository&lt;Product&gt;&gt;();
+    mockRepo.Setup(repo =&gt; repo.GetAllAsync())
+        .ReturnsAsync(new List&lt;Product&gt; { new(), new() });
+
+    var service = new ProductService(mockRepo.Object);
+
+    var result = await service.GetAllProductsAsync();
+
+    Assert.NotNull(result);
+    Assert.Equal(2, result.Count());
+}
+</div><div class="code-block" data-lang="csharp"         >
+private AppDbContext CreateDbContext()
+{
+    var options = new DbContextOptionsBuilder&lt;AppDbContext&gt;()
+        .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+        .Options;
+
+    return new AppDbContext(options);
+}
+</div><div class="code-block" data-lang="csharp"         >
+[Fact]
+public async Task GetAllProductsAsync_ReturnsAllProducts()
+{
+    var products = new List&lt;Product&gt; { new(), new() };
+    _mockHttp.When(HttpMethod.Get, &quot;/api/Product/GetAll&quot;)
+        .Respond(&quot;application/json&quot;, JsonConvert.SerializeObject(products));
+
+    var service = new ApiProductService(_mockHttpClient);
+
+    var result = await service.GetAllProductsAsync();
+
+    Assert.Equal(2, result.Count);
+}
+</div></section><section class="chapter"><h2 id="couverture-de-tests" data-toc="couverture-de-tests">Couverture de tests</h2><p id="1748d5df_1170">La couverture de tests est un indicateur qui permet de savoir si le code est bien test&eacute; et si les tests sont pertinents. Pour cela, j'ai utilis&eacute; Jetbrains Rider qui me permet de voir la couverture des tests de mon projet.</p><figure  id="1748d5df_1171"><img alt="Coverage" title="Coverage" src="images/coverage.png"  class="" width="783" height="175"/></figure></section><div class="last-modified"> Last modified: 17 novembre 2023</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom">  <a class="navigation-links__prev" href="aspects-de-s-curit.html">Aspects de S&eacute;curit&eacute;</a>   <a class="navigation-links__next" href="bonnes-pratiques-et-patterns.html">Bonnes Pratiques et Patterns</a>  </div></article><div id="disqus_thread"></div></div></section></main></div>  <script src="https://resources.jetbrains.com/writerside/apidoc/6.1.5-b176/app.js"></script></body></html>
