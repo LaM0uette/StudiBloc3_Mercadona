@@ -2,8 +2,8 @@
 <!DOCTYPE instance-profile
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
-<instance-profile id="hi" name="Help Instance"
-                 start-page="">
+<instance-profile id="hi" name="Mercadona Documentation"
+                 start-page="Manuel-d’utilisation.md">
 
     <toc-element topic="Manuel-d’utilisation.md">
         <toc-element topic="Page-d-accueil.md">
@@ -12,10 +12,10 @@
         </toc-element>
     </toc-element>
     <toc-element topic="Documentation-technique.md">
-        <toc-element topic="Tests-unitaires.md"/>
         <toc-element topic="Introduction-et-Objectifs.md"/>
         <toc-element topic="Architecture-et-Conception.md"/>
         <toc-element topic="Aspects-de-Sécurité.md"/>
+        <toc-element topic="Tests-unitaires.md"/>
         <toc-element topic="Bonnes-Pratiques-et-Patterns.md"/>
         <toc-element topic="Conclusion.md"/>
     </toc-element>

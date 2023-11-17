@@ -12,6 +12,11 @@
 - **Utiliser des noms explicites** : il est important d'utiliser des noms de variables/fonctions explicites afin de pouvoir comprendre le code plus facilement. Cela permet également de pouvoir faire une documentation plus facilement.
 - **Utiliser des interfaces** : il est important d'utiliser des interfaces afin de pouvoir réutiliser du code plus facilement. Cela permet également de pouvoir comprendre le code plus facilement.
 - **Utiliser des tests unitaires** : il est important d'utiliser des tests unitaires afin de pouvoir tester le code plus facilement. Cela permet également de pouvoir comprendre le code plus facilement.
+- **Utilisation des bons principes de clean code** : Utilisation des principes SOLID, DRY, KISS, YAGNI, ...
+    - **SOLID** : **S**ingle Responsibility Principle, **O**pen-Closed Principle, **L**iskov Substitution Principle, **I**nterface Segregation Principle, **D**ependency Inversion Principle
+    - **DRY** : Don't Repeat Yourself
+    - **KISS** : Keep It Simple, Stupid
+    - **YAGNI** : You Aren't Gonna Need It
 
 ## Patterns
 
@@ -23,13 +28,14 @@ Le pattern MVC (Modèle-Vue-Contrôleur) est un pattern qui permet de séparer l
 - **Vue** : la vue représente l'interface graphique de l'application. Elle contient les éléments graphiques ainsi que les méthodes permettant de les manipuler.
 - **Contrôleur** : le contrôleur représente la logique de l'application. Il contient les méthodes permettant de manipuler les données et l'interface graphique.
 
-Dans ce projet, le modèle est séparé dans un projet à part, afin que l'API et la WebApp puissent l'utiliser. La vue est séparée dans un projet à part, afin que la WebApp puisse l'utiliser.
+Dans ce projet, la partie **Modèle** est séparée dans un projet à part, afin que l'**API** et la **WebApp** puissent l'utiliser.   
+La **Vue** est également séparée dans un projet à part, afin que la **WebApp** puisse l'utiliser.
 
 ### ORM
 
-L'utilisation d'un ORM (Object-Relational Mapping) permet de manipuler les données de la base de données comme des objets. Cela permet de ne pas avoir à écrire de requêtes SQL.
+L'utilisation d'un ORM (Object-Relational Mapping) permet de manipuler les données de la base de données comme des objets. Cela permet de ne pas avoir à écrire de requêtes SQL et de mieux structurer le code.
 J'ai utilisé l'ORM Entity Framework Core, qui est un ORM open-source développé par Microsoft.
 
-### Repository
+### Repository Pattern
 
 Le pattern Repository permet de séparer la logique de l'application de la logique de la base de données. Cela permet de pouvoir changer de base de données plus facilement.

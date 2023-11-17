@@ -1,4 +1,4 @@
-# Aspects de S&#233;curit&#233;
+# Aspects de Sécurité
 
 ## Authentification
 
@@ -10,10 +10,10 @@ Dans le projet actuel, il y a un seul utilisateur avec les identifiants suivants
 
 ## Jwt (JSON Web Token)
 
-Afin de sécuriser les requêtes, j'ai ajouté un système de token. Lors de l'authentification, un token est généré et stocké dans le local storage du navigateur. Ce token est ensuite envoyé dans le header de chaque requête. Si le token est valide, la requête est traitée, sinon une erreur est renvoyée.
+Afin de sécuriser les requêtes, j'ai ajouté un système de token. Lors de l'authentification, un token est généré et stocké dans le local storage du navigateur. Ce token est ensuite envoyé dans le body de chaque requête. Si le token est valide, la requête est traitée, sinon une erreur est renvoyée.
 Ceci est géré côté API, dans le fichier `Program.cs` et grâce au controller `AuthController`.
 
 ## Communication sécurisée
 
-Afin de sécuriser les communications entre le client et le serveur, j'ai mis en place le protocole HTTPS.
+Afin de sécuriser les communications entre le client et le serveur, j'ai mis en place le protocole HTTPS.   
 J'ai également ajouté des politiques CORS directement depuis Azure pour limiter les requêtes à l'API.
